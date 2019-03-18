@@ -1,5 +1,10 @@
 # SQL dokumentation
 
+## Diagram
+Oversigt over LORA_SOFD databasen:
+
+![Alt text](/Lora_db_diagram.PNG?raw=true "Title")
+
 ## Business logic
 ### Orgunits
 Tabel til opbevaring af de forskellige organisationsenheder i Skanderborg Kommune.
