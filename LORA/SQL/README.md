@@ -5,7 +5,6 @@
 Tabel til opbevaring af de forskellige organisationsenheder i Skanderborg Kommune.
 
 **Indeholder:**
-
 ```
 [System_id] [int] IDENTITY(1,1) NOT NULL,
 [Uuid] [nvarchar](200) NOT NULL,
@@ -45,7 +44,6 @@ Organisation
 ```
 
 Kendte Org_type værdier (dannes i LOS/OPUS):
-
 * Afdeling
 * Aktivitetscenter
 * Bibliotek
@@ -92,9 +90,7 @@ En Person kan være tilknyttet til flere ansættelser. I OIO kan en ansættelse 
 **Dette er noget vi på sigt vil ændre.**.
 
 ### Positions
-
 **Indeholder:**
-
 ```
 [System_id] [int] IDENTITY(1,1) NOT NULL,
 [Opus_id] [int] NOT NULL,
@@ -126,9 +122,7 @@ XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
 ### Persons
-
 **Indeholder:**
-
 ```
 [System_id] [int] IDENTITY(1,1) NOT NULL,
 [Opus_id] [int] NOT NULL,
@@ -156,9 +150,9 @@ Hansen
 
 ### Users
 **OBS: Users er en tabel, der er delt mellem IT og LORA**
+
 Når en AD bruger forandre sig, nedlægges eller opdateres, kører vores AD-services et script, som opdaterer "Updated" eller "Deleted_in_ad" felterne i Users tabellen. Dette sker fordi LORA_SOFD henter data direkte fra AD.
 De data der hentes er:
-
 * UUID - stammer fra ObjectGUID (bliver ændret på sigt)
 * Samaccountname (UserId)
 * Email
@@ -166,7 +160,6 @@ De data der hentes er:
 * WorkMobile
 
 **Indeholder:**
-
 ```
 [System_id]
 ,[Uuid]
@@ -192,9 +185,7 @@ NULL
 
 ### Adresses
 Tabel, som indeholder forskellige adresser (ikke OIO, men fysiske adresser. De er delt mellem Users og Orgunits, og er helt bassalt en tabel, der søger for, at vi ikke opbevarer adresser flere gange i SOFDen.
-
 **Indeholder:**
-
 ```
 [system_id] [int] IDENTITY(1,1) NOT NULL,
 [gade] [nvarchar](max) NOT NULL,
@@ -209,7 +200,6 @@ Skanderborg
 ```
 
 ## Queue
-
 Når der sker opdateringer i DSA_SOFD, som er kilde data til LORA_SOFD, føres disse til forskellige kø'er, der håndteres efterfølgende. I nuværende version er det udelukkende brugere med en IT bruger, der er relvante for 
 køerne.
 
@@ -217,7 +207,6 @@ køerne.
 Benyttes til at håndter de forandringer der sker med organisationsenheder.
 
 Fra LORA_SOFD kan der være 3 actions:
-
 * Created
 * Updated
 * Deleted
@@ -225,7 +214,6 @@ Fra LORA_SOFD kan der være 3 actions:
 Der svarer til de forskellige actions, der kan være med en organisationsenhed.
 
 **Indeholder:**
-
 ```
 [queue].[qOrgunits](
 [system_id] [int] IDENTITY(1,1) NOT NULL,
@@ -240,7 +228,6 @@ Der svarer til de forskellige actions, der kan være med en organisationsenhed.
 Benyttes til at håndter de forandringer der sker med medarbejdere, som har en IT bruger tilknyttet sig i LORA_SOFD.
 
 Fra LORA_SOFD kan der være 3 actions:
-
 * Created
 * Updated
 * Deleted
@@ -248,7 +235,6 @@ Fra LORA_SOFD kan der være 3 actions:
 Der svarer til de forskellige actions, der kan være med en medarbejder.
 
 **Indeholder:**
-
 ```
 [queue].[qUsers](
 [System_id] [int] IDENTITY(1,1) NOT NULL,
@@ -263,7 +249,6 @@ Benyttes til at adviserer AD om forandringer i SOFD'en. F.eks. når en bruger fo
 (Disse scripts er ikke tilgængelige).
 
 **Indeholder:**
-
 ```
 [queue].[qUsers_AD](
 [System_id] [int] IDENTITY(1,1) NOT NULL,
