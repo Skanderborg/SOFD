@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DSA_SOFD">
+  <DataContextMoniker Name="/DSA_SOFDDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d6374b82-94c1-445a-a816-263a2a309577" absoluteBounds="3.5, 1.75, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/DSA_SOFDDataContext/FerieSaldo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="df8e7bcc-d1c3-468b-a4c2-db1bc74df4b7" absoluteBounds="3.5149999999999997, 2.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a5bf1ae5-a38f-486b-96a2-998d73c9753d" absoluteBounds="0.75, 1.625, 2, 4.8477197265625">
+      <DataClassMoniker Name="/DSA_SOFDDataContext/OrgUnit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3e58bd50-b4e9-4b61-b8f3-972ded0b8330" absoluteBounds="0.76499999999999968, 2.085, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7e2ff14f-9783-4e14-a5cc-5cb8fa5a98b6" absoluteBounds="6.625, 1.25, 2, 6.3861311848958326">
+      <DataClassMoniker Name="/DSA_SOFDDataContext/v_emp" />
+      <nestedChildShapes>
+        <elementListCompartment Id="71aa9d1c-0624-40e8-9c76-dda88f05bd3d" absoluteBounds="6.64, 1.71, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
