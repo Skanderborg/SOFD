@@ -3,7 +3,7 @@
 ## Diagram
 Oversigt over LORA_SOFD databasen:
 
-![Alt text](https://github.com/Skanderborg/SOFD/tree/master/LORA/LORA_SOFD/Lora_db_diagram.PNG "DB diagram")
+![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/LORA/SQL/Lora_db_diagram.PNG)
 
 ## Business logic
 ### Orgunits
