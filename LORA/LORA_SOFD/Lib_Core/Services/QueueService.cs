@@ -22,7 +22,7 @@ namespace Lib_Core.Services
             mail_error = smtp_to_notify;
         }
 
-        public void Complete_org_queue(string end_orgunitspoint_url)
+        public bool Complete_org_queue(string end_orgunitspoint_url)
         {
             try
             {
@@ -30,11 +30,13 @@ namespace Lib_Core.Services
                 org_queue.Handle_creation();
                 org_queue.Handle_updates();
                 org_queue.Handle_Deletes();
+                return true;
             }
             catch (Exception e)
             {
                 email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - error message: " + e.Message));
+                return false;
             }
         }
 
@@ -43,7 +45,7 @@ namespace Lib_Core.Services
         /// men det er sket et par gange i test-perioden fordi køen ikke blev behandlet hver dag og der typisk kommer en Updated dagen før en Deleted (muligvis fordi LØN sætter en slut-dato på).
         /// </summary>
         /// <param name="endpoint_users_url"></param>
-        public void Complete_usr_queue(string endpoint_users_url)
+        public bool Complete_usr_queue(string endpoint_users_url)
         {
             try
             {
@@ -51,11 +53,13 @@ namespace Lib_Core.Services
                 usr_queue.Handle_creation();
                 usr_queue.Handle_Updates();
                 usr_queue.Handle_Deletes();
+                return true;
             }
             catch (Exception e)
             {
                 email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - error message: " + e.Message));
+                return false;
             }
         }
     }
