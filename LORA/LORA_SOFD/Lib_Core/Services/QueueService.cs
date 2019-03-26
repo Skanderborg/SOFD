@@ -24,18 +24,21 @@ namespace Lib_Core.Services
 
         public bool Complete_org_queue(string end_orgunitspoint_url)
         {
+            string current_fun = "Handle_creation()";
             try
             {
                 OrgunitQueue org_queue = new OrgunitQueue(lora_conStr, api_key, end_orgunitspoint_url, cvr);
                 org_queue.Handle_creation();
+                current_fun = "Handle_updates()";
                 org_queue.Handle_updates();
+                current_fun = "Handle_Deletes()";
                 org_queue.Handle_Deletes();
                 return true;
             }
             catch (Exception e)
             {
-                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - error message: " + e.Message));
-                email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;
             }
         }
@@ -47,18 +50,21 @@ namespace Lib_Core.Services
         /// <param name="endpoint_users_url"></param>
         public bool Complete_usr_queue(string endpoint_users_url)
         {
+            string current_fun = "Handle_creation()";
             try
             {
                 UserQueue usr_queue = new UserQueue(lora_conStr, api_key, endpoint_users_url, cvr);
                 usr_queue.Handle_creation();
+                current_fun = "Handle_updates()";
                 usr_queue.Handle_Updates();
+                current_fun = "Handle_Deletes()";
                 usr_queue.Handle_Deletes();
                 return true;
             }
             catch (Exception e)
             {
-                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - error message: " + e.Message));
-                email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: "+ current_fun + " - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;
             }
         }

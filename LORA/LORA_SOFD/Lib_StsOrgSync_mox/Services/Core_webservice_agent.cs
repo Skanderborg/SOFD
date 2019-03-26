@@ -47,6 +47,7 @@ namespace Lib_StsOrgSync_mox.Services
             request.Method = "DELETE";
             request.Headers.Add("apiKey", api_key);
             request.Headers.Add("cvr", cvr);
+            request.Timeout = 900000;
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             if (response.StatusCode == HttpStatusCode.OK)
@@ -62,6 +63,7 @@ namespace Lib_StsOrgSync_mox.Services
             request.Method = "DELETE";
             request.Headers.Add("apiKey", api_key);
             request.Headers.Add("cvr", cvr);
+            request.Timeout = 900000;
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             if (response.StatusCode == HttpStatusCode.OK)
