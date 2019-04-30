@@ -21,6 +21,12 @@ namespace Lib_Core.Services.Helpers
             orgRepo = new OrgunitRepo(constr);
         }
 
+        public void Handle_Manager_Lookups()
+        {
+            Delte_Manager_Lookups();
+            Update_Manager_Lookups();
+        }
+
         private void Delte_Manager_Lookups()
         {
             foreach(Manager_lookup ml in mlRepo.Query)
@@ -36,13 +42,47 @@ namespace Lib_Core.Services.Helpers
         {
             foreach (Position pos in posRepo.Query.Where(p => p.Last_changed > DateTime.Now.AddDays(-3)))
             {
+                int manager_opus_id;
+                // er det borgmesteren?
+                if (pos.Orgunit_losid_fk == 1031023)
+                    manager_opus_id = pos.Opus_id;
+                // er medarbejderen selv leder? Så skal vi kigge 1 org op
+                else if (pos.Is_Manager)
+                    manager_opus_id = GetNearestManagerOpusIdRecursion(pos.Orgunit.Parent_losid);
+                else
+                    manager_opus_id = GetNearestManagerOpusIdRecursion(pos.Orgunit_losid_fk);
 
+                Manager_lookup ml = mlRepo.Query.Where(m => m.opus_id == pos.Opus_id).FirstOrDefault();
+                if (ml == null)
+                {
+                    ml = new Manager_lookup();
+                    ml.opus_id = pos.Opus_id;
+                    mlRepo.Add(ml);
+                }
+                ml.manager_opus_id = manager_opus_id;
+                mlRepo.Update(ml);
             }
         }
 
-        private int GetNearestManagerOpusId()
+        /// <summary>
+        /// OBS: Hvis medarbejderen selv er leder, skal parent org være den første, hvis medarbejderen er medarbejder skal det være medarbejderens egen org
+        /// OBS: borgmester, skal være sin egen leder!
+        /// </summary>
+        /// <param name="org_los_id"></param>
+        /// <returns></returns>
+        private int GetNearestManagerOpusIdRecursion(int org_los_id)
         {
-            
+            if (HasManager(org_los_id))
+                return posRepo.Query.Where(p => p.Orgunit_losid_fk == org_los_id && p.Is_Manager).First().Opus_id;
+            else
+            {
+                return GetNearestManagerOpusIdRecursion(orgRepo.Query.Where(o => o.Los_id == org_los_id).First().Parent_losid);
+            }
+        }
+
+        private bool HasManager(int org_los_id)
+        {
+            return posRepo.Query.Where(p => p.Orgunit_losid_fk == org_los_id && p.Is_Manager).Count() == 1;
         }
 
     }

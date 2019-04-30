@@ -10,7 +10,7 @@ namespace Lib_Core.Services.Org
 {
     internal class OrgunitQueue
     {
-        private IRepo<qOrgunit> queue;
+        private IRepoQueue<qOrgunit> queue;
         private IRepo<Orgunit> orgRepo;
         Core_webservice_agent ws;
         string endpoint;
@@ -40,7 +40,7 @@ namespace Lib_Core.Services.Org
             });
         }
 
-        private void Delete_Qorg_queue_item(int sys_id)
+        private void Delete_Qorg_queue_item(long sys_id)
         {
             qOrgunit item = queue.Query.Where(o => o.system_id == sys_id).FirstOrDefault();
             if (item != null)
