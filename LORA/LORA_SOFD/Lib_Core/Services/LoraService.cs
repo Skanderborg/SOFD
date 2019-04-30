@@ -18,6 +18,7 @@ namespace Lib_Core.Services
         private PositionService positionService;
         string lora_constr;
         private string last_step = "";
+        private ManagerSetupHelper managerSetupHelper;
 
         public LoraService(string smtp_host, int smpt_port, string smtp_user, string smtp_pass, string smtp_to_notify, string dsa_constr, string lora_constr)
         {
@@ -28,6 +29,7 @@ namespace Lib_Core.Services
             positionService = new PositionService(lora_constr, dsa_constr);
             mail_error = smtp_to_notify;
             this.lora_constr = lora_constr;
+            managerSetupHelper = new ManagerSetupHelper(lora_constr);
         }
 
         public bool Update(int difference_tolerance_orgunits)
@@ -45,6 +47,7 @@ namespace Lib_Core.Services
                 {
                     email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
                     email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
+                    email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
                     return false;
                 }
             }
@@ -54,6 +57,9 @@ namespace Lib_Core.Services
                     "LORA_SOFD databaserne i forhold til difference_tolerance_orgunits variablen, hvis der ikke har været store Organisationsændringer er det sandsynligt, at KMD -> DSA_SOFD " +
                     "på ssis er gået galt"));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.LoraService.cs - Update() - Der er for stor forskel på antallet af orgunits i DSA_SOFD og " +
+                    "LORA_SOFD databaserne i forhold til difference_tolerance_orgunits variablen, hvis der ikke har været store Organisationsændringer er det sandsynligt, at KMD -> DSA_SOFD " +
+                    "på ssis er gået galt"));
+                email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.LoraService.cs - Update() - Der er for stor forskel på antallet af orgunits i DSA_SOFD og " +
                     "LORA_SOFD databaserne i forhold til difference_tolerance_orgunits variablen, hvis der ikke har været store Organisationsændringer er det sandsynligt, at KMD -> DSA_SOFD " +
                     "på ssis er gået galt"));
                 return false;
@@ -123,6 +129,10 @@ namespace Lib_Core.Services
             // Opretter Deleted events i STS org køen
             orgService.Delete_Orgunits();
             last_step = "orgService.Delete_Orgunits();";
+
+            // opdaterer tabellen over employees og deres ledere
+            managerSetupHelper.Handle_Manager_Lookups();
+            last_step = "handle_manager_lookups()";
         }
     }
 }

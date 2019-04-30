@@ -39,6 +39,7 @@ namespace Lib_Core.Services
             {
                 email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_org_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;
             }
         }
@@ -65,6 +66,7 @@ namespace Lib_Core.Services
             {
                 email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: "+ current_fun + " - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;
             }
         }
