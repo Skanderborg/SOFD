@@ -8,12 +8,6 @@
         <elementListCompartment Id="2d9449e4-76cc-4fa1-bbe0-da0b5552ea28" absoluteBounds="0.765, 4.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="230089c6-2a08-4e0e-8fdf-04799c7177bd" absoluteBounds="6.75, 7.75, 2, 3.3093082682291666">
-      <DataClassMoniker Name="/LORA_SOFDDataContext/qUsers_AD" />
-      <nestedChildShapes>
-        <elementListCompartment Id="28825d79-f103-4316-b985-9e05db563a83" absoluteBounds="6.765, 8.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="eabf2212-7386-4f1d-ad52-1da02719283a" absoluteBounds="6.75, 0.75, 2, 1.3862939453125003">
       <DataClassMoniker Name="/LORA_SOFDDataContext/Manager_lookup" />
       <nestedChildShapes>
@@ -44,28 +38,10 @@
         <elementListCompartment Id="823d2070-e029-40ab-8614-4e177b43182b" absoluteBounds="3.515, 9.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f2f7971b-a4b8-448b-a4e1-15dbc5c74abc" absoluteBounds="8.75, 3.75, 2, 1.5785953776041666">
+    <classShape Id="f2f7971b-a4b8-448b-a4e1-15dbc5c74abc" absoluteBounds="9.125, 4.5, 2, 1.5785953776041666">
       <DataClassMoniker Name="/LORA_SOFDDataContext/change" />
       <nestedChildShapes>
-        <elementListCompartment Id="a4e41d0a-3db1-4e81-a8fd-798e418f0e17" absoluteBounds="8.765, 4.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="d685f49f-3aa6-426a-9abf-237520757b64" absoluteBounds="9.75, 0.75, 2, 1.9631982421875003">
-      <DataClassMoniker Name="/LORA_SOFDDataContext/qOrgunit" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a5af13b5-d663-4143-a7aa-8b322b4ae7b1" absoluteBounds="9.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="564f61fb-2159-4f98-b772-fd74ca5d7329" absoluteBounds="9.75, 6.75, 2, 1.7708968098958327">
-      <DataClassMoniker Name="/LORA_SOFDDataContext/qUser" />
-      <nestedChildShapes>
-        <elementListCompartment Id="dd6d9f2e-c75e-4a76-9240-484525deb744" absoluteBounds="9.765, 7.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="d57dfd2f-fdf1-4dd1-bc13-e5d62ed08412" absoluteBounds="9.75, 9.75, 2, 1.9631982421874987">
-      <DataClassMoniker Name="/LORA_SOFDDataContext/qOrgunit1" />
-      <nestedChildShapes>
-        <elementListCompartment Id="de4b6b4d-20ab-4f16-865f-d5dff7c70f54" absoluteBounds="9.765, 10.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a4e41d0a-3db1-4e81-a8fd-798e418f0e17" absoluteBounds="9.14, 4.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="8dfe456e-6619-464e-85b6-adbce1254ac6" absoluteBounds="11.75, 3.75, 2, 1.7708968098958327">
@@ -74,7 +50,7 @@
         <elementListCompartment Id="9a0a7bf3-16d0-473f-b4be-1b0ec36e3c69" absoluteBounds="11.765, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 4.78929768880208); (3.5 : 4.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.78929768880208); (3.5 : 4.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LORA_SOFDDataContext/Adress/Adress_Orgunit" />
       <nodes>
         <classShapeMoniker Id="49bdf619-6648-4e59-a591-99f768eff4eb" />
@@ -88,26 +64,44 @@
         <classShapeMoniker Id="4bbf95a6-1b80-4abc-8751-edbb648957ec" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.21715413411458); (6.25 : 5.21715413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 5.21715413411458); (6.25 : 5.21715413411458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LORA_SOFDDataContext/Orgunit/Orgunit_Position" />
       <nodes>
         <classShapeMoniker Id="ef58f926-6257-4298-9ecc-73ccd0759020" />
         <classShapeMoniker Id="7d4a9da8-3aa4-4c8c-ae18-908e0b659043" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.59939647265625); (6.46875 : 2.59939647265625); (6.46875 : 3)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 2.59939647265625); (6.46875 : 2.59939647265625); (6.46875 : 3)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LORA_SOFDDataContext/Person/Person_Position" />
       <nodes>
         <classShapeMoniker Id="4bbf95a6-1b80-4abc-8751-edbb648957ec" />
         <classShapeMoniker Id="7d4a9da8-3aa4-4c8c-ae18-908e0b659043" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 11.5184554036458); (6.46875 : 11.5184554036458); (6.46875 : 6.30930826822917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 10.6450512695312); (6.65625 : 10.6450512695312); (6.65625 : 6.30930826822917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LORA_SOFDDataContext/User/User_Position" />
       <nodes>
         <classShapeMoniker Id="b9e1cf6b-39d7-4494-aee2-826f8110f183" />
         <classShapeMoniker Id="7d4a9da8-3aa4-4c8c-ae18-908e0b659043" />
       </nodes>
     </associationConnector>
+    <classShape Id="56482152-d920-464f-85ed-615c2a61f175" absoluteBounds="9.25, 6.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/qOrgunit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a43f9956-6b89-49a2-9108-88dbbee56e18" absoluteBounds="9.265, 7.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f2127ba0-3fac-4f47-a440-d69b6a11aced" absoluteBounds="9.125, 9.875, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/qUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fb4cb230-50ad-4454-ab77-826fb4230641" absoluteBounds="9.14, 10.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="461fde0c-3e83-45ee-aa5d-8580dfabc23a" absoluteBounds="9.5, 0.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/qUsers_AD" />
+      <nestedChildShapes>
+        <elementListCompartment Id="018921e1-8262-4fbc-aeb8-7a98eb77bcf6" absoluteBounds="9.515, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

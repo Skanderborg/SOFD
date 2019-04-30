@@ -70,7 +70,6 @@ namespace Lib_Core.Services.Emp
         internal void Handle_Deletes()
         {
             JsonService js = new JsonService();
-
             foreach (qUser item in queue.Query.Where(i => i.Change_type.Equals("Deleted")))
             {
                 // webservice

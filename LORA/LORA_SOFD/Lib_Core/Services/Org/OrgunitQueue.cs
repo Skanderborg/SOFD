@@ -85,7 +85,7 @@ namespace Lib_Core.Services.Org
                 // call web serivce
                 bool call = ws.DeleteOrganisation(endpoint, item.uuid);
                 // remove form queue
-                if(call)
+                if (call)
                     Delete_Qorg_queue_item(item.system_id);
             }
         }
