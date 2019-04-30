@@ -2,7 +2,7 @@
 
 namespace DAL_old.LORA_SOFD
 {
-    public class QOrgunitRepo : IRepo<qOrgunit>
+    public class QOrgunitRepo : IRepoQueue<qOrgunit>
     {
         LORA_SOFDDataContext c;
 
@@ -12,7 +12,7 @@ namespace DAL_old.LORA_SOFD
         }
         public IQueryable<qOrgunit> Query => c.qOrgunits;
 
-        public int Add(qOrgunit e)
+        public long Add(qOrgunit e)
         {
             c.qOrgunits.InsertOnSubmit(e);
             c.SubmitChanges();

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DAL_old.LORA_SOFD
 {
-    public class QUserRepo : IRepo<qUser>
+    public class QUserRepo : IRepoQueue<qUser>
     {
         private LORA_SOFDDataContext c;
         public QUserRepo(string constr)
@@ -12,7 +12,7 @@ namespace DAL_old.LORA_SOFD
         }
         public IQueryable<qUser> Query => c.qUsers;
 
-        public int Add(qUser e)
+        public long Add(qUser e)
         {
             c.qUsers.InsertOnSubmit(e);
             c.SubmitChanges();

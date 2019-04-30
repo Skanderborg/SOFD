@@ -12,7 +12,7 @@ namespace Lib_Core.Services.Emp
         //private IRepo<User> usr;
         private IRepo<Position> posRepo;
         //private IRepo<Person> per;
-        private IRepo<qUser> queue;
+        private IRepoQueue<qUser> queue;
         Core_webservice_agent ws;
         string endpoint;
 

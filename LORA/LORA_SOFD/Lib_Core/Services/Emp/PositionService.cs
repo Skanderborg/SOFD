@@ -12,7 +12,7 @@ namespace Lib_Core.Services.Emp
         private IRepo<Position> posRepo;
         private IRepo<User> useRepo;
         private IRepo<Person> perRepo;
-        private IRepo<qUser> queue_user;
+        private IRepoQueue<qUser> queue_user;
         private IRepo<qUsers_AD> queue_ad;
         private AdressService adr;
         private IRepo<v_emp> dsa_emp_repo;

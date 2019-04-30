@@ -52,6 +52,7 @@
     <Compile Include="DSA_SOFD\FunctionRepo.cs" />
     <Compile Include="DSA_SOFD\OrgUnitRepo.cs" />
     <Compile Include="IRepo.cs" />
+    <Compile Include="IRepoQueue.cs" />
     <Compile Include="LogService.cs" />
     <Compile Include="LORA_SOFD\AdresseRepo.cs" />
     <Compile Include="LORA_SOFD\ChangeRepo.cs" />
