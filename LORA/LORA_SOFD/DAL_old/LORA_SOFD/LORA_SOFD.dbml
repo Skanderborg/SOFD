@@ -1,21 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LORA_SOFD" Class="LORA_SOFDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=dbsrv_lora_sofd;Initial Catalog=LORA_SOFD;User ID=lora_sofd_rw" SettingsObjectName="DAL_old.Properties.Settings" SettingsPropertyName="LORA_SOFDConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="[log].changes" Member="changes">
-    <Type Name="change">
-      <Column Name="system_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="change_text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="change_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="action" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dbsrv_lora_sofd;Initial Catalog=LORA_SOFD;Persist Security Info=True;User ID=lora_sofd_rw" SettingsObjectName="DAL_old.Properties.Settings" SettingsPropertyName="LORA_SOFDConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Adresses" Member="Adresses">
     <Type Name="Adress">
       <Column Name="system_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="gade" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="postnr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="[by]" Member="by" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="Adress_Person" Member="Persons" ThisKey="system_id" OtherKey="Private_adr_fk" Type="Person" />
       <Association Name="Adress_Orgunit" Member="Orgunits" ThisKey="system_id" OtherKey="Adress_ref" Type="Orgunit" />
+      <Association Name="Adress_Person" Member="Persons" ThisKey="system_id" OtherKey="Private_adr_fk" Type="Person" />
+    </Type>
+  </Table>
+  <Table Name="queue.qUsers_AD" Member="qUsers_ADs">
+    <Type Name="qUsers_AD">
+      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="EmployeeNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Manager" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Department" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Office" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Manager_lookup" Member="Manager_lookups">
+    <Type Name="Manager_lookup">
+      <Column Name="system_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="manager_opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orgunits" Member="Orgunits">
+    <Type Name="Orgunit">
+      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PayoutUnitUuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Parent_losid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Los_short_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Adress_ref" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Last_changed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Ean" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Pnr" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Cost_center" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Org_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Org_niveau" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Orgunit_Position" Member="Positions" ThisKey="Los_id" OtherKey="Orgunit_losid_fk" Type="Position" />
+      <Association Name="Adress_Orgunit" Member="Adress" ThisKey="Adress_ref" OtherKey="system_id" Type="Adress" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Persons" Member="Persons">
@@ -46,58 +85,9 @@
       <Column Name="Pay_method_text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Last_changed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="User_fk" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Association Name="Person_Position" Member="Person" ThisKey="Person_fk" OtherKey="Cpr" Type="Person" IsForeignKey="true" />
       <Association Name="Orgunit_Position" Member="Orgunit" ThisKey="Orgunit_losid_fk" OtherKey="Los_id" Type="Orgunit" IsForeignKey="true" />
+      <Association Name="Person_Position" Member="Person" ThisKey="Person_fk" OtherKey="Cpr" Type="Person" IsForeignKey="true" />
       <Association Name="User_Position" Member="User" ThisKey="User_fk" OtherKey="Uuid" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Orgunits" Member="Orgunits">
-    <Type Name="Orgunit">
-      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="PayoutUnitUuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Parent_losid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Los_short_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Adress_ref" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Last_changed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Ean" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Pnr" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Cost_center" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Org_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Org_niveau" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Orgunit_Position" Member="Positions" ThisKey="Los_id" OtherKey="Orgunit_losid_fk" Type="Position" />
-      <Association Name="Adress_Orgunit" Member="Adress" ThisKey="Adress_ref" OtherKey="system_id" Type="Adress" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="queue.qUsers" Member="qUsers">
-    <Type Name="qUser">
-      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="queue.qUsers_AD" Member="qUsers_ADs">
-    <Type Name="qUsers_AD">
-      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="EmployeeNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Manager" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Company" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Department" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Office" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="StreetAddress" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
-      <Column Name="Change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -114,14 +104,50 @@
       <Association Name="User_Position" Member="Positions" ThisKey="Uuid" OtherKey="User_fk" Type="Position" />
     </Type>
   </Table>
-  <Table Name="queue.qOrgunits" Member="qOrgunits">
+  <Table Name="[log].changes" Member="changes">
+    <Type Name="change">
+      <Column Name="system_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="change_text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="change_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="action" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="[log].qOrgunits" Member="qOrgunits">
     <Type Name="qOrgunit">
+      <Column Name="system_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="uuid" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Niveau" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="time_changed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="[log].qUsers" Member="qUsers">
+    <Type Name="qUser">
+      <Column Name="System_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="queue.qOrgunits" Member="qOrgunit1s">
+    <Type Name="qOrgunit1">
       <Column Name="system_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="uuid" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="Niveau" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="time_changed" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="queue.qUsers" Member="qUser1s">
+    <Type Name="qUser1">
+      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Change_type" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

@@ -46,6 +46,7 @@
     <Compile Include="Services\AdressService.cs" />
     <Compile Include="Services\Emp\PositionService.cs" />
     <Compile Include="Services\Emp\UserQueue.cs" />
+    <Compile Include="Services\Helpers\ManagerSetupHelper.cs" />
     <Compile Include="Services\Helpers\OrgHelper.cs" />
     <Compile Include="Services\Helpers\UserHelper.cs" />
     <Compile Include="Services\LoraService.cs" />

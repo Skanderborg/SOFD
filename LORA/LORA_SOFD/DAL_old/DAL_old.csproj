@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LORA_SOFD.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LORA_SOFD\ManagerLookupRepo.cs" />
     <Compile Include="LORA_SOFD\QADRepo.cs" />
     <Compile Include="LORA_SOFD\QOrgunitRepo.cs" />
     <Compile Include="LORA_SOFD\OrgunitRepo.cs" />
