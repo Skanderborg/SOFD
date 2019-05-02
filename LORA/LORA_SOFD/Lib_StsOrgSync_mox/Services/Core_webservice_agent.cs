@@ -47,13 +47,15 @@ namespace Lib_StsOrgSync_mox.Services
             request.Method = "DELETE";
             request.Headers.Add("apiKey", api_key);
             request.Headers.Add("cvr", cvr);
-            request.Timeout = 900000;
+            request.Timeout = 15000;
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode == HttpStatusCode.OK)
-                return true;
-            else
-                return false;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return true;
+                else
+                    return false;
+            }
         }
 
         public bool DeleteUser(string endpoint, string uuid)
@@ -63,13 +65,15 @@ namespace Lib_StsOrgSync_mox.Services
             request.Method = "DELETE";
             request.Headers.Add("apiKey", api_key);
             request.Headers.Add("cvr", cvr);
-            request.Timeout = 900000;
+            request.Timeout = 15000;
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode == HttpStatusCode.OK)
-                return true;
-            else
-                return false;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return true;
+                else
+                    return false;
+            }
         }
     }
 }
