@@ -51,7 +51,9 @@ namespace Lib_StsOrgSync_mox.Services
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response == null)
+                    return false;
+                else if (response.StatusCode == HttpStatusCode.OK)
                     return true;
                 else
                     return false;
@@ -69,7 +71,9 @@ namespace Lib_StsOrgSync_mox.Services
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response == null)
+                    return false;
+                else if (response.StatusCode == HttpStatusCode.OK)
                     return true;
                 else
                     return false;
