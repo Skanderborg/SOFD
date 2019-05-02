@@ -14,7 +14,7 @@ namespace Lib_StsOrgSync_mox.Services
         protected override WebRequest GetWebRequest(Uri address)
         {
             var request = base.GetWebRequest(address);
-            request.Timeout = 900000;
+            request.Timeout = 15000;
             return request;
         }
     }
