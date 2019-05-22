@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 12.125" name="LORA_SOFD">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 19.875" name="LORA_SOFD">
   <DataContextMoniker Name="/LORA_SOFDDataContext" />
   <nestedChildShapes>
     <classShape Id="49bdf619-6648-4e59-a591-99f768eff4eb" absoluteBounds="0.75, 3.875, 2, 1.5785953776041666">
@@ -78,7 +78,7 @@
         <classShapeMoniker Id="7d4a9da8-3aa4-4c8c-ae18-908e0b659043" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 10.6450512695312); (6.65625 : 10.6450512695312); (6.65625 : 6.30930826822917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 10.34375); (6.40625 : 10.34375); (6.40625 : 6.30930826822917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/LORA_SOFDDataContext/User/User_Position" />
       <nodes>
         <classShapeMoniker Id="b9e1cf6b-39d7-4494-aee2-826f8110f183" />
@@ -101,6 +101,18 @@
       <DataClassMoniker Name="/LORA_SOFDDataContext/qUsers_AD" />
       <nestedChildShapes>
         <elementListCompartment Id="018921e1-8262-4fbc-aeb8-7a98eb77bcf6" absoluteBounds="9.515, 0.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a99cd7f8-9ff4-46d4-aca5-6321ba0fca79" absoluteBounds="6.625, 11.375, 2, 8.3091455078125">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/v_sofd_medarbejderoverblik" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c14accb3-b184-40cb-a7eb-0a496169c123" absoluteBounds="6.64, 11.835, 1.9700000000000002, 7.7491455078125009" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1bc94474-7aa0-424d-819d-1f3e4273dde1" absoluteBounds="4.125, 13.875, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/v_akubiz_employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e07d04b3-2b3c-4fa2-877e-0530e08e33ba" absoluteBounds="4.14, 14.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -182,6 +182,22 @@ namespace DAL_old.LORA_SOFD
 				return this.GetTable<qUsers_AD>();
 			}
 		}
+		
+		public System.Data.Linq.Table<v_sofd_medarbejderoverblik> v_sofd_medarbejderoverbliks
+		{
+			get
+			{
+				return this.GetTable<v_sofd_medarbejderoverblik>();
+			}
+		}
+		
+		public System.Data.Linq.Table<v_akubiz_employee> v_akubiz_employees
+		{
+			get
+			{
+				return this.GetTable<v_akubiz_employee>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Adresses")]
@@ -3007,6 +3023,870 @@ namespace DAL_old.LORA_SOFD
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.v_sofd_medarbejderoverblik")]
+	public partial class v_sofd_medarbejderoverblik
+	{
+		
+		private string _Uuid;
+		
+		private string _UserId;
+		
+		private string _Email;
+		
+		private string _Phone;
+		
+		private string _WorkMobile;
+		
+		private string _person_name;
+		
+		private string _Cpr;
+		
+		private string _Firstname;
+		
+		private string _Lastname;
+		
+		private string _privat_gade;
+		
+		private int _privat_postnr;
+		
+		private string _privat_by;
+		
+		private int _Opus_id;
+		
+		private string _position_name;
+		
+		private System.DateTime _Ans_dato;
+		
+		private System.Nullable<System.DateTime> _Fra_dato;
+		
+		private bool _Is_Manager;
+		
+		private decimal _Timetal;
+		
+		private int _Pay_method;
+		
+		private string _Pay_method_text;
+		
+		private string _User_fk;
+		
+		private int _nearmeste_leder;
+		
+		private string _orgunit_uuid;
+		
+		private int _Los_id;
+		
+		private string _org_name;
+		
+		private string _PayoutUnitUuid;
+		
+		private System.DateTime _Created_date;
+		
+		private string _org_phone;
+		
+		private string _org_email;
+		
+		private int _Parent_losid;
+		
+		private string _Los_short_name;
+		
+		private string _org_gade;
+		
+		private int _org_postnr;
+		
+		private string _org_by;
+		
+		private System.Nullable<long> _Ean;
+		
+		private System.Nullable<long> _Pnr;
+		
+		private System.Nullable<long> _Cost_center;
+		
+		private string _Org_type;
+		
+		private int _Org_niveau;
+		
+		public v_sofd_medarbejderoverblik()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Uuid", DbType="NVarChar(200)")]
+		public string Uuid
+		{
+			get
+			{
+				return this._Uuid;
+			}
+			set
+			{
+				if ((this._Uuid != value))
+				{
+					this._Uuid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(50)")]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(200)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(200)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkMobile", DbType="NVarChar(50)")]
+		public string WorkMobile
+		{
+			get
+			{
+				return this._WorkMobile;
+			}
+			set
+			{
+				if ((this._WorkMobile != value))
+				{
+					this._WorkMobile = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_person_name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string person_name
+		{
+			get
+			{
+				return this._person_name;
+			}
+			set
+			{
+				if ((this._person_name != value))
+				{
+					this._person_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cpr", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Cpr
+		{
+			get
+			{
+				return this._Cpr;
+			}
+			set
+			{
+				if ((this._Cpr != value))
+				{
+					this._Cpr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Firstname", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Firstname
+		{
+			get
+			{
+				return this._Firstname;
+			}
+			set
+			{
+				if ((this._Firstname != value))
+				{
+					this._Firstname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lastname", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Lastname
+		{
+			get
+			{
+				return this._Lastname;
+			}
+			set
+			{
+				if ((this._Lastname != value))
+				{
+					this._Lastname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_privat_gade", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string privat_gade
+		{
+			get
+			{
+				return this._privat_gade;
+			}
+			set
+			{
+				if ((this._privat_gade != value))
+				{
+					this._privat_gade = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_privat_postnr", DbType="Int NOT NULL")]
+		public int privat_postnr
+		{
+			get
+			{
+				return this._privat_postnr;
+			}
+			set
+			{
+				if ((this._privat_postnr != value))
+				{
+					this._privat_postnr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_privat_by", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string privat_by
+		{
+			get
+			{
+				return this._privat_by;
+			}
+			set
+			{
+				if ((this._privat_by != value))
+				{
+					this._privat_by = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Opus_id", DbType="Int NOT NULL")]
+		public int Opus_id
+		{
+			get
+			{
+				return this._Opus_id;
+			}
+			set
+			{
+				if ((this._Opus_id != value))
+				{
+					this._Opus_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_position_name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string position_name
+		{
+			get
+			{
+				return this._position_name;
+			}
+			set
+			{
+				if ((this._position_name != value))
+				{
+					this._position_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ans_dato", DbType="DateTime NOT NULL")]
+		public System.DateTime Ans_dato
+		{
+			get
+			{
+				return this._Ans_dato;
+			}
+			set
+			{
+				if ((this._Ans_dato != value))
+				{
+					this._Ans_dato = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fra_dato", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fra_dato
+		{
+			get
+			{
+				return this._Fra_dato;
+			}
+			set
+			{
+				if ((this._Fra_dato != value))
+				{
+					this._Fra_dato = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Is_Manager", DbType="Bit NOT NULL")]
+		public bool Is_Manager
+		{
+			get
+			{
+				return this._Is_Manager;
+			}
+			set
+			{
+				if ((this._Is_Manager != value))
+				{
+					this._Is_Manager = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timetal", DbType="Decimal(28,10) NOT NULL")]
+		public decimal Timetal
+		{
+			get
+			{
+				return this._Timetal;
+			}
+			set
+			{
+				if ((this._Timetal != value))
+				{
+					this._Timetal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pay_method", DbType="Int NOT NULL")]
+		public int Pay_method
+		{
+			get
+			{
+				return this._Pay_method;
+			}
+			set
+			{
+				if ((this._Pay_method != value))
+				{
+					this._Pay_method = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pay_method_text", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Pay_method_text
+		{
+			get
+			{
+				return this._Pay_method_text;
+			}
+			set
+			{
+				if ((this._Pay_method_text != value))
+				{
+					this._Pay_method_text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_fk", DbType="NVarChar(200)")]
+		public string User_fk
+		{
+			get
+			{
+				return this._User_fk;
+			}
+			set
+			{
+				if ((this._User_fk != value))
+				{
+					this._User_fk = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nearmeste_leder", DbType="Int NOT NULL")]
+		public int nearmeste_leder
+		{
+			get
+			{
+				return this._nearmeste_leder;
+			}
+			set
+			{
+				if ((this._nearmeste_leder != value))
+				{
+					this._nearmeste_leder = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_orgunit_uuid", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string orgunit_uuid
+		{
+			get
+			{
+				return this._orgunit_uuid;
+			}
+			set
+			{
+				if ((this._orgunit_uuid != value))
+				{
+					this._orgunit_uuid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Los_id", DbType="Int NOT NULL")]
+		public int Los_id
+		{
+			get
+			{
+				return this._Los_id;
+			}
+			set
+			{
+				if ((this._Los_id != value))
+				{
+					this._Los_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string org_name
+		{
+			get
+			{
+				return this._org_name;
+			}
+			set
+			{
+				if ((this._org_name != value))
+				{
+					this._org_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayoutUnitUuid", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string PayoutUnitUuid
+		{
+			get
+			{
+				return this._PayoutUnitUuid;
+			}
+			set
+			{
+				if ((this._PayoutUnitUuid != value))
+				{
+					this._PayoutUnitUuid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created_date", DbType="DateTime NOT NULL")]
+		public System.DateTime Created_date
+		{
+			get
+			{
+				return this._Created_date;
+			}
+			set
+			{
+				if ((this._Created_date != value))
+				{
+					this._Created_date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_phone", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string org_phone
+		{
+			get
+			{
+				return this._org_phone;
+			}
+			set
+			{
+				if ((this._org_phone != value))
+				{
+					this._org_phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_email", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
+		public string org_email
+		{
+			get
+			{
+				return this._org_email;
+			}
+			set
+			{
+				if ((this._org_email != value))
+				{
+					this._org_email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Parent_losid", DbType="Int NOT NULL")]
+		public int Parent_losid
+		{
+			get
+			{
+				return this._Parent_losid;
+			}
+			set
+			{
+				if ((this._Parent_losid != value))
+				{
+					this._Parent_losid = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Los_short_name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Los_short_name
+		{
+			get
+			{
+				return this._Los_short_name;
+			}
+			set
+			{
+				if ((this._Los_short_name != value))
+				{
+					this._Los_short_name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_gade", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string org_gade
+		{
+			get
+			{
+				return this._org_gade;
+			}
+			set
+			{
+				if ((this._org_gade != value))
+				{
+					this._org_gade = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_postnr", DbType="Int NOT NULL")]
+		public int org_postnr
+		{
+			get
+			{
+				return this._org_postnr;
+			}
+			set
+			{
+				if ((this._org_postnr != value))
+				{
+					this._org_postnr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_org_by", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string org_by
+		{
+			get
+			{
+				return this._org_by;
+			}
+			set
+			{
+				if ((this._org_by != value))
+				{
+					this._org_by = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ean", DbType="BigInt")]
+		public System.Nullable<long> Ean
+		{
+			get
+			{
+				return this._Ean;
+			}
+			set
+			{
+				if ((this._Ean != value))
+				{
+					this._Ean = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pnr", DbType="BigInt")]
+		public System.Nullable<long> Pnr
+		{
+			get
+			{
+				return this._Pnr;
+			}
+			set
+			{
+				if ((this._Pnr != value))
+				{
+					this._Pnr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost_center", DbType="BigInt")]
+		public System.Nullable<long> Cost_center
+		{
+			get
+			{
+				return this._Cost_center;
+			}
+			set
+			{
+				if ((this._Cost_center != value))
+				{
+					this._Cost_center = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Org_type", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Org_type
+		{
+			get
+			{
+				return this._Org_type;
+			}
+			set
+			{
+				if ((this._Org_type != value))
+				{
+					this._Org_type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Org_niveau", DbType="Int NOT NULL")]
+		public int Org_niveau
+		{
+			get
+			{
+				return this._Org_niveau;
+			}
+			set
+			{
+				if ((this._Org_niveau != value))
+				{
+					this._Org_niveau = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="akubiz.v_akubiz_employees")]
+	public partial class v_akubiz_employee
+	{
+		
+		private string _User_fk;
+		
+		private string _Name;
+		
+		private string _UserId;
+		
+		private string _Email;
+		
+		private System.Nullable<long> _Cost_center;
+		
+		private int _Orgunit_losid_fk;
+		
+		private string _Person_fk;
+		
+		private int _manager_opus_id;
+		
+		public v_akubiz_employee()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_fk", DbType="NVarChar(200)")]
+		public string User_fk
+		{
+			get
+			{
+				return this._User_fk;
+			}
+			set
+			{
+				if ((this._User_fk != value))
+				{
+					this._User_fk = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(200)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cost_center", DbType="BigInt")]
+		public System.Nullable<long> Cost_center
+		{
+			get
+			{
+				return this._Cost_center;
+			}
+			set
+			{
+				if ((this._Cost_center != value))
+				{
+					this._Cost_center = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orgunit_losid_fk", DbType="Int NOT NULL")]
+		public int Orgunit_losid_fk
+		{
+			get
+			{
+				return this._Orgunit_losid_fk;
+			}
+			set
+			{
+				if ((this._Orgunit_losid_fk != value))
+				{
+					this._Orgunit_losid_fk = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Person_fk", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Person_fk
+		{
+			get
+			{
+				return this._Person_fk;
+			}
+			set
+			{
+				if ((this._Person_fk != value))
+				{
+					this._Person_fk = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_manager_opus_id", DbType="Int NOT NULL")]
+		public int manager_opus_id
+		{
+			get
+			{
+				return this._manager_opus_id;
+			}
+			set
+			{
+				if ((this._manager_opus_id != value))
+				{
+					this._manager_opus_id = value;
+				}
 			}
 		}
 	}
