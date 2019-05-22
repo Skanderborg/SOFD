@@ -140,4 +140,59 @@
       <Column Name="Time_added" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.v_sofd_medarbejderoverblik" Member="v_sofd_medarbejderoverbliks">
+    <Type Name="v_sofd_medarbejderoverblik">
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="WorkMobile" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="person_name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Cpr" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Firstname" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Lastname" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="privat_gade" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="privat_postnr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="privat_by" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="position_name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Ans_dato" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Fra_dato" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Is_Manager" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Timetal" Type="System.Decimal" DbType="Decimal(28,10) NOT NULL" CanBeNull="false" />
+      <Column Name="Pay_method" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Pay_method_text" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="User_fk" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="nearmeste_leder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="orgunit_uuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="org_name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PayoutUnitUuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="org_phone" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="org_email" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Parent_losid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Los_short_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="org_gade" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="org_postnr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="org_by" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Ean" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Pnr" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Cost_center" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Org_type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Org_niveau" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="akubiz.v_akubiz_employees" Member="v_akubiz_employees">
+    <Type Name="v_akubiz_employee">
+      <Column Name="User_fk" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Cost_center" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Orgunit_losid_fk" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Person_fk" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="manager_opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

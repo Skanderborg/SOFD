@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28822.285
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_old", "DAL_old\DAL_old.csproj", "{D09376B2-C11F-48C0-81BB-0E7B64336243}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDMSOFD", "MDMSOFD\MDMSOFD.csproj", "{09428FEA-BB0B-4F1E-A7D5-5DF8F3CB8A2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App_Console", "App_Console\App_Console.csproj", "{47F01910-EFC9-4CA3-A073-C1ADBE5E3619}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_app", "Web_app\Web_app.csproj", "{AF0EAB10-EBC4-462C-8716-2EC77DC35E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{47F01910-EFC9-4CA3-A073-C1ADBE5E3619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F01910-EFC9-4CA3-A073-C1ADBE5E3619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F01910-EFC9-4CA3-A073-C1ADBE5E3619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF0EAB10-EBC4-462C-8716-2EC77DC35E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF0EAB10-EBC4-462C-8716-2EC77DC35E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF0EAB10-EBC4-462C-8716-2EC77DC35E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF0EAB10-EBC4-462C-8716-2EC77DC35E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

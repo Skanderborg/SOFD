@@ -33,7 +33,7 @@ namespace DAL_old.DSA_SOFD
     #endregion
 		
 		public DSA_SOFDDataContext() : 
-				base(global::DAL_old.Properties.Settings.Default.DSA_SOFD_DBConnectionString, mappingSource)
+				base(global::DAL_old.Properties.Settings.Default.DSA_SOFD_DBConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -62,19 +62,19 @@ namespace DAL_old.DSA_SOFD
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<FerieSaldo> FerieSaldos
-		{
-			get
-			{
-				return this.GetTable<FerieSaldo>();
-			}
-		}
-		
 		public System.Data.Linq.Table<OrgUnit> OrgUnits
 		{
 			get
 			{
 				return this.GetTable<OrgUnit>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FerieSaldo> FerieSaldos
+		{
+			get
+			{
+				return this.GetTable<FerieSaldo>();
 			}
 		}
 		
@@ -85,247 +85,12 @@ namespace DAL_old.DSA_SOFD
 				return this.GetTable<v_emp>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="OPUS.FerieSaldo")]
-	public partial class FerieSaldo
-	{
 		
-		private string _KommuneInfo;
-		
-		private string _CPR;
-		
-		private string _ANS_FORHOLD_NR;
-		
-		private string _Afloenningsform;
-		
-		private string _Ferieoptjeningsaar;
-		
-		private string _DatoForSaldo;
-		
-		private System.Nullable<int> _FerieTimer_MLoen;
-		
-		private System.Nullable<int> _EVTFerieDage_MLoen;
-		
-		private System.Nullable<int> _FerieTimer_ULoen;
-		
-		private System.Nullable<int> _EVTFerieDage_ULoen;
-		
-		private System.Nullable<int> _Overfoertetimer;
-		
-		private System.Nullable<int> _EvtOverfoertedage;
-		
-		private System.Nullable<int> _FERIEFRIDAGSTIMER_SUM;
-		
-		public FerieSaldo()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KommuneInfo", DbType="VarChar(9)")]
-		public string KommuneInfo
+		public System.Data.Linq.Table<v_function> v_functions
 		{
 			get
 			{
-				return this._KommuneInfo;
-			}
-			set
-			{
-				if ((this._KommuneInfo != value))
-				{
-					this._KommuneInfo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CPR", DbType="VarChar(10)")]
-		public string CPR
-		{
-			get
-			{
-				return this._CPR;
-			}
-			set
-			{
-				if ((this._CPR != value))
-				{
-					this._CPR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ANS_FORHOLD_NR", DbType="VarChar(1)")]
-		public string ANS_FORHOLD_NR
-		{
-			get
-			{
-				return this._ANS_FORHOLD_NR;
-			}
-			set
-			{
-				if ((this._ANS_FORHOLD_NR != value))
-				{
-					this._ANS_FORHOLD_NR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Afloenningsform", DbType="VarChar(1)")]
-		public string Afloenningsform
-		{
-			get
-			{
-				return this._Afloenningsform;
-			}
-			set
-			{
-				if ((this._Afloenningsform != value))
-				{
-					this._Afloenningsform = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ferieoptjeningsaar", DbType="VarChar(4)")]
-		public string Ferieoptjeningsaar
-		{
-			get
-			{
-				return this._Ferieoptjeningsaar;
-			}
-			set
-			{
-				if ((this._Ferieoptjeningsaar != value))
-				{
-					this._Ferieoptjeningsaar = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatoForSaldo", DbType="VarChar(10)")]
-		public string DatoForSaldo
-		{
-			get
-			{
-				return this._DatoForSaldo;
-			}
-			set
-			{
-				if ((this._DatoForSaldo != value))
-				{
-					this._DatoForSaldo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FerieTimer_MLoen", DbType="Int")]
-		public System.Nullable<int> FerieTimer_MLoen
-		{
-			get
-			{
-				return this._FerieTimer_MLoen;
-			}
-			set
-			{
-				if ((this._FerieTimer_MLoen != value))
-				{
-					this._FerieTimer_MLoen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVTFerieDage_MLoen", DbType="Int")]
-		public System.Nullable<int> EVTFerieDage_MLoen
-		{
-			get
-			{
-				return this._EVTFerieDage_MLoen;
-			}
-			set
-			{
-				if ((this._EVTFerieDage_MLoen != value))
-				{
-					this._EVTFerieDage_MLoen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FerieTimer_ULoen", DbType="Int")]
-		public System.Nullable<int> FerieTimer_ULoen
-		{
-			get
-			{
-				return this._FerieTimer_ULoen;
-			}
-			set
-			{
-				if ((this._FerieTimer_ULoen != value))
-				{
-					this._FerieTimer_ULoen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVTFerieDage_ULoen", DbType="Int")]
-		public System.Nullable<int> EVTFerieDage_ULoen
-		{
-			get
-			{
-				return this._EVTFerieDage_ULoen;
-			}
-			set
-			{
-				if ((this._EVTFerieDage_ULoen != value))
-				{
-					this._EVTFerieDage_ULoen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Overfoertetimer", DbType="Int")]
-		public System.Nullable<int> Overfoertetimer
-		{
-			get
-			{
-				return this._Overfoertetimer;
-			}
-			set
-			{
-				if ((this._Overfoertetimer != value))
-				{
-					this._Overfoertetimer = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EvtOverfoertedage", DbType="Int")]
-		public System.Nullable<int> EvtOverfoertedage
-		{
-			get
-			{
-				return this._EvtOverfoertedage;
-			}
-			set
-			{
-				if ((this._EvtOverfoertedage != value))
-				{
-					this._EvtOverfoertedage = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FERIEFRIDAGSTIMER_SUM", DbType="Int")]
-		public System.Nullable<int> FERIEFRIDAGSTIMER_SUM
-		{
-			get
-			{
-				return this._FERIEFRIDAGSTIMER_SUM;
-			}
-			set
-			{
-				if ((this._FERIEFRIDAGSTIMER_SUM != value))
-				{
-					this._FERIEFRIDAGSTIMER_SUM = value;
-				}
+				return this.GetTable<v_function>();
 			}
 		}
 	}
@@ -712,6 +477,249 @@ namespace DAL_old.DSA_SOFD
 				if ((this._OrgNveau != value))
 				{
 					this._OrgNveau = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="OPUS.FerieSaldo")]
+	public partial class FerieSaldo
+	{
+		
+		private string _KommuneInfo;
+		
+		private string _CPR;
+		
+		private string _ANS_FORHOLD_NR;
+		
+		private string _Afloenningsform;
+		
+		private string _Ferieoptjeningsaar;
+		
+		private string _DatoForSaldo;
+		
+		private System.Nullable<int> _FerieTimer_MLoen;
+		
+		private System.Nullable<int> _EVTFerieDage_MLoen;
+		
+		private System.Nullable<int> _FerieTimer_ULoen;
+		
+		private System.Nullable<int> _EVTFerieDage_ULoen;
+		
+		private System.Nullable<int> _Overfoertetimer;
+		
+		private System.Nullable<int> _EvtOverfoertedage;
+		
+		private System.Nullable<int> _FERIEFRIDAGSTIMER_SUM;
+		
+		public FerieSaldo()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KommuneInfo", DbType="VarChar(9)")]
+		public string KommuneInfo
+		{
+			get
+			{
+				return this._KommuneInfo;
+			}
+			set
+			{
+				if ((this._KommuneInfo != value))
+				{
+					this._KommuneInfo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CPR", DbType="VarChar(10)")]
+		public string CPR
+		{
+			get
+			{
+				return this._CPR;
+			}
+			set
+			{
+				if ((this._CPR != value))
+				{
+					this._CPR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ANS_FORHOLD_NR", DbType="VarChar(1)")]
+		public string ANS_FORHOLD_NR
+		{
+			get
+			{
+				return this._ANS_FORHOLD_NR;
+			}
+			set
+			{
+				if ((this._ANS_FORHOLD_NR != value))
+				{
+					this._ANS_FORHOLD_NR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Afloenningsform", DbType="VarChar(1)")]
+		public string Afloenningsform
+		{
+			get
+			{
+				return this._Afloenningsform;
+			}
+			set
+			{
+				if ((this._Afloenningsform != value))
+				{
+					this._Afloenningsform = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ferieoptjeningsaar", DbType="VarChar(4)")]
+		public string Ferieoptjeningsaar
+		{
+			get
+			{
+				return this._Ferieoptjeningsaar;
+			}
+			set
+			{
+				if ((this._Ferieoptjeningsaar != value))
+				{
+					this._Ferieoptjeningsaar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatoForSaldo", DbType="VarChar(10)")]
+		public string DatoForSaldo
+		{
+			get
+			{
+				return this._DatoForSaldo;
+			}
+			set
+			{
+				if ((this._DatoForSaldo != value))
+				{
+					this._DatoForSaldo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FerieTimer_MLoen", DbType="Int")]
+		public System.Nullable<int> FerieTimer_MLoen
+		{
+			get
+			{
+				return this._FerieTimer_MLoen;
+			}
+			set
+			{
+				if ((this._FerieTimer_MLoen != value))
+				{
+					this._FerieTimer_MLoen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVTFerieDage_MLoen", DbType="Int")]
+		public System.Nullable<int> EVTFerieDage_MLoen
+		{
+			get
+			{
+				return this._EVTFerieDage_MLoen;
+			}
+			set
+			{
+				if ((this._EVTFerieDage_MLoen != value))
+				{
+					this._EVTFerieDage_MLoen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FerieTimer_ULoen", DbType="Int")]
+		public System.Nullable<int> FerieTimer_ULoen
+		{
+			get
+			{
+				return this._FerieTimer_ULoen;
+			}
+			set
+			{
+				if ((this._FerieTimer_ULoen != value))
+				{
+					this._FerieTimer_ULoen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EVTFerieDage_ULoen", DbType="Int")]
+		public System.Nullable<int> EVTFerieDage_ULoen
+		{
+			get
+			{
+				return this._EVTFerieDage_ULoen;
+			}
+			set
+			{
+				if ((this._EVTFerieDage_ULoen != value))
+				{
+					this._EVTFerieDage_ULoen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Overfoertetimer", DbType="Int")]
+		public System.Nullable<int> Overfoertetimer
+		{
+			get
+			{
+				return this._Overfoertetimer;
+			}
+			set
+			{
+				if ((this._Overfoertetimer != value))
+				{
+					this._Overfoertetimer = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EvtOverfoertedage", DbType="Int")]
+		public System.Nullable<int> EvtOverfoertedage
+		{
+			get
+			{
+				return this._EvtOverfoertedage;
+			}
+			set
+			{
+				if ((this._EvtOverfoertedage != value))
+				{
+					this._EvtOverfoertedage = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FERIEFRIDAGSTIMER_SUM", DbType="Int")]
+		public System.Nullable<int> FERIEFRIDAGSTIMER_SUM
+		{
+			get
+			{
+				return this._FERIEFRIDAGSTIMER_SUM;
+			}
+			set
+			{
+				if ((this._FERIEFRIDAGSTIMER_SUM != value))
+				{
+					this._FERIEFRIDAGSTIMER_SUM = value;
 				}
 			}
 		}
@@ -1243,6 +1251,177 @@ namespace DAL_old.DSA_SOFD
 				if ((this._adress != value))
 				{
 					this._adress = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.v_functions")]
+	public partial class v_function
+	{
+		
+		private System.Nullable<System.DateTime> _startDate;
+		
+		private System.Nullable<System.DateTime> _endDate;
+		
+		private System.Nullable<short> _artId;
+		
+		private string _orgDaekning;
+		
+		private string _artText;
+		
+		private System.Nullable<int> _members;
+		
+		private System.Nullable<int> _roleId;
+		
+		private string _roleText;
+		
+		private System.Nullable<int> _opus_id;
+		
+		public v_function()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> startDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				if ((this._startDate != value))
+				{
+					this._startDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> endDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				if ((this._endDate != value))
+				{
+					this._endDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_artId", DbType="SmallInt")]
+		public System.Nullable<short> artId
+		{
+			get
+			{
+				return this._artId;
+			}
+			set
+			{
+				if ((this._artId != value))
+				{
+					this._artId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_orgDaekning", DbType="NVarChar(255)")]
+		public string orgDaekning
+		{
+			get
+			{
+				return this._orgDaekning;
+			}
+			set
+			{
+				if ((this._orgDaekning != value))
+				{
+					this._orgDaekning = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_artText", DbType="NVarChar(255)")]
+		public string artText
+		{
+			get
+			{
+				return this._artText;
+			}
+			set
+			{
+				if ((this._artText != value))
+				{
+					this._artText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_members", DbType="Int")]
+		public System.Nullable<int> members
+		{
+			get
+			{
+				return this._members;
+			}
+			set
+			{
+				if ((this._members != value))
+				{
+					this._members = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roleId", DbType="Int")]
+		public System.Nullable<int> roleId
+		{
+			get
+			{
+				return this._roleId;
+			}
+			set
+			{
+				if ((this._roleId != value))
+				{
+					this._roleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roleText", DbType="NVarChar(255)")]
+		public string roleText
+		{
+			get
+			{
+				return this._roleText;
+			}
+			set
+			{
+				if ((this._roleText != value))
+				{
+					this._roleText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_opus_id", DbType="Int")]
+		public System.Nullable<int> opus_id
+		{
+			get
+			{
+				return this._opus_id;
+			}
+			set
+			{
+				if ((this._opus_id != value))
+				{
+					this._opus_id = value;
 				}
 			}
 		}
