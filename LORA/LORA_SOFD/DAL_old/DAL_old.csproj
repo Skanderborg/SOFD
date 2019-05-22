@@ -55,6 +55,7 @@
     <Compile Include="IRepoQueue.cs" />
     <Compile Include="LogService.cs" />
     <Compile Include="LORA_SOFD\AdresseRepo.cs" />
+    <Compile Include="LORA_SOFD\AkubizRepo.cs" />
     <Compile Include="LORA_SOFD\ChangeRepo.cs" />
     <Compile Include="LORA_SOFD\LORA_SOFD.designer.cs">
       <AutoGen>True</AutoGen>

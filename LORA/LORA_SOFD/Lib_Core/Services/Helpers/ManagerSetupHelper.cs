@@ -31,7 +31,7 @@ namespace Lib_Core.Services.Helpers
         {
             foreach(Manager_lookup ml in mlRepo.Query)
             {
-                if (posRepo.Query.Where(p => p.Opus_id == ml.opus_id).Count() == 0)
+                if ((posRepo.Query.Where(p => p.Opus_id == ml.opus_id).Count() == 0) || posRepo.Query.Where(p => p.Opus_id == ml.manager_opus_id).Count() == 0)
                 {
                     mlRepo.Delete(ml);
                 }
@@ -40,7 +40,7 @@ namespace Lib_Core.Services.Helpers
 
         private void Update_Manager_Lookups()
         {
-            foreach (Position pos in posRepo.Query.Where(p => p.Last_changed > DateTime.Now.AddDays(-3)))
+            foreach (Position pos in posRepo.Query)//.Where(p => p.Last_changed > DateTime.Now.AddDays(-3)))
             {
                 int manager_opus_id;
                 // er det borgmesteren?
