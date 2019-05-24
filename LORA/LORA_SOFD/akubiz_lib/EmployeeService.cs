@@ -29,7 +29,6 @@ namespace akubiz_lib
 
 
                 //OBS manager kan være null, hvis leder er borger/byrådsmedlem
-                // skal løses
 
                 emplist.Add(new Akubiz_Emp
                 {
