@@ -25,8 +25,11 @@ namespace akubiz_lib
             List<Akubiz_Emp> emplist = new List<Akubiz_Emp>();
             foreach(v_akubiz_employee vae in akubizRepo.Query)
             {
-                string manager = "";
-                manager = posRepo.Query.Where(p => p.Opus_id == vae.manager_opus_id).First().User_fk;
+                string manager = posRepo.Query.Where(p => p.Opus_id == vae.manager_opus_id).First().User_fk;
+
+
+                //OBS manager kan være null, hvis leder er borger/byrådsmedlem
+
                 emplist.Add(new Akubiz_Emp
                 {
                     uuid = vae.User_fk,
@@ -36,7 +39,7 @@ namespace akubiz_lib
                     ad3 = vae.UserId,
                     manager_uuid = manager,
                     email = vae.Email,
-                    underligtnummer = "?",
+                    cost_center = vae.Cost_center.ToString(),
                     los_id1 = vae.Orgunit_losid_fk.ToString(),
                     los_id2 = vae.Orgunit_losid_fk.ToString(),
                     cpr1 = vae.Person_fk,
@@ -45,7 +48,7 @@ namespace akubiz_lib
                 });
             }
 
-            IEnumerable<string> res = emplist.Select(e => String.Join(";", e.uuid, e.fullname, e.ad1, e.ad2, e.ad3, e.manager_uuid, e.email, e.underligtnummer, e.los_id1, e.los_id2,
+            IEnumerable<string> res = emplist.Select(e => String.Join(";", e.uuid, e.fullname, e.ad1, e.ad2, e.ad3, e.manager_uuid, e.email, e.cost_center, e.los_id1, e.los_id2,
                 e.cpr1, e.cpr2, e.nul));
             return String.Join(Environment.NewLine, res);
         }
