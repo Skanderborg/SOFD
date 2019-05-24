@@ -15,7 +15,7 @@ namespace akubiz_lib.Models
         internal string ad3 { get; set; }
         internal string manager_uuid { get; set; }
         internal string email { get; set; }
-        internal string underligtnummer { get; set; }
+        internal string cost_center { get; set; }
         internal string los_id1 { get; set; }
         internal string los_id2 { get; set; }
         internal string cpr1 { get; set; }
