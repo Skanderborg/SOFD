@@ -103,10 +103,10 @@ namespace Lib_Core.Services
 
             // Benytter UserHelper servicen til at opdaterer nye og slettede AD brugere i LORA_SOFDs user tabel
             // OBS: Dette er en midlertidig løsning, som skal erstattes af AD oprettelses flowet + AD event scripts på opdateringer og deaktiveringer
-            UserHelper userHelper = new UserHelper(lora_constr);
-            userHelper.CreateUsers();
-            userHelper.Mark_deleted_users();
-            last_step = "userHelper";
+            //UserHelper userHelper = new UserHelper(lora_constr);
+            //userHelper.CreateUsers();
+            //userHelper.Mark_deleted_users();
+            //last_step = "userHelper";
 
             // Fjerner de AD brugere som er markerede som slettede i LORA_SOFDs user tabel.
             // Opretter Deleted events i STS user køen

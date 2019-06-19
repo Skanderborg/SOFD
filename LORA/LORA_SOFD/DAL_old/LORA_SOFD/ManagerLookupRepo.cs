@@ -31,7 +31,7 @@ namespace DAL_old.LORA_SOFD
 
         public void Update(Manager_lookup e)
         {
-            c.SubmitChanges();
+             c.SubmitChanges();
         }
     }
 }

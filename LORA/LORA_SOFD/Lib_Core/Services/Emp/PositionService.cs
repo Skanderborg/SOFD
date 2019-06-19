@@ -115,7 +115,7 @@ namespace Lib_Core.Services.Emp
         internal void Update_positions(List<int> lora_los_ids)
         {
             List<int> lora_opus_ids = posRepo.Query.Select(p => p.Opus_id).ToList();
-            foreach (v_emp emp in dsa_emps.Where(e => e.lastChanged > DateTime.Now.AddDays(-5)))
+            foreach (v_emp emp in dsa_emps)//.Where(e => e.lastChanged > DateTime.Now.AddDays(-5)))
             {
                 int emp_opus_id = (int)emp.opus_medid;
                 int emp_los_id = (int)emp.orgUnit;
