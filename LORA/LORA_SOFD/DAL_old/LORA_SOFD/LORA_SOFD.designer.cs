@@ -3758,6 +3758,8 @@ namespace DAL_old.LORA_SOFD
 		
 		private int _manager_opus_id;
 		
+		private string _OrgName;
+		
 		public v_akubiz_employee()
 		{
 		}
@@ -3886,6 +3888,22 @@ namespace DAL_old.LORA_SOFD
 				if ((this._manager_opus_id != value))
 				{
 					this._manager_opus_id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrgName", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string OrgName
+		{
+			get
+			{
+				return this._OrgName;
+			}
+			set
+			{
+				if ((this._OrgName != value))
+				{
+					this._OrgName = value;
 				}
 			}
 		}

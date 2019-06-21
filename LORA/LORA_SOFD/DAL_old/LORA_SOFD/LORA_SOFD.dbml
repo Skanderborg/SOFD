@@ -193,6 +193,7 @@
       <Column Name="Orgunit_losid_fk" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Person_fk" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="manager_opus_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrgName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

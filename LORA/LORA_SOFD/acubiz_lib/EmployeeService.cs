@@ -41,7 +41,7 @@ namespace acubiz_lib
                     email = vae.Email,
                     cost_center = "",
                     los_id1 = vae.Orgunit_losid_fk.ToString(),
-                    los_id2 = vae.Orgunit_losid_fk + " - " + vae.Name,
+                    los_id2 = vae.Orgunit_losid_fk + " - " + vae.OrgName,
                     cpr1 = vae.Person_fk,
                     cpr2 = vae.Person_fk,
                     nul = "0"

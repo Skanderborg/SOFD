@@ -109,10 +109,10 @@
         <elementListCompartment Id="c14accb3-b184-40cb-a7eb-0a496169c123" absoluteBounds="6.64, 11.835, 1.9700000000000002, 7.7491455078125009" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1bc94474-7aa0-424d-819d-1f3e4273dde1" absoluteBounds="4.125, 13.875, 2, 2.3478011067708335">
+    <classShape Id="589bccd9-0da3-43f1-99b1-58493f36c4c5" absoluteBounds="4.125, 13.375, 2, 2.5401025390625">
       <DataClassMoniker Name="/LORA_SOFDDataContext/v_akubiz_employee" />
       <nestedChildShapes>
-        <elementListCompartment Id="e07d04b3-2b3c-4fa2-877e-0530e08e33ba" absoluteBounds="4.14, 14.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="849813e7-5037-4b5b-a691-43b767f6ab8d" absoluteBounds="4.14, 13.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
