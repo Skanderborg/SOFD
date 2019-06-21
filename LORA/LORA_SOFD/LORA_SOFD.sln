@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mox", "mox", "{A8D2EB0D-901
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "akubiz", "akubiz", "{7AE46F6A-ED5F-4648-84A4-160896BBB245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "akubiz_app", "akubiz_app\akubiz_app.csproj", "{FA660561-6B1F-4411-B223-6DDB7CA41B19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "acubiz_app", "akubiz_app\acubiz_app.csproj", "{FA660561-6B1F-4411-B223-6DDB7CA41B19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "akubiz_lib", "akubiz_lib\akubiz_lib.csproj", "{E5621689-6CC3-4849-9787-788CCABFD836}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "acubiz_lib", "akubiz_lib\acubiz_lib.csproj", "{E5621689-6CC3-4849-9787-788CCABFD836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

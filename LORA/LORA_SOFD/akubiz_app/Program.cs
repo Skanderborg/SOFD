@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using akubiz_lib;
+using acubiz_lib;
 
-namespace akubiz_app
+namespace acubiz_app
 {
     class Program
     {

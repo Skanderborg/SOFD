@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using akubiz_lib.Models;
+using acubiz_lib.Models;
 using DAL_old;
 using DAL_old.LORA_SOFD;
 
-namespace akubiz_lib
+namespace acubiz_lib
 {
     public class EmployeeService
     {
@@ -22,7 +22,7 @@ namespace akubiz_lib
 
         public string GetEmployeeCSV()
         {
-            List<Akubiz_Emp> emplist = new List<Akubiz_Emp>();
+            List<Acubiz_Emp> emplist = new List<Acubiz_Emp>();
             foreach(v_akubiz_employee vae in akubizRepo.Query)
             {
                 string manager = posRepo.Query.Where(p => p.Opus_id == vae.manager_opus_id).First().User_fk;
@@ -30,7 +30,7 @@ namespace akubiz_lib
 
                 //OBS manager kan være null, hvis leder er borger/byrådsmedlem
 
-                emplist.Add(new Akubiz_Emp
+                emplist.Add(new Acubiz_Emp
                 {
                     uuid = vae.User_fk,
                     fullname = vae.Name,
@@ -39,9 +39,9 @@ namespace akubiz_lib
                     ad3 = vae.UserId,
                     manager_uuid = manager,
                     email = vae.Email,
-                    cost_center = vae.Cost_center.ToString(),
+                    cost_center = "",
                     los_id1 = vae.Orgunit_losid_fk.ToString(),
-                    los_id2 = vae.Orgunit_losid_fk.ToString(),
+                    los_id2 = vae.Orgunit_losid_fk + " - " + vae.Name,
                     cpr1 = vae.Person_fk,
                     cpr2 = vae.Person_fk,
                     nul = "0"
