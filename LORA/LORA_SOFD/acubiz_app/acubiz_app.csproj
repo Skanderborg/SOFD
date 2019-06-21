@@ -59,7 +59,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\akubiz_lib\acubiz_lib.csproj">
+    <ProjectReference Include="..\acubiz_lib\acubiz_lib.csproj">
       <Project>{e5621689-6cc3-4849-9787-788ccabfd836}</Project>
       <Name>acubiz_lib</Name>
     </ProjectReference>

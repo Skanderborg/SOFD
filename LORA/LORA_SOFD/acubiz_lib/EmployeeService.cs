@@ -11,19 +11,19 @@ namespace acubiz_lib
 {
     public class EmployeeService
     {
-        IRepo<v_akubiz_employee> akubizRepo;
+        IRepo<v_akubiz_employee> acubizRepo;
         IRepo<Position> posRepo;
 
         public EmployeeService(string lora_constr)
         {
-            akubizRepo = new AkubizRepo(lora_constr);
+            acubizRepo = new AkubizRepo(lora_constr);
             posRepo = new PositionRepo(lora_constr);
         }
 
         public string GetEmployeeCSV()
         {
             List<Acubiz_Emp> emplist = new List<Acubiz_Emp>();
-            foreach(v_akubiz_employee vae in akubizRepo.Query)
+            foreach(v_akubiz_employee vae in acubizRepo.Query)
             {
                 string manager = posRepo.Query.Where(p => p.Opus_id == vae.manager_opus_id).First().User_fk;
 
