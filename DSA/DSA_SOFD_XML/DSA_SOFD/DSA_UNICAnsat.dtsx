@@ -1,0 +1,2540 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/18/2013 11:10:57 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="SVLPM2"
+  DTS:CreatorName="SKB\papa"
+  DTS:DTSID="{024D69CA-178C-4D19-B3B8-2D369F176A52}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.3436.0"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="DSA_UNICAnsat"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{D2DF304B-BAC1-4E50-9CF9-6F48EC2D4E14}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DSA_SOFD]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AD181AFA-EF62-4172-874E-D765CBD3DD02}"
+      DTS:ObjectName="DSA_SOFD">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=dbsrv_sofd_db;Initial Catalog=DSA_SOFD_DB;Provider=SQLNCLI11.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Clear Tables"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2ad722f5-a215-4b22-b7ab-f981ae7fa57f}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Clear Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AD181AFA-EF62-4172-874E-D765CBD3DD02}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE UNIC.Ansatte" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Importer UNIC ansatte"
+      DTS:CreationName="SSIS.Pipeline.3"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5752C7DD-F385-460F-8E93-EAAFBE63B74D}"
+      DTS:ExecutableType="SSIS.Pipeline.3"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Importer UNIC ansatte"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v10; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Importer UNIC ansatte\Ansat"
+              componentClassID="{5B1A3FF5-D366-4D75-AD1F-F19A36FCBEDB}"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="Ansat"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\Ansat.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Ansat.Inputs[Sort Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Ansatte_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Ansat.Inputs[Sort Input].Columns[Instnr]"
+                      cachedDataType="ui4"
+                      cachedName="Instnr"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Instnr]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Ansatte_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Instnr]"
+                      dataType="ui4"
+                      lineageId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Instnr]"
+                      name="Instnr">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Instnr]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\Henter UNIC ansatte"
+              componentClassID="{874F7595-FB5F-40FF-96AF-FBFF8250E3EF}"
+              contactInfo="Extracts data from an XML data file.;Microsoft Corporation;Microsoft SqlServer v10; © 2007 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Extracts data from an XML data file."
+              name="Henter UNIC ansatte"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.SqlServer.Dts.Pipeline.XmlSourceAdapter, Microsoft.SqlServer.XmlSrc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91</property>
+                <property
+                  dataType="System.String"
+                  description="The XML data used by the XML source adapter."
+                  expressionType="Notify"
+                  name="XMLData">C:\Kilde\UNICansatte.xml</property>
+                <property
+                  dataType="System.String"
+                  description="The variable used by the XML source adapter to specify XML data."
+                  name="XMLDataVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Defines how the XML source adapter gets XML data."
+                  name="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The XML schema definition used by the XML source adapter."
+                  expressionType="Notify"
+                  name="XMLSchemaDefinition">C:\Kilde\UNICAnsatSamletnew.xsd</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Identifies whether or not to use inline schema."
+                  name="UseInlineSchema">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Defines how XML integer types are mapped."
+                  name="XMLIntegerMapping"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.XmlSourceAdapter+XMLIntegerMappingConverter, Microsoft.SqlServer.XmlSrc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">1</property>
+              </properties>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte]"
+                  name="Ansatte">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Ansatte</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].ExternalColumns[Ansatte_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Ansatte_Id]"
+                      name="Ansatte_Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Institution_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].ExternalColumns[Institution_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Institution_Id]"
+                      name="Institution_Id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].ExternalColumns[Ansatte_Id]"
+                      dataType="ui8"
+                      name="Ansatte_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].ExternalColumns[Institution_Id]"
+                      dataType="ui8"
+                      name="Institution_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output]"
+                  isErrorOut="true"
+                  name="Ansatte Error Output">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Ansatte</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[Ansatte_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].ExternalColumns[Ansatte_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[Institution_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].ExternalColumns[Institution_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[Institution_Id]"
+                      name="Institution_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].ExternalColumns[Ansatte_Id]"
+                      dataType="nText"
+                      name="Ansatte_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte Error Output].ExternalColumns[Institution_Id]"
+                      dataType="nText"
+                      name="Institution_Id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner]"
+                  name="Institutioner">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Institutioner</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner].Columns[Institutioner_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner].ExternalColumns[Institutioner_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner].Columns[Institutioner_Id]"
+                      name="Institutioner_Id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner].ExternalColumns[Institutioner_Id]"
+                      dataType="ui8"
+                      name="Institutioner_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output]"
+                  isErrorOut="true"
+                  name="Institutioner Error Output">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Institutioner</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[Institutioner_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].ExternalColumns[Institutioner_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[Institutioner_Id]"
+                      name="Institutioner_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institutioner Error Output].ExternalColumns[Institutioner_Id]"
+                      dataType="nText"
+                      name="Institutioner_Id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat]"
+                  name="UNLoginAnsat">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">UNLoginAnsat</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[brugerID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[brugerID]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[brugerID]"
+                      name="brugerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[cprnr]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[cprnr]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[cprnr]"
+                      name="cprnr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[initieltPw]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[initieltPw]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[initieltPw]"
+                      name="initieltPw"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[pwStatus]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[pwStatus]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[pwStatus]"
+                      name="pwStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[navn]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[navn]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[navn]"
+                      name="navn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[fornavn]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[fornavn]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[fornavn]"
+                      name="fornavn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[efternavn]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[efternavn]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[efternavn]"
+                      name="efternavn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[skolekomNavn]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[skolekomNavn]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[skolekomNavn]"
+                      name="skolekomNavn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[mailadresse]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[mailadresse]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[mailadresse]"
+                      name="mailadresse"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[funktionsmarkering]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[funktionsmarkering]"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[funktionsmarkering]"
+                      name="funktionsmarkering"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[Ansatte_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[Ansatte_Id]"
+                      name="Ansatte_Id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[brugerID]"
+                      dataType="wstr"
+                      length="255"
+                      name="brugerID">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[cprnr]"
+                      dataType="wstr"
+                      length="255"
+                      name="cprnr">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[initieltPw]"
+                      dataType="wstr"
+                      length="255"
+                      name="initieltPw">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[pwStatus]"
+                      dataType="wstr"
+                      length="255"
+                      name="pwStatus">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[navn]"
+                      dataType="wstr"
+                      length="255"
+                      name="navn">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[fornavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="fornavn">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[efternavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="efternavn">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[skolekomNavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="skolekomNavn">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[mailadresse]"
+                      dataType="wstr"
+                      length="255"
+                      name="mailadresse">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[funktionsmarkering]"
+                      dataType="wstr"
+                      length="255"
+                      name="funktionsmarkering">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.String</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].ExternalColumns[Ansatte_Id]"
+                      dataType="ui8"
+                      name="Ansatte_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output]"
+                  isErrorOut="true"
+                  name="UNLoginAnsat Error Output">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">UNLoginAnsat</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[brugerID]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[brugerID]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[brugerID]"
+                      name="brugerID" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[cprnr]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[cprnr]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[cprnr]"
+                      name="cprnr" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[initieltPw]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[initieltPw]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[initieltPw]"
+                      name="initieltPw" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[pwStatus]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[pwStatus]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[pwStatus]"
+                      name="pwStatus" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[navn]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[navn]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[navn]"
+                      name="navn" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[fornavn]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[fornavn]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[fornavn]"
+                      name="fornavn" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[efternavn]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[efternavn]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[efternavn]"
+                      name="efternavn" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[skolekomNavn]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[skolekomNavn]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[skolekomNavn]"
+                      name="skolekomNavn" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[mailadresse]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[mailadresse]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[mailadresse]"
+                      name="mailadresse" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[funktionsmarkering]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[funktionsmarkering]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[funktionsmarkering]"
+                      name="funktionsmarkering" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[Ansatte_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[Ansatte_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[brugerID]"
+                      dataType="nText"
+                      name="brugerID" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[cprnr]"
+                      dataType="nText"
+                      name="cprnr" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[initieltPw]"
+                      dataType="nText"
+                      name="initieltPw" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[pwStatus]"
+                      dataType="nText"
+                      name="pwStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[navn]"
+                      dataType="nText"
+                      name="navn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[fornavn]"
+                      dataType="nText"
+                      name="fornavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[efternavn]"
+                      dataType="nText"
+                      name="efternavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[skolekomNavn]"
+                      dataType="nText"
+                      name="skolekomNavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[mailadresse]"
+                      dataType="nText"
+                      name="mailadresse" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[funktionsmarkering]"
+                      dataType="nText"
+                      name="funktionsmarkering" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat Error Output].ExternalColumns[Ansatte_Id]"
+                      dataType="nText"
+                      name="Ansatte_Id" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution]"
+                  name="Institution">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Institution</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institution_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Institution_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institution_Id]"
+                      name="Institution_Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Instnr]"
+                      dataType="ui4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Instnr]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Instnr]"
+                      name="Instnr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institutioner_Id]"
+                      dataType="ui8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Institutioner_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institutioner_Id]"
+                      name="Institutioner_Id"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Institution_Id]"
+                      dataType="ui8"
+                      name="Institution_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Instnr]"
+                      dataType="ui4"
+                      name="Instnr">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt32</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].ExternalColumns[Institutioner_Id]"
+                      dataType="ui8"
+                      name="Institutioner_Id">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          name="CLRType">System.UInt64</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output]"
+                  isErrorOut="true"
+                  name="Institution Error Output">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Identifies the rowset associated with the output."
+                      name="RowsetID">Institution</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Institution_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Institution_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Institution_Id]"
+                      name="Institution_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Instnr]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Instnr]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Instnr]"
+                      name="Instnr" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Institutioner_Id]"
+                      dataType="nText"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Institutioner_Id]"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[Institutioner_Id]"
+                      name="Institutioner_Id" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Institution_Id]"
+                      dataType="nText"
+                      name="Institution_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Instnr]"
+                      dataType="nText"
+                      name="Instnr" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution Error Output].ExternalColumns[Institutioner_Id]"
+                      dataType="nText"
+                      name="Institutioner_Id" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\Merge Join"
+              componentClassID="{14D43A4F-D7BD-489D-829E-6DE35750CFE4}"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Merges data from two datasets by using a join."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[Ansatte_Id]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[brugerID]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="brugerID"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[brugerID]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[cprnr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="cprnr"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[cprnr]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[initieltPw]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="initieltPw"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[initieltPw]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[pwStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="pwStatus"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[pwStatus]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[navn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="navn"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[navn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[fornavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="fornavn"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[fornavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[efternavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="efternavn"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[efternavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[skolekomNavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="skolekomNavn"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[skolekomNavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[mailadresse]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="mailadresse"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[mailadresse]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[funktionsmarkering]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="funktionsmarkering"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[funktionsmarkering]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Right Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Ansatte_Id]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Right Input].Columns[Instnr]"
+                      cachedDataType="ui4"
+                      cachedName="Instnr"
+                      lineageId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output].Columns[Instnr]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[Institution_Id]"
+                      dataType="ui4"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[Institution_Id]"
+                      name="Institution_Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Right Input].Columns[Instnr]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[brugerID]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[brugerID]"
+                      name="brugerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[brugerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[cprnr]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[cprnr]"
+                      name="cprnr">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[cprnr]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[initieltPw]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[initieltPw]"
+                      name="initieltPw">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[initieltPw]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[pwStatus]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[pwStatus]"
+                      name="pwStatus">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[pwStatus]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[navn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[navn]"
+                      name="navn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[navn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[fornavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[fornavn]"
+                      name="fornavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[fornavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[efternavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[efternavn]"
+                      name="efternavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[efternavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[skolekomNavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[skolekomNavn]"
+                      name="skolekomNavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[skolekomNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[mailadresse]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[mailadresse]"
+                      name="mailadresse">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[mailadresse]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[funktionsmarkering]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[funktionsmarkering]"
+                      name="funktionsmarkering">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input].Columns[funktionsmarkering]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\Merge Join 1"
+              componentClassID="{14D43A4F-D7BD-489D-829E-6DE35750CFE4}"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Merges data from two datasets by using a join."
+              name="Merge Join 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Left Input].Columns[Institution_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Institution_Id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Institution_Id]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Left Input].Columns[Instnr]"
+                      cachedDataType="ui4"
+                      cachedName="Instnr"
+                      lineageId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Instnr]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Right Input].Columns[Institution_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Institution_Id"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Institution_Id]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Right Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      lineageId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Ansatte_Id]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Instnr]"
+                      dataType="ui4"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Instnr]"
+                      name="Instnr">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Left Input].Columns[Instnr]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Right Input].Columns[Ansatte_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\OLE DB Destination"
+              componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[UNIC].[Ansatte]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Importer UNIC ansatte\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DSA_SOFD]"
+                  connectionManagerRefId="Package.ConnectionManagers[DSA_SOFD]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[brugerID]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="brugerID"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[brugerID]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[brugerID]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[cprnr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="cprnr"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cprnr]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[cprnr]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[initieltPw]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="initieltPw"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[initieltPw]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[initieltPw]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[pwStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="pwStatus"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pwStatus]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[pwStatus]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[navn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="navn"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[navn]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[navn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[fornavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="fornavn"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fornavn]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[fornavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[efternavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="efternavn"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[efternavn]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[efternavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[skolekomNavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="skolekomNavn"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[skolekomNavn]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[skolekomNavn]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[mailadresse]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="mailadresse"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[mailadresse]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[mailadresse]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[funktionsmarkering]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="funktionsmarkering"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[funktionsmarkering]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[funktionsmarkering]" />
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Institution_Id]"
+                      cachedDataType="ui4"
+                      cachedName="Institution_Id"
+                      externalMetadataColumnId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Institutionsnr]"
+                      lineageId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output].Columns[Institution_Id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[brugerID]"
+                      dataType="wstr"
+                      length="255"
+                      name="brugerID" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cprnr]"
+                      dataType="wstr"
+                      length="255"
+                      name="cprnr" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[initieltPw]"
+                      dataType="wstr"
+                      length="255"
+                      name="initieltPw" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pwStatus]"
+                      dataType="wstr"
+                      length="255"
+                      name="pwStatus" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[navn]"
+                      dataType="wstr"
+                      length="255"
+                      name="navn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[fornavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="fornavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[efternavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="efternavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[skolekomNavn]"
+                      dataType="wstr"
+                      length="255"
+                      name="skolekomNavn" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[mailadresse]"
+                      dataType="wstr"
+                      length="255"
+                      name="mailadresse" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[funktionsmarkering]"
+                      dataType="wstr"
+                      length="255"
+                      name="funktionsmarkering" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Institutionsnr]"
+                      dataType="numeric"
+                      name="Institutionsnr"
+                      precision="20" />
+                    <externalMetadataColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UNICID]"
+                      dataType="i4"
+                      name="UNICID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Importer UNIC ansatte\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\Sort"
+              componentClassID="{5B1A3FF5-D366-4D75-AD1F-F19A36FCBEDB}"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Inputs[Sort Input].Columns[Institution_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Institution_Id"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institution_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Inputs[Sort Input].Columns[Instnr]"
+                      cachedDataType="ui4"
+                      cachedName="Instnr"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Instnr]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Inputs[Sort Input].Columns[Institutioner_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Institutioner_Id"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institutioner_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Institution_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Institution_Id]"
+                      name="Institution_Id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institution_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Instnr]"
+                      dataType="ui4"
+                      lineageId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Instnr]"
+                      name="Instnr">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Instnr]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Institutioner_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output].Columns[Institutioner_Id]"
+                      name="Institutioner_Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution].Columns[Institutioner_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\Sort 1"
+              componentClassID="{5B1A3FF5-D366-4D75-AD1F-F19A36FCBEDB}"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="Sort 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\Sort 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Sort 1.Inputs[Sort Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Ansatte_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\Sort 1.Inputs[Sort Input].Columns[Institution_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Institution_Id"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Institution_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Ansatte_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Institution_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output].Columns[Institution_Id]"
+                      name="Institution_Id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte].Columns[Institution_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Importer UNIC ansatte\UnicAnsat"
+              componentClassID="{5B1A3FF5-D366-4D75-AD1F-F19A36FCBEDB}"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SqlServer v10; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts data."
+              name="UnicAnsat"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[brugerID]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="brugerID"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[brugerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[cprnr]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="cprnr"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[cprnr]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[initieltPw]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="initieltPw"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[initieltPw]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[pwStatus]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="pwStatus"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[pwStatus]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[navn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="navn"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[navn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[fornavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="fornavn"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[fornavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[efternavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="efternavn"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[efternavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[skolekomNavn]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="skolekomNavn"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[skolekomNavn]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[mailadresse]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="mailadresse"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[mailadresse]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[funktionsmarkering]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="funktionsmarkering"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[funktionsmarkering]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input].Columns[Ansatte_Id]"
+                      cachedDataType="ui8"
+                      cachedName="Ansatte_Id"
+                      lineageId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[Ansatte_Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[brugerID]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[brugerID]"
+                      name="brugerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[brugerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[cprnr]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[cprnr]"
+                      name="cprnr">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[cprnr]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[initieltPw]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[initieltPw]"
+                      name="initieltPw">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[initieltPw]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[pwStatus]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[pwStatus]"
+                      name="pwStatus">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[pwStatus]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[navn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[navn]"
+                      name="navn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[navn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[fornavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[fornavn]"
+                      name="fornavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[fornavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[efternavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[efternavn]"
+                      name="efternavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[efternavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[skolekomNavn]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[skolekomNavn]"
+                      name="skolekomNavn">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[skolekomNavn]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[mailadresse]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[mailadresse]"
+                      name="mailadresse">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[mailadresse]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[funktionsmarkering]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[funktionsmarkering]"
+                      name="funktionsmarkering">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[funktionsmarkering]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      dataType="ui8"
+                      lineageId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output].Columns[Ansatte_Id]"
+                      name="Ansatte_Id"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat].Columns[Ansatte_Id]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Ansatte]"
+              endId="Package\Importer UNIC ansatte\Sort 1.Inputs[Sort Input]"
+              name="Ansatte"
+              startId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Ansatte]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Institution]"
+              endId="Package\Importer UNIC ansatte\Sort.Inputs[Sort Input]"
+              name="Institution"
+              startId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[Institution]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Merge Join Output]"
+              endId="Package\Importer UNIC ansatte\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Merge Join Output"
+              startId="Package\Importer UNIC ansatte\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Merge Join Output1]"
+              endId="Package\Importer UNIC ansatte\Ansat.Inputs[Sort Input]"
+              name="Merge Join Output"
+              startId="Package\Importer UNIC ansatte\Merge Join 1.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Sort Output]"
+              endId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Importer UNIC ansatte\Ansat.Outputs[Sort Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Sort Output1]"
+              endId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Importer UNIC ansatte\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Sort Output2]"
+              endId="Package\Importer UNIC ansatte\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Importer UNIC ansatte\UnicAnsat.Outputs[Sort Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[Sort Output3]"
+              endId="Package\Importer UNIC ansatte\Merge Join 1.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Importer UNIC ansatte\Sort 1.Outputs[Sort Output]" />
+            <path
+              refId="Package\Importer UNIC ansatte.Paths[UNLoginAnsat]"
+              endId="Package\Importer UNIC ansatte\UnicAnsat.Inputs[Sort Input]"
+              name="UNLoginAnsat"
+              startId="Package\Importer UNIC ansatte\Henter UNIC ansatte.Outputs[UNLoginAnsat]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{675D43A2-8F71-4396-89ED-0A2C0C1445AF}"
+      DTS:From="Package\Clear Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Importer UNIC ansatte" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Clear Tables"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte"
+          TopLeft="92.160377358491,158.443396226415" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="73.5,49.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="86.660377358491,108.943396226415"
+              Start="0,0"
+              End="86.660377358491,101.443396226415">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.4716981132076" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,50.4716981132076"
+                    Point2="0,54.4716981132076"
+                    Point3="4,54.4716981132076" />
+                  <mssgle:LineSegment
+                    End="82.660377358491,54.4716981132076" />
+                  <mssgle:CubicBezierSegment
+                    Point1="82.660377358491,54.4716981132076"
+                    Point2="86.660377358491,54.4716981132076"
+                    Point3="86.660377358491,58.4716981132076" />
+                  <mssgle:LineSegment
+                    End="86.660377358491,101.443396226415" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <ConnectionManager
+    design-time-name="Package.ConnectionManagers[DSA_SOFD]">
+    <DataSourceID>DSA SOFD DB</DataSourceID>
+  </ConnectionManager>
+  <TaskHost
+    design-time-name="Package\Importer UNIC ansatte">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\Merge Join"
+          TopLeft="171.367924528302,429.839622641509" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\UnicAnsat"
+          TopLeft="72.5,317.990566037736" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\Sort"
+          TopLeft="322.084905660377,155.27358490566" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\Merge Join 1"
+          TopLeft="433.933962264151,232.141509433962" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\OLE DB Destination"
+          TopLeft="158.349056603774,519.688679245283" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\Sort 1"
+          TopLeft="565.707547169811,167.235849056604" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Importer UNIC ansatte\Ansat"
+          TopLeft="239.216981132075,334.933962264151" />
+        <NodeLayout
+          Size="163,65"
+          Id="Package\Importer UNIC ansatte\Henter UNIC ansatte"
+          TopLeft="206.27358490566,5.5" />
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Sort Output3]"
+          TopLeft="633.594339622642,211.160377358491">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-111.018867924528,20.9811320754717"
+              Start="0,0"
+              End="-111.018867924528,13.4811320754717">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.4905660377358" />
+                  <mssgle:LineSegment
+                    End="-111.018867924528,10.4905660377358" />
+                  <mssgle:LineSegment
+                    End="-111.018867924528,13.4811320754717" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Sort Output2]"
+          TopLeft="140.38679245283,361.915094339623">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.8679245283019,67.9245283018868"
+              Start="0,0"
+              End="98.8679245283019,60.4245283018868">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.9622641509434" />
+                  <mssgle:LineSegment
+                    End="98.8679245283019,33.9622641509434" />
+                  <mssgle:LineSegment
+                    End="98.8679245283019,60.4245283018868" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Sort Output1]"
+          TopLeft="389.971698113208,199.198113207547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="111.849056603774,32.9433962264151"
+              Start="0,0"
+              End="111.849056603774,25.4433962264151">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.4528301886793" />
+                  <mssgle:LineSegment
+                    End="111.849056603774,16.4528301886793" />
+                  <mssgle:LineSegment
+                    End="111.849056603774,25.4433962264151" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Sort Output]"
+          TopLeft="307.103773584906,378.858490566038">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-47.0943396226415,50.9811320754717"
+              Start="0,0"
+              End="-47.0943396226415,43.4811320754717">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.4716981132075" />
+                  <mssgle:LineSegment
+                    End="-47.0943396226415,25.4716981132075" />
+                  <mssgle:LineSegment
+                    End="-47.0943396226415,43.4811320754717" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Merge Join Output1]"
+          TopLeft="501.820754716981,276.066037735849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-194.716981132075,58.8679245283019"
+              Start="0,0"
+              End="-194.716981132075,51.3679245283019">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.433962264151" />
+                  <mssgle:LineSegment
+                    End="-194.716981132075,29.433962264151" />
+                  <mssgle:LineSegment
+                    End="-194.716981132075,51.3679245283019" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Merge Join Output]"
+          TopLeft="239.254716981132,473.764150943396">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13.0188679245283,45.9245283018868"
+              Start="0,0"
+              End="-13.0188679245283,38.4245283018868">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.9433962264151" />
+                  <mssgle:LineSegment
+                    End="-13.0188679245283,22.9433962264151" />
+                  <mssgle:LineSegment
+                    End="-13.0188679245283,38.4245283018868" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Institution]"
+          TopLeft="287.632075471698,70.4056603773585">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102.339622641509,84.8679245283019"
+              Start="0,0"
+              End="102.339622641509,77.3679245283019">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.4150943396227" />
+                  <mssgle:LineSegment
+                    End="102.339622641509,42.4150943396227" />
+                  <mssgle:LineSegment
+                    End="102.339622641509,77.3679245283019" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="28.2312761645047,47.4150943396227,45.8770703125,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[Ansatte]"
+          TopLeft="329.141509433962,70.4056603773585">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="304.452830188679,96.8301886792453"
+              Start="0,0"
+              End="304.452830188679,89.3301886792453">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.188679245283" />
+                  <mssgle:LineSegment
+                    End="304.452830188679,24.188679245283" />
+                  <mssgle:LineSegment
+                    End="304.452830188679,89.3301886792453" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="134.71700103184,29.188679245283,35.018828125,9.421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Importer UNIC ansatte.Paths[UNLoginAnsat]"
+          TopLeft="266.877358490566,70.4056603773585">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-97.377358490566,247.584905660377"
+              Start="0,0"
+              End="-97.377358490566,240.084905660377">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,119.77358490566" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,119.77358490566"
+                    Point2="0,123.77358490566"
+                    Point3="-4,123.77358490566" />
+                  <mssgle:LineSegment
+                    End="-93.377358490566,123.77358490566" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-93.377358490566,123.77358490566"
+                    Point2="-97.377358490566,123.77358490566"
+                    Point3="-97.377358490566,127.77358490566" />
+                  <mssgle:LineSegment
+                    End="-97.377358490566,240.084905660377" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-80.194011276533,128.77358490566,63.0106640625,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Importer UNIC ansatte\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
