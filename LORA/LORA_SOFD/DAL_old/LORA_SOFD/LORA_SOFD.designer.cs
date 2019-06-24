@@ -63,6 +63,9 @@ namespace DAL_old.LORA_SOFD
     partial void InsertqUsers_AD(qUsers_AD instance);
     partial void UpdateqUsers_AD(qUsers_AD instance);
     partial void DeleteqUsers_AD(qUsers_AD instance);
+    partial void Insertorg_uiid(org_uiid instance);
+    partial void Updateorg_uiid(org_uiid instance);
+    partial void Deleteorg_uiid(org_uiid instance);
     #endregion
 		
 		public LORA_SOFDDataContext() : 
@@ -196,6 +199,14 @@ namespace DAL_old.LORA_SOFD
 			get
 			{
 				return this.GetTable<v_akubiz_employee>();
+			}
+		}
+		
+		public System.Data.Linq.Table<org_uiid> org_uiids
+		{
+			get
+			{
+				return this.GetTable<org_uiid>();
 			}
 		}
 	}
@@ -3905,6 +3916,116 @@ namespace DAL_old.LORA_SOFD
 				{
 					this._OrgName = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="ad.org_uiid")]
+	public partial class org_uiid : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _system_id;
+		
+		private string _OrgOpusID;
+		
+		private string _orguuid;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onsystem_idChanging(int value);
+    partial void Onsystem_idChanged();
+    partial void OnOrgOpusIDChanging(string value);
+    partial void OnOrgOpusIDChanged();
+    partial void OnorguuidChanging(string value);
+    partial void OnorguuidChanged();
+    #endregion
+		
+		public org_uiid()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_system_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int system_id
+		{
+			get
+			{
+				return this._system_id;
+			}
+			set
+			{
+				if ((this._system_id != value))
+				{
+					this.Onsystem_idChanging(value);
+					this.SendPropertyChanging();
+					this._system_id = value;
+					this.SendPropertyChanged("system_id");
+					this.Onsystem_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrgOpusID", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string OrgOpusID
+		{
+			get
+			{
+				return this._OrgOpusID;
+			}
+			set
+			{
+				if ((this._OrgOpusID != value))
+				{
+					this.OnOrgOpusIDChanging(value);
+					this.SendPropertyChanging();
+					this._OrgOpusID = value;
+					this.SendPropertyChanged("OrgOpusID");
+					this.OnOrgOpusIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_orguuid", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string orguuid
+		{
+			get
+			{
+				return this._orguuid;
+			}
+			set
+			{
+				if ((this._orguuid != value))
+				{
+					this.OnorguuidChanging(value);
+					this.SendPropertyChanging();
+					this._orguuid = value;
+					this.SendPropertyChanged("orguuid");
+					this.OnorguuidChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

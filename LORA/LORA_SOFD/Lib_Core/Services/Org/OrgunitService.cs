@@ -10,6 +10,7 @@ namespace Lib_Core.Services.Org
     internal class OrgunitService
     {
         private IRepo<OrgUnit> dsa_orgRepo;
+        private IRepo<org_uiid> org_uuid_repo;
         private AdressService adr_service;
         private IRepo<Orgunit> lora_orgRepo;
         private IQueryable<OrgUnit> dsa_orgs;
@@ -21,6 +22,7 @@ namespace Lib_Core.Services.Org
             dsa_orgRepo = new OrgUnitRepo(dsa_constr);
             lora_orgRepo = new OrgunitRepo(lora_constr);
             adr_service = new AdressService(lora_constr);
+            org_uuid_repo = new Org_uuid_repo(lora_constr);
             dsa_orgs = Get_dsa_orgs(); // OBS skal før dsa_ids
             dsa_ids = Get_dsa_orgids();
             queue = new OrgunitQueue(lora_constr);
@@ -212,10 +214,10 @@ namespace Lib_Core.Services.Org
         /// </summary>
         internal void Add_UUIDs_to_Orgunits()
         {
-            MDMSOFD.mdmsofd mdm = new MDMSOFD.mdmsofd();
+            //MDMSOFD.mdmsofd mdm = new MDMSOFD.mdmsofd();
             foreach (Orgunit org in lora_orgRepo.Query.Where(o => o.Uuid.Length < 1))
             {
-                MDMSOFD.org_uiid morg = mdm.orgs.Where(o => o.OrgOpusID.Equals(org.Los_id.ToString())).FirstOrDefault();
+                org_uiid morg = org_uuid_repo.Query.Where(o => o.OrgOpusID.Equals(org.Los_id.ToString())).FirstOrDefault();
                 if(morg != null)
                 {
                     org.Uuid = morg.orguuid;

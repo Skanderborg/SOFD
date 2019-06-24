@@ -115,5 +115,11 @@
         <elementListCompartment Id="849813e7-5037-4b5b-a691-43b767f6ab8d" absoluteBounds="4.14, 13.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="102b7be5-31c0-4938-9f91-c3c33ddaf8fb" absoluteBounds="2.375, 17.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/LORA_SOFDDataContext/org_uiid" />
+      <nestedChildShapes>
+        <elementListCompartment Id="64241174-4b0e-48ef-adda-331923d33579" absoluteBounds="2.39, 17.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
