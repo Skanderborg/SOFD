@@ -1,8 +1,6 @@
-This is the fast fix for our current SOFD instance, that is build mainly with SSIS packages.
-It will eventually be replaced by a python flask api, and perhaps eventually OS2MO.
-
-DSA_SOFD remains a Microsoft SSIS job as it's only responsible for turning XLM data sources into SQL.
+This is the first inistance of the SOFD replacement, which was mainly build with SSIS packagaes and full-loads.
+It will eventually be extended to include an API, or perhaps eventually replaced by OS2MO.
 
 The old SOFD trundles on, unaffected.
 
-- Jacob Hansen
+- Jacob Ågård Bennike
