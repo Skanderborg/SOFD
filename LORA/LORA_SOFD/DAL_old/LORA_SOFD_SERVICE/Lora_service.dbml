@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LORA_SOFD" Class="Lora_serviceDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dbsrv_lora_sofd;Initial Catalog=LORA_SOFD;Persist Security Info=True;User ID=lora_sofd_rw" SettingsObjectName="DAL_old.Properties.Settings" SettingsPropertyName="LORA_SOFDConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="service.v_god_ledelse_fælleden" Member="v_god_ledelse_fælledens">
+    <Type Name="v_god_ledelse_fælleden">
+      <Column Name="orgenhed" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="stilling" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="User_fk" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Pnr" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="service.god_ledelse_pnrs" Member="god_ledelse_pnrs">
+    <Type Name="god_ledelse_pnr">
+      <Column Name="system_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pnr" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

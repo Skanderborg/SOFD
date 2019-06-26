@@ -77,6 +77,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Views\Digi_teknik\Sofd_Medarbejderoverblik.aspx" />
+    <Content Include="Views\HR\god_ledelse_faelled.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\God_ledelse_faelled_service.cs" />
     <Compile Include="Services\Sofd_medarbejderoverblik_Service.cs" />
     <Compile Include="Views\Digi_teknik\Sofd_Medarbejderoverblik.aspx.cs">
       <DependentUpon>Sofd_Medarbejderoverblik.aspx</DependentUpon>
@@ -96,6 +98,13 @@
     </Compile>
     <Compile Include="Views\Digi_teknik\Sofd_Medarbejderoverblik.aspx.designer.cs">
       <DependentUpon>Sofd_Medarbejderoverblik.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HR\god_ledelse_faelled.aspx.cs">
+      <DependentUpon>god_ledelse_faelled.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\HR\god_ledelse_faelled.aspx.designer.cs">
+      <DependentUpon>god_ledelse_faelled.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +159,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

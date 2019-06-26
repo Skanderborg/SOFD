@@ -47,8 +47,6 @@
     <Compile Include="Services\Emp\PositionService.cs" />
     <Compile Include="Services\Emp\UserQueue.cs" />
     <Compile Include="Services\Helpers\ManagerSetupHelper.cs" />
-    <Compile Include="Services\Helpers\OrgHelper.cs" />
-    <Compile Include="Services\Helpers\UserHelper.cs" />
     <Compile Include="Services\LoraService.cs" />
     <Compile Include="Services\Org\OrgunitService.cs" />
     <Compile Include="Services\Org\OrgunitQueue.cs" />
@@ -66,10 +64,6 @@
     <ProjectReference Include="..\Lib_StsOrgSync_mox\Lib_StsOrgSync_mox.csproj">
       <Project>{3154128c-9e43-4631-8f13-5456b987e137}</Project>
       <Name>Lib_StsOrgSync_mox</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDMSOFD\MDMSOFD.csproj">
-      <Project>{09428fea-bb0b-4f1e-a7d5-5df8f3cb8a2a}</Project>
-      <Name>MDMSOFD</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

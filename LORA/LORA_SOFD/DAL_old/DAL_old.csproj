@@ -72,6 +72,13 @@
     <Compile Include="LORA_SOFD\QUserRepo.cs" />
     <Compile Include="LORA_SOFD\Sofd_Medarbejderoverblik_Repo.cs" />
     <Compile Include="LORA_SOFD\UserRepo.cs" />
+    <Compile Include="LORA_SOFD_SERVICE\God_ledelse_faelledRepo.cs" />
+    <Compile Include="LORA_SOFD_SERVICE\God_ledelse_pnrRepo.cs" />
+    <Compile Include="LORA_SOFD_SERVICE\Lora_service.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Lora_service.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -97,6 +104,11 @@
     <None Include="LORA_SOFD\LORA_SOFD.dbml.layout">
       <DependentUpon>LORA_SOFD.dbml</DependentUpon>
     </None>
+    <None Include="LORA_SOFD_SERVICE\Lora_service.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Lora_service.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LORA_SOFD_SERVICE\Lora_service.dbml.layout">
+      <DependentUpon>Lora_service.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
