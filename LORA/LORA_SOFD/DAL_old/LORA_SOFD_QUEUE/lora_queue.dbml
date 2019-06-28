@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LORA_SOFD" Class="lora_queueDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dbsrv_lora_sofd;Initial Catalog=LORA_SOFD;Persist Security Info=True;User ID=lora_sofd_rw" SettingsObjectName="DAL_old.Properties.Settings" SettingsPropertyName="LORA_SOFDConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="queue.ad_org_actions" Member="ad_org_actions">
+    <Type Name="ad_org_action">
+      <Column Name="system_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="uuid" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="action" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="queue.ad_user_org_change" Member="ad_user_org_changes">
+    <Type Name="ad_user_org_change">
+      <Column Name="System_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Uuid" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Orgunit_los_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="action" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

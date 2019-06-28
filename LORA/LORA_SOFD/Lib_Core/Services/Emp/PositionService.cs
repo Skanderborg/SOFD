@@ -1,6 +1,7 @@
 ﻿using DAL_old;
 using DAL_old.DSA_SOFD;
 using DAL_old.LORA_SOFD;
+using DAL_old.LORA_SOFD_QUEUE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Lib_Core.Services.Emp
         private IRepo<User> useRepo;
         private IRepo<Person> perRepo;
         private IRepoQueue<qUser> queue_user;
-        private IRepo<qUsers_AD> queue_ad;
+        private IRepo<ad_user_org_change> ad_user_org_change_repo;
         private AdressService adr;
         private IRepo<v_emp> dsa_emp_repo;
         IQueryable<v_emp> dsa_emps;
@@ -25,7 +26,7 @@ namespace Lib_Core.Services.Emp
             useRepo = new UserRepo(lora_constr);
             perRepo = new PersonRepo(lora_constr);
             queue_user = new QUserRepo(lora_constr);
-            queue_ad = new QADRepo(lora_constr);
+            ad_user_org_change_repo = new Ad_user_org_change_repo(lora_constr);
             adr = new AdressService(lora_constr);
             dsa_emp_repo = new EmployeeRepo(dsa_constr);
             dsa_emps = Get_dsa_emps(); //obs skal køres først
@@ -143,6 +144,7 @@ namespace Lib_Core.Services.Emp
                     string _lastname = pos.Person.Lastname;
 
                     bool updates = false;
+                    bool has_org_unit_changed = false;
                     // har Person ændret sig
                     if(!emp.firstName.Equals(_firstname) || !emp.lastName.Equals(_lastname) || old_adr_fk != privat_adr_id)
                     {
@@ -153,6 +155,10 @@ namespace Lib_Core.Services.Emp
                     if (pos.Name != emp.position || pos.Orgunit_losid_fk != emp_los_id || pos.Ans_dato != ans_dato || pos.Fra_dato != fra_dato || pos.Is_Manager != (bool)emp.isManager ||
                             pos.Timetal != emp.numerator || pos.Pay_method != int.Parse(emp.workContract) || pos.Pay_method_text != emp.workContractText)
                     {
+                        if (pos.Orgunit_losid_fk != emp_los_id)
+                        {
+                            has_org_unit_changed = true;
+                        }
                         pos = Get_Position(pos, false, emp_opus_id, emp.position, emp_los_id, emp.cprnr, ans_dato, fra_dato, (bool)emp.isManager, (decimal)emp.numerator,
                         int.Parse(emp.workContract), emp.workContractText);
                         updates = true;
@@ -171,22 +177,16 @@ namespace Lib_Core.Services.Emp
                                 Time_added = DateTime.Now,
                                 Uuid = pos.User.Uuid
                             });
-                            queue_ad.Add(new qUsers_AD()
+
+                            if (has_org_unit_changed)
                             {
-                                Change_type = "Updated",
-                                EmployeeNumber = pos.Opus_id,
-                                City = pos.Orgunit.Adress.by,
-                                StreetAddress = pos.Orgunit.Adress.gade,
-                                Department = pos.Orgunit.Name,
-                                Uuid = pos.User.Uuid,
-                                Title = pos.Name,
-                                PostalCode = pos.Orgunit.Adress.postnr.ToString(),
-                                Time_added = DateTime.Now,
-                                Company = "",
-                                Manager = "",
-                                Office = ""
-                                // OBS OBS OBS ikke done
-                            });
+                                ad_user_org_change_repo.Add(new ad_user_org_change()
+                                {
+                                    Uuid = pos.User_fk,
+                                    Orgunit_los_id = pos.Orgunit_losid_fk,
+                                    action = "updated",
+                                });
+                            }
                         }
                     }
                 }

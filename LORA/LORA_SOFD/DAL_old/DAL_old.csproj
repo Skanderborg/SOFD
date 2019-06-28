@@ -72,6 +72,13 @@
     <Compile Include="LORA_SOFD\QUserRepo.cs" />
     <Compile Include="LORA_SOFD\Sofd_Medarbejderoverblik_Repo.cs" />
     <Compile Include="LORA_SOFD\UserRepo.cs" />
+    <Compile Include="LORA_SOFD_QUEUE\Ad_org_change_repo.cs" />
+    <Compile Include="LORA_SOFD_QUEUE\Ad_user_org_change_repo.cs" />
+    <Compile Include="LORA_SOFD_QUEUE\lora_queue.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lora_queue.dbml</DependentUpon>
+    </Compile>
     <Compile Include="LORA_SOFD_SERVICE\God_ledelse_faelledRepo.cs" />
     <Compile Include="LORA_SOFD_SERVICE\God_ledelse_pnrRepo.cs" />
     <Compile Include="LORA_SOFD_SERVICE\Lora_service.designer.cs">
@@ -104,6 +111,11 @@
     <None Include="LORA_SOFD\LORA_SOFD.dbml.layout">
       <DependentUpon>LORA_SOFD.dbml</DependentUpon>
     </None>
+    <None Include="LORA_SOFD_QUEUE\lora_queue.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>lora_queue.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="LORA_SOFD_SERVICE\Lora_service.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Lora_service.designer.cs</LastGenOutput>
@@ -120,6 +132,11 @@
   <ItemGroup>
     <None Include="LORA_SOFD_SERVICE\Lora_service.dbml.layout">
       <DependentUpon>Lora_service.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LORA_SOFD_QUEUE\lora_queue.dbml.layout">
+      <DependentUpon>lora_queue.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
