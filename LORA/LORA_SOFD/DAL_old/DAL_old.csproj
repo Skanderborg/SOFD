@@ -64,7 +64,6 @@
     </Compile>
     <Compile Include="LORA_SOFD\ManagerLookupRepo.cs" />
     <Compile Include="LORA_SOFD\Org_uuid_repo.cs" />
-    <Compile Include="LORA_SOFD\QADRepo.cs" />
     <Compile Include="LORA_SOFD\QOrgunitRepo.cs" />
     <Compile Include="LORA_SOFD\OrgunitRepo.cs" />
     <Compile Include="LORA_SOFD\PersonRepo.cs" />

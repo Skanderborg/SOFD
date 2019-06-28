@@ -1,6 +1,7 @@
 ﻿using DAL_old;
 using DAL_old.DSA_SOFD;
 using DAL_old.LORA_SOFD;
+using DAL_old.LORA_SOFD_QUEUE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Lib_Core.Services.Org
         private IQueryable<OrgUnit> dsa_orgs;
         private List<int> dsa_ids;
         private OrgunitQueue queue;
+        private IRepo<ad_org_action> ad_org_change_repo;
 
         internal OrgunitService(string dsa_constr, string lora_constr)
         {
@@ -26,6 +28,7 @@ namespace Lib_Core.Services.Org
             dsa_orgs = Get_dsa_orgs(); // OBS skal før dsa_ids
             dsa_ids = Get_dsa_orgids();
             queue = new OrgunitQueue(lora_constr);
+            ad_org_change_repo = new Ad_org_change_repo(lora_constr);
         }
 
         #region setup
@@ -101,6 +104,13 @@ namespace Lib_Core.Services.Org
 
                     lora_orgRepo.Add(org);
                     // queue.Add_Org_queue_item(org.Uuid, org.Los_id, "Created"); <- skal først aktiveres når LORA SOFD skriver UUID indtil da se: Add_UUIDs_to_Orgunits()
+
+                    // fortæller AD at der er en ny org unit
+                    ad_org_change_repo.Add(new ad_org_action() {
+                        uuid = null,
+                        los_id = org.Los_id,
+                        action = "created"
+                    });
                 }
             }
         }
@@ -134,6 +144,14 @@ namespace Lib_Core.Services.Org
 
                         lora_orgRepo.Update(org);
                         queue.Add_Org_queue_item(org.Uuid, org.Los_id, org.Org_niveau, "Updated");
+
+                        // fortæller AD at der er slettet en org
+                        ad_org_change_repo.Add(new ad_org_action()
+                        {
+                            uuid = org.Uuid,
+                            los_id = org.Los_id,
+                            action = "updated"
+                        });
                     }
                 }
             }
@@ -151,6 +169,15 @@ namespace Lib_Core.Services.Org
                 {
                     Orgunit org = lora_orgRepo.Query.Where(o => o.Los_id == lora_los_id).First();
                     queue.Add_Org_queue_item(org.Uuid, lora_los_id, org.Org_niveau, "Deleted");
+
+                    // fortæller AD at der er slettet en org
+                    ad_org_change_repo.Add(new ad_org_action()
+                    {
+                        uuid = org.Uuid,
+                        los_id = org.Los_id,
+                        action = "deleted"
+                    });
+
                     lora_orgRepo.Delete(org);
                 }
             }

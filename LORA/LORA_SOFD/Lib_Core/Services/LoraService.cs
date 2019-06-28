@@ -95,18 +95,12 @@ namespace Lib_Core.Services
             // Opretter Updated events i STS user køen
             // Opretter Updated events i AD user køen
             // OBS: de 5 dage kan nok forbedres.
-            positionService.Update_positions(lora_org_ids); // null persons?
+            positionService.Update_positions_from_dsa(lora_org_ids); // null persons?
             last_step = "positionService.Update_positions(lora_org_ids);";
 
-            // Opdaterer users - positions - opdateringer fra ad tror jeg OBS IKKE DONE
-            string s = "";
-
-            // Benytter UserHelper servicen til at opdaterer nye og slettede AD brugere i LORA_SOFDs user tabel
-            // OBS: Dette er en midlertidig løsning, som skal erstattes af AD oprettelses flowet + AD event scripts på opdateringer og deaktiveringer
-            //UserHelper userHelper = new UserHelper(lora_constr);
-            //userHelper.CreateUsers();
-            //userHelper.Mark_deleted_users();
-            //last_step = "userHelper";
+            // Opdaterer forandringer fra AD
+            positionService.Add_updated_users_to_sts_org();
+            last_step = "positionService.Add_updated_users_to_sts_org()";
 
             // Fjerner de AD brugere som er markerede som slettede i LORA_SOFDs user tabel.
             // Opretter Deleted events i STS user køen

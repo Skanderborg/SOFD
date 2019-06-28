@@ -113,7 +113,7 @@ namespace Lib_Core.Services.Emp
             }
         }
 
-        internal void Update_positions(List<int> lora_los_ids)
+        internal void Update_positions_from_dsa(List<int> lora_los_ids)
         {
             List<int> lora_opus_ids = posRepo.Query.Select(p => p.Opus_id).ToList();
             foreach (v_emp emp in dsa_emps)//.Where(e => e.lastChanged > DateTime.Now.AddDays(-5)))
@@ -322,6 +322,22 @@ namespace Lib_Core.Services.Emp
                         });
                     }
                 }
+            }
+        }
+
+        // når der sker opdateringer fra AD er de markeret med et updated i dbo.users, dette skal tilføjes til stsorg køen
+        internal void Add_updated_users_to_sts_org()
+        {
+            foreach (User usr in useRepo.Query.Where(u => u.Updated == true)){
+                queue_user.Add(new qUser()
+                {
+                    Change_type = "Updated",
+                    Opus_id = usr.Opus_id,
+                    Time_added = DateTime.Now,
+                    Uuid = usr.Uuid
+                });
+                usr.Updated = false;
+                useRepo.Update(usr);
             }
         }
 
