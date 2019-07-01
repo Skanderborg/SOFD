@@ -328,7 +328,7 @@ namespace Lib_Core.Services.Emp
         // når der sker opdateringer fra AD er de markeret med et updated i dbo.users, dette skal tilføjes til stsorg køen
         internal void Add_updated_users_to_sts_org()
         {
-            foreach (User usr in useRepo.Query.Where(u => u.Updated == true)){
+            foreach (User usr in useRepo.Query.Where(u => u.Updated == true && u.Deleted_in_ad == false)){
                 queue_user.Add(new qUser()
                 {
                     Change_type = "Updated",
