@@ -120,6 +120,8 @@ namespace Lib_Core.Services.Emp
                 Positions = posses,
                 Person = per,
             };
+            if (usr.Positions == null)
+                throw new System.Exception("usr_position = null");
             return usr;
         }
 

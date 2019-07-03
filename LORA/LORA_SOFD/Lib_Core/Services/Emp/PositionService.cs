@@ -291,8 +291,9 @@ namespace Lib_Core.Services.Emp
 
         internal void Add_new_users_to_positions()
         {
-            List<int> none_taken_user_opusid = useRepo.Query.Where(u => u.Updated).Select(u => u.Opus_id).ToList<int>();
-            foreach(Position pos in posRepo.Query.Where(p => p.User == null)) //&& (p.Orgunit_losid_fk == 1016927 || p.Orgunit_losid_fk == 870650 || p.Orgunit_losid_fk == 1031024 ||
+            //List<int> none_taken_user_opusid = useRepo.Query.Where(u => u.Updated).Select(u => u.Opus_id).ToList<int>();
+            List<int> none_taken_user_opusid = useRepo.Query.Select(u => u.Opus_id).ToList<int>();
+            foreach (Position pos in posRepo.Query.Where(p => p.User == null)) //&& (p.Orgunit_losid_fk == 1016927 || p.Orgunit_losid_fk == 870650 || p.Orgunit_losid_fk == 1031024 ||
             //p.Orgunit_losid_fk == 822041 || p.Orgunit_losid_fk == 1031023 || p.Orgunit_losid_fk == 822040 || p.Orgunit_losid_fk == 1024926 ||
             //p.Orgunit_losid_fk == 876073 || p.Orgunit_losid_fk == 876074 || p.Orgunit_losid_fk == 1029490 || p.Orgunit_losid_fk == 1012542 ||
             //p.Orgunit_losid_fk == 855183 || p.Orgunit_losid_fk == 846684 || p.Orgunit_losid_fk == 861964 || p.Orgunit_losid_fk == 820579 || 

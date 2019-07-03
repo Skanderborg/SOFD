@@ -56,8 +56,8 @@ namespace Lib_Core.Services
             {
                 UserQueue usr_queue = new UserQueue(lora_conStr, api_key, endpoint_users_url, cvr);
                 usr_queue.Handle_creation();
-                current_fun = "Handle_updates()";
-                usr_queue.Handle_Updates();
+                //current_fun = "Handle_updates()";
+                //usr_queue.Handle_Updates();
                 current_fun = "Handle_Deletes()";
                 usr_queue.Handle_Deletes();
                 return true;
