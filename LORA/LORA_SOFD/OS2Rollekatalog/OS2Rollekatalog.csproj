@@ -46,16 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\EmployeeService.cs" />
+    <Compile Include="Model\OrgUnit.cs" />
+    <Compile Include="Model\OrgUnitService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\JsonService.cs" />
+    <Compile Include="Service\OrgRecursionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Service\" />
+    <ProjectReference Include="..\DAL_old\DAL_old.csproj">
+      <Project>{d09376b2-c11f-48c0-81bb-0e7b64336243}</Project>
+      <Name>DAL_old</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
