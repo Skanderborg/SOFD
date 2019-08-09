@@ -18,7 +18,7 @@ namespace OS2Rollekatalog.Model
         {
             List<Employee> result = new List<Employee>();
 
-            foreach (v_sofd_medarbejderoverblik emp in empRepo.Query.Where(e => e.Los_id == orgId))
+            foreach (v_sofd_medarbejderoverblik emp in empRepo.Query.Where(e => e.Los_id == orgId && e.Uuid != null))
             {
                 Employee _emp = new Employee()
                 {

@@ -9,18 +9,18 @@ namespace OS2Rollekatalog.Service
     {
         private OrgRecursionService rs;
 
-        public JsonService(string connStr, int parentOrgId)
+        internal JsonService(string connStr, int parentOrgId)
         {
             rs = new OrgRecursionService(connStr, parentOrgId);
         }
 
-        public string GetJson()
+        internal string GetJson()
         {
             OrgUnit org = rs.GetTopOrgUnit();
             return JsonConvert.SerializeObject(org);
         }
 
-        public void PostJson(string apiKey, string endPointUrl)
+        internal void PostJson(string apiKey, string endPointUrl)
         {
             string json = GetJson();
 
