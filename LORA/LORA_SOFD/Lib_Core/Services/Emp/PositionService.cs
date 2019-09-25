@@ -330,13 +330,17 @@ namespace Lib_Core.Services.Emp
         internal void Add_updated_users_to_sts_org()
         {
             foreach (User usr in useRepo.Query.Where(u => u.Updated == true && u.Deleted_in_ad == false)){
-                queue_user.Add(new qUser()
+                //tjekker om positionen faktisk findes
+                if (posRepo.Query.Where(p => p.Opus_id == usr.Opus_id).Count() > 0)
                 {
-                    Change_type = "Updated",
-                    Opus_id = usr.Opus_id,
-                    Time_added = DateTime.Now,
-                    Uuid = usr.Uuid
-                });
+                    queue_user.Add(new qUser()
+                    {
+                        Change_type = "Updated",
+                        Opus_id = usr.Opus_id,
+                        Time_added = DateTime.Now,
+                        Uuid = usr.Uuid
+                    });
+                }
                 usr.Updated = false;
                 useRepo.Update(usr);
             }

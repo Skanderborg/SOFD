@@ -56,15 +56,15 @@ namespace Lib_Core.Services
             {
                 UserQueue usr_queue = new UserQueue(lora_conStr, api_key, endpoint_users_url, cvr);
                 usr_queue.Handle_creation();
-                //current_fun = "Handle_updates()";
-                //usr_queue.Handle_Updates();
+                current_fun = "Handle_updates()";
+                usr_queue.Handle_Updates();
                 current_fun = "Handle_Deletes()";
                 usr_queue.Handle_Deletes();
                 return true;
             }
             catch (Exception e)
             {
-                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: "+ current_fun + " - error message: " + e.Message));
+                email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;

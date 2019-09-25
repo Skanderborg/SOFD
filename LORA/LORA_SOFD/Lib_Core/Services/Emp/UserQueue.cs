@@ -83,7 +83,9 @@ namespace Lib_Core.Services.Emp
 
         private User_json Get_user_json_obj(qUser item)
         {
-            Position pos = posRepo.Query.Where(p => p.Opus_id == item.Opus_id).First();
+            Position pos = posRepo.Query.Where(p => p.Opus_id == item.Opus_id).FirstOrDefault();
+            if (pos == null)
+                throw new System.Exception("Lib_Core.Services.Emp - > Get_user_json_obj(qUser item) kunne ikke finde position fra dbo.positions selvom queue.qUsers tror der skal opdateres for opus id: " + item.Opus_id);
             Person_json per = new Person_json()
             {
                 Name = pos.Person.Name,
