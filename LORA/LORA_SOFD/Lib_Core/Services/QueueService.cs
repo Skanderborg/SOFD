@@ -61,7 +61,7 @@ namespace Lib_Core.Services
                 current_fun = "Handle_Deletes()";
                 usr_queue.Handle_Deletes();
                 return true;
-            }
+        }
             catch (Exception e)
             {
                 email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
@@ -69,6 +69,6 @@ namespace Lib_Core.Services
                 email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "Lib_Core.Services.QueueService.cs - Complete_usr_queue() - kø funktion: " + current_fun + " - error message: " + e.Message));
                 return false;
             }
-        }
+}
     }
 }
