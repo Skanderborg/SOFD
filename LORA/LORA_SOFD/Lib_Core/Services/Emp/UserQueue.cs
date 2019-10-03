@@ -99,6 +99,9 @@ namespace Lib_Core.Services.Emp
                 OrgUnitUuid = pos.Orgunit.Uuid
             });
 
+            if (pos.User == null)
+                throw new System.Exception("Lib_Core.Services.Emp.UserQueue.cs -> Get_user_json_obj() fejl - systemet mener position med opus id: " + pos.Opus_id + " burde have en it burger, men det har vedkomne ikke - det er højest sandsynligt et gammelt kø element for en bruger der stadig er ansat men har mistet sin bruger.");
+
             string _email = "";
             if (pos.User.Email != null)
                 _email = pos.User.Email;
