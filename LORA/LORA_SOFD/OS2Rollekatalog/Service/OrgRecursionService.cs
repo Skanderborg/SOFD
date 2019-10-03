@@ -36,8 +36,11 @@ namespace OS2Rollekatalog.Service
                 foreach (Orgunit _org in query)
                 {
                     OrgUnit child = orgService.GetOrgUnitFromID(_org.Los_id);
-                    org.children.Add(child);
-                    GetOrgUnitRecursion(child);
+                    if (child.uuid != null && child.uuid.Length > 5)
+                    {
+                        org.children.Add(child);
+                        GetOrgUnitRecursion(child);
+                    }
                 }
             }
             return org;
