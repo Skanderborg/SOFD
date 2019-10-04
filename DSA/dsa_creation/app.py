@@ -6,7 +6,7 @@ from pprint import pprint
 
 os = Orgservice('c:\work\med_test.xml')
 l = os.get_orgunits_from_xml()
-print(l.count())
+print(len(l))
 
 
 emps = 0

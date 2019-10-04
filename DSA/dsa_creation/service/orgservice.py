@@ -10,6 +10,10 @@ class Orgservice:
     def get_orgunits_from_xml(self):
         orgs = []
         for orgunit in self.root.findall('orgUnit'):
+            costCenter = None
+            if orgunit.find('costCenter') != None:
+                costCenter = orgunit.find('costCenter').text
+
             org = Orgunit(orgunit.get('id'),
                           orgunit.get('lastChanged'),
                           orgunit.find('longName').text,
@@ -25,8 +29,8 @@ class Orgservice:
                           orgunit.find('eanNr').text,
                           orgunit.find('seNr').text,
                           orgunit.find('pNr').text,
-                          orgunit.find('costCenter').text,
                           orgunit.find('orgType').text,
-                          orgunit.find('orgTypeTxt').text)
+                          orgunit.find('orgTypeTxt').text,
+                          costCenter)
             orgs.append(org)
-            return orgs
+        return orgs
