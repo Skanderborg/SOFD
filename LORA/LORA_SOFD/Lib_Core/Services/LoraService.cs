@@ -38,16 +38,17 @@ namespace Lib_Core.Services
             if(orgService.Get_DSA_LORA_ORG_difference() < difference_tolerance_orgunits)
             {
                 //Update_Lora();
+                //return true;
                 try
                 {
                     Update_Lora();
                     return true;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     email.SendEmail(email.Get_Mailmessage(mail_error, "LORA_SOFD_ERROR", "Lib_Core.Services.LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
-                    email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
-                    email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
+                    //email.SendEmail(email.Get_Mailmessage("Mads.Nielsen@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
+                    //email.SendEmail(email.Get_Mailmessage("dof@skanderborg.dk", "LORA_SOFD_ERROR", "LoraService.cs - Update() - problem i indre Update_Lora() - last_step = " + last_step + " - error message: " + e.Message));
                     return false;
                 }
             }

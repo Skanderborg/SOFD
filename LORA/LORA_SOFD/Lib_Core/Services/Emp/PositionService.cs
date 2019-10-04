@@ -207,7 +207,12 @@ namespace Lib_Core.Services.Emp
                     
                     Position pos = posRepo.Query.Where(p => p.Opus_id == lora_id).First();
                     string cpr = pos.Person_fk;
+
+                    if (pos.Person == null)
+                        throw new Exception("Lib_core.services.positionservice.cs -> Delete_deleted_positions() mangler person på position med opus id:" + pos.Opus_id);
+
                     int adr_id = pos.Person.Private_adr_fk;
+
                     // har user?
                     if (pos.User != null)
                     {
@@ -221,7 +226,7 @@ namespace Lib_Core.Services.Emp
                         queue_user.Add(usr);
                         pos.User = null;
                         posRepo.Update(pos);
-                        pos = posRepo.Query.Where(p => p.Opus_id == lora_id).First();
+                        //pos = posRepo.Query.Where(p => p.Opus_id == lora_id).First();
                     }
 
                     posRepo.Delete(pos);
@@ -234,6 +239,10 @@ namespace Lib_Core.Services.Emp
                     }
 
                     // er adresse i brug?
+                    if(perRepo.Query.Where(a => a.System_id == adr_id).Count() == 0)
+                    {
+                        adr.Delete_Adr(adr_id);
+                    }
                 }
             }
         }
