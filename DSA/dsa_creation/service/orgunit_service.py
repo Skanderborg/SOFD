@@ -2,7 +2,7 @@ from model.orgunit import Orgunit
 import xml.etree.ElementTree as ET
 
 
-class Orgservice:
+class Orgunit_service:
     def __init__(self, xmlpath):
         self.tree = ET.parse(xmlpath)
         self.root = self.tree.getroot()

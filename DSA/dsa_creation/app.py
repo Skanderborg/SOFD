@@ -1,10 +1,10 @@
 import xml.etree.ElementTree as ET
-from service.orgservice import Orgservice
+from service.orgunit_service import Orgunit_service
 from model.employee import Employee
 from pprint import pprint
 
 
-os = Orgservice('c:\work\med_test.xml')
+os = Orgunit_service('c:\work\med_test.xml')
 l = os.get_orgunits_from_xml()
 print(len(l))
 
