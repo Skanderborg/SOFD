@@ -1,6 +1,7 @@
 class Position:
-    def __init__(self, opus_id, last_changed, position_title, position_short, los_id, paygrade_text, numerator, denominator, is_manager,
+    def __init__(self, person_ref, opus_id, last_changed, position_title, position_short, los_id, paygrade_text, numerator, denominator, is_manager,
                  work_contract, work_contract_text, entry_date, leave_date, initial_date, entry_into_group):
+        self.person_ref = person_ref
         self.opus_id = opus_id
         self.last_changed = last_changed
         self.position_title = position_title
