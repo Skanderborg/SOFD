@@ -239,7 +239,7 @@ namespace Lib_Core.Services.Emp
                     }
 
                     // er adresse i brug?
-                    if(perRepo.Query.Where(a => a.System_id == adr_id).Count() == 0)
+                    if(perRepo.Query.Where(p => p.Private_adr_fk == adr_id).Count() == 0)
                     {
                         adr.Delete_Adr(adr_id);
                     }
