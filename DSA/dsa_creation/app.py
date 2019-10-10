@@ -17,14 +17,14 @@ print(len(l))
 
 es = Employee_service('c:\work\med_test.xml')
 es.build_people_and_positions()
-per = es.get_people()
+per = es.get_persons()
 pos = es.get_positions()
 print(len(per))
 print(len(pos))
 
-constr = os.environ.get('constr_lora')
-pr = Person_repo(constr)
-pr.Get_persons()
+#constr = os.environ.get('constr_lora')
+#pr = Person_repo(constr)
+# pr.Get_persons()
 
 # pprint(vars(per['']))
 # pprint(vars(x))

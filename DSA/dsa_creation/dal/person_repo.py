@@ -9,8 +9,6 @@ class Person_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute("SELECT * FROM [LORA_SOFD].[dbo].[Persons];")
-        row = cursor.fetchone()
-        while row:
+        for row in cursor.fetchall():
             print(row)
-            row = cursor.fetchone()
         # return {}
