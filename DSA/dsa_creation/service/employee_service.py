@@ -52,7 +52,6 @@ class Employee_service:
                                intialEntry,
                                entryIntoGroup)
                 self.people[cpr] = per
-                #self.people.append(cpr, per)
                 self.positions.append(pos)
             elif emp.get('action') == 'leave':
                 continue

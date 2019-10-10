@@ -13,6 +13,7 @@
 **/Settings.Designer.cs
 **/lib/RCAJAX/*
 **/*.csv
+**/.env
 
 #sofd - mdm sofd is a temporary integration to the old SOFD - web_run is an internal test project
 **/MDMSOFD/*
