@@ -1,7 +1,14 @@
-import xml.etree.ElementTree as ET
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 from service.orgunit_service import Orgunit_service
 from service.employee_service import Employee_service
-from pprint import pprint
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+xml_path = os.environ.get('employee_org_xml_path')
+print(xml_path)
+
 
 
 os = Orgunit_service('c:\work\med_test.xml')
