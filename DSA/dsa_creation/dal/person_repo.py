@@ -1,19 +1,24 @@
 import pyodbc
+from model.person import Person
 
 
 class Person_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def Get_persons(self):
+    def get_persons(self):
+        result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute("SELECT * FROM pyt.persons;")
         for row in cursor.fetchall():
-            print(row)
-        # return {}
+            cpr = row[1]
+            per = Person(cpr, row[2], row[3],
+                         row[4], row[5], row[6], row[7])
+            result[cpr] = per
+        return result
 
-    def Insert_person(self, person):
+    def insert_person(self, person):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(

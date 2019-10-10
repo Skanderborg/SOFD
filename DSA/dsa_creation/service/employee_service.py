@@ -1,12 +1,14 @@
 from model.position import Position
 from model.person import Person
+from dal.person_repo import Person_repo
 import xml.etree.ElementTree as ET
 
 
 class Employee_service:
-    def __init__(self, xmlpath):
+    def __init__(self, xmlpath, constr_lora):
         self.tree = ET.parse(xmlpath)
         self.root = self.tree.getroot()
+        self.constr_lora = constr_lora
         self.persons = {}
         self.positions = []
 
@@ -74,3 +76,13 @@ class Employee_service:
 
     def get_positions(self):
         return self.positions
+
+    def insert_persons(self):
+        repo = Person_repo(self.constr_lora)
+        sofd_persons = repo.get_persons()
+
+        for key in self.persons:
+            if key in sofd_persons:
+                print('fundet')
+            else:
+                repo.insert_person(self.persons[key])
