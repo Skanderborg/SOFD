@@ -11,8 +11,8 @@ constr_lora = os.environ.get('constr_lora')
 
 
 emp_service = Employee_service(xml_path, constr_lora)
-emp_service.build_people_and_positions()
-emp_service.insert_persons()
+emp_service.build_people_and_positions_from_opusxml()
+emp_service.update_persons()
 
 #orgunit_service = Orgunit_service('c:\work\med_test.xml')
 #l = orgunit_service.get_orgunits_from_xml()

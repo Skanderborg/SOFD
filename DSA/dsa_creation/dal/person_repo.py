@@ -31,3 +31,16 @@ class Person_repo:
             person.city,
             person.country)
         cnxn.commit()
+
+    def update_person(self, person):
+        cnxn = cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute("UPDATE pyt.persons SET firstname = ?, lastname = ?, address = ?, zipcode = ?, city = ?, country = ? WHERE cpr = ? ",
+                       person.firstname,
+                       person.lastname,
+                       person.address,
+                       person.zipcode,
+                       person.city,
+                       person.country,
+                       person.cpr)
+        cnxn.commit()
