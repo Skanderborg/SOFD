@@ -3,6 +3,11 @@ from model.person import Person
 from dal.person_repo import Person_repo
 import xml.etree.ElementTree as ET
 
+'''
+Author: Jacob Ågård Bennike
+Handles the employee aspect of the OPUS XML
+'''
+
 
 class Employee_service:
     def __init__(self, xmlpath, constr_lora):
@@ -89,7 +94,7 @@ class Employee_service:
 
     def update_persons(self):
         '''
-        Function that inserts new persons and updates old ones
+        Function to insert new persons from OPUS, update people who have changed and mark absent people as deleted to be handled later because they are tied to positions
         '''
         repo = Person_repo(self.constr_lora)
         sofd_persons = repo.get_persons()
