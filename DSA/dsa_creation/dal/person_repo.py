@@ -22,7 +22,7 @@ class Person_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "INSERT into pyt.persons(cpr, firstname, lastname, address, zipcode, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT into pyt.persons(cpr, firstname, lastname, address, zipcode, city, country, updated, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, 1, 0)",
             person.cpr,
             person.firstname,
             person.lastname,
@@ -33,9 +33,9 @@ class Person_repo:
         cnxn.commit()
 
     def update_person(self, person):
-        cnxn = cnxn = pyodbc.connect(self.constr_lora)
+        cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("UPDATE pyt.persons SET firstname = ?, lastname = ?, address = ?, zipcode = ?, city = ?, country = ? WHERE cpr = ? ",
+        cursor.execute("UPDATE pyt.persons SET firstname = ?, lastname = ?, address = ?, zipcode = ?, city = ?, country = ?, updated = 1, deleted = 0 WHERE cpr = ? ",
                        person.firstname,
                        person.lastname,
                        person.address,
@@ -43,4 +43,11 @@ class Person_repo:
                        person.city,
                        person.country,
                        person.cpr)
+        cnxn.commit()
+
+    def delete_person(self, cpr):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute(
+            "UPDATE pyt.persons SET deleted = 1 WHERE cpr = ? ", cpr)
         cnxn.commit()

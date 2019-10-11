@@ -119,3 +119,7 @@ class Employee_service:
                     repo.update_person(opus_per)
             else:
                 repo.insert_person(opus_per)
+
+        for key in sofd_persons:
+            if key not in opus_persons:
+                repo.delete_person(key)
