@@ -1,8 +1,10 @@
+from dal.position_repo import Position_repo
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 from service.orgunit_service import Orgunit_service
 from service.employee_service import Employee_service
+
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -12,22 +14,14 @@ constr_lora = os.environ.get('constr_lora')
 
 emp_service = Employee_service(xml_path, constr_lora)
 emp_service.build_people_and_positions_from_opusxml()
-emp_service.update_persons()
+# emp_service.update_persons()
 
-#orgunit_service = Orgunit_service('c:\work\med_test.xml')
-#l = orgunit_service.get_orgunits_from_xml()
-# print(len(l))
+posrepo = Position_repo(constr_lora)
+#posses = posrepo.get_positions()
+#pos = posses[1]
+#pos.opus_id = 2
 
-#es = Employee_service('c:\work\med_test.xml')
-# es.build_people_and_positions()
-#per = es.get_persons()
-#pos = es.get_positions()
-# print(len(per))
-# print(len(pos))
+posses = emp_service.get_positions()
+pos = posses['62117']
 
-#constr = os.environ.get('constr_lora')
-#pr = Person_repo(constr)
-# pr.Get_persons()
-
-# pprint(vars(per['']))
-# pprint(vars(x))
+posrepo.insert_position(pos)

@@ -36,21 +36,17 @@ class Employee_service:
                 if emp.find('userId') != None:
                     userId = emp.find('userId').text
 
-                entryDate = None
+                startdate = None
                 if emp.find('entryDate') != None:
-                    entryDate = emp.find('entryDate').text
+                    startdate = emp.find('entryDate').text
+                elif emp.find('initialEntry') != None:
+                    startdate = emp.find('initialEntry').text
+                elif emp.find('entryIntoGroup') != None:
+                    startdate = emp.find('entryIntoGroup').text
 
-                leaveDate = None
+                leavedate = None
                 if emp.find('leaveDate') != None:
                     leaveDate = emp.find('leaveDate').text
-
-                intialEntry = None
-                if emp.find('initialEntry') != None:
-                    intialEntry = emp.find('initialEntry').text
-
-                entryIntoGroup = None
-                if emp.find('entryIntoGroup') != None:
-                    entryIntoGroup = emp.find('entryIntoGroup').text
 
                 per = Person(cpr,
                              emp.find('firstName').text,
@@ -75,11 +71,8 @@ class Employee_service:
                                emp.find('invoiceRecipient').text,
                                emp.find('productionNumber').text,
                                userId,
-                               entryDate,
-                               leaveDate,
-                               intialEntry,
-                               entryIntoGroup,
-                               emp.get('lastChanged'))
+                               startdate,
+                               leavedate)
 
                 self.persons[cpr] = per
                 self.positions[opus_id] = pos
