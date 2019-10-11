@@ -14,6 +14,8 @@
 **/lib/RCAJAX/*
 **/*.csv
 **/.env
+**/__pychache__
+**/*.pyc
 
 #sofd - mdm sofd is a temporary integration to the old SOFD - web_run is an internal test project
 **/MDMSOFD/*
