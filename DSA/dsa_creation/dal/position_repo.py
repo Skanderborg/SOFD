@@ -25,8 +25,8 @@ class Position_repo:
         cursor.execute(
             "INSERT into pyt.positions(opus_id, los_id, person_ref, title, title_short, position_id, paygrade_title, is_manager, \
                                      payment_method, payment_method_text, weekly_hours_numerator, weekly_hours_denominator, \
-                                     invoice_recipient, pos_pnr, dsuser, start_date, leave_date\
-                                         )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                     invoice_recipient, pos_pnr, dsuser, start_date, leave_date, updated, deleted\
+                                         )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
             position.opus_id,
             position.los_id,
             position.person_ref,
@@ -53,7 +53,7 @@ class Position_repo:
             "UPDATE pyt.positions SET los_id = ?, person_ref = ?, title = ?, title_short = ?, position_id = ?, \
                                       paygrade_title = ?, is_manager = ?, payment_method = ?, payment_method_text = ?, \
                                       weekly_hours_numerator = ?, weekly_hours_denominator = ?, invoice_recipient = ?, \
-                                          pos_pnr = ?, dsuser = ?, start_date = ?, leave_date = ? WHERE opus_id = ?",
+                                          pos_pnr = ?, dsuser = ?, start_date = ?, leave_date = ?, updated = 1 WHERE opus_id = ?",
             position.los_id,
             position.person_ref,
             position.position_title,
@@ -71,4 +71,11 @@ class Position_repo:
             position.start_date,
             position.leave_date,
             position.opus_id)
+        cnxn.commit()
+
+    def delete_position(self, opus_id):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute(
+            "UPDATE pyt.positions SET deleted = 1 WHERE opus_id = ? ", opus_id)
         cnxn.commit()

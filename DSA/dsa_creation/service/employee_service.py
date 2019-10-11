@@ -1,6 +1,7 @@
 from model.position import Position
 from model.person import Person
 from dal.person_repo import Person_repo
+from dal.position_repo import Position_repo
 import xml.etree.ElementTree as ET
 
 '''
@@ -89,8 +90,8 @@ class Employee_service:
         '''
         Function to insert new persons from OPUS, update people who have changed and mark absent people as deleted to be handled later because they are tied to positions
         '''
-        repo = Person_repo(self.constr_lora)
-        sofd_persons = repo.get_persons()
+        per_repo = Person_repo(self.constr_lora)
+        sofd_persons = per_repo.get_persons()
         opus_persons = self.get_persons()
 
         for key in opus_persons:
@@ -114,10 +115,40 @@ class Employee_service:
                         and opus_per.zipcode == sofd_per.zipcode and opus_per.city == sofd_per.city and opus_per.country == sofd_per.country:
                     continue
                 else:
-                    repo.update_person(opus_per)
+                    per_repo.update_person(opus_per)
             else:
-                repo.insert_person(opus_per)
+                per_repo.insert_person(opus_per)
 
         for key in sofd_persons:
             if key not in opus_persons:
-                repo.delete_person(key)
+                per_repo.delete_person(key)
+
+    def update_positions(self):
+        '''
+        Function to insert new positions from OPUS, update people who have changed and mark absent positions as deleted to be handled later because they are tied to persons
+        '''
+        pos_repo = Position_repo(self.constr_lora)
+        sofd_positions = pos_repo.get_positions()
+        opus_positions = self.get_positions()
+
+        for key in opus_positions:
+            opus_pos = opus_positions[key]
+
+            if key in sofd_positions:
+                sofd_pos = sofd_positions[key]
+                if opus_pos.los_id == sofd_pos.los_id and opus_pos.person_ref == sofd_pos.person_ref and opus_pos.position_title == sofd_pos.position_title \
+                        and opus_pos.position_id == sofd_pos.position_id and opus_pos.position_title_short == sofd_pos.position_title_short and \
+                        opus_pos.position_paygrade_text == sofd_pos.position_paygrade_text and opus_pos.is_manager == sofd_pos.is_manager and \
+                        opus_pos.payment_method == sofd_pos.payment_method and opus_pos.payment_method_text == sofd_pos.payment_method_text and \
+                        opus_pos.weekly_hours_numerator == sofd_pos.weekly_hours_numerator and opus_pos.weekly_hours_denominator == sofd_pos.weekly_hours_denominator \
+                        and opus_pos.invoice_recipient == sofd_pos.invoice_recipient and opus_pos.pos_pnr == sofd_pos.pos_pnr and opus_pos.dsuser == sofd_pos.dsuser \
+                        and opus_pos.start_date == sofd_pos.start_date and opus_pos.leave_date == sofd_pos.leave_date:
+                    continue
+                else:
+                    pos_repo.update_position(opus_pos)
+            else:
+                pos_repo.insert_position(opus_pos)
+
+        for key in sofd_positions:
+            if key not in opus_positions:
+                pos_repo.delete_position(key)
