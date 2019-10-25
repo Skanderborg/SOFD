@@ -359,6 +359,7 @@ namespace Lib_Core.Services.Emp
         {
             foreach(User usr in useRepo.Query.Where(u => u.Deleted_in_ad == true))
             {
+                // det her skal rettes
                 Position pos = posRepo.Query.Where(p => p.User_fk == usr.Uuid).FirstOrDefault();
                 if(pos != null)
                 {
