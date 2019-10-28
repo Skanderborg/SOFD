@@ -10,24 +10,25 @@ class Position_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("SELECT ,[opus_id] \
-                               ,[los_id] \
-                               ,[person_ref] \
-                               ,[title] \
-                               ,[title_short] \
-                               ,[position_id] \
-                               ,[paygrade_title] \
-                               ,[is_manager] \
-                               ,[payment_method] \
-                               ,[payment_method_text] \
-                               ,[weekly_hours_numerator] \
-                               ,[weekly_hours_denominator] \
-                               ,[invoice_recipient] \
-                               ,[pos_pnr] \
-                               ,[dsuser] \
-                               ,[start_date] \
-                               ,[leave_date] \
-                        FROM pyt.positions;")
+        cursor.execute("SELECT [opus_id], \
+                               [los_id], \
+                               [person_ref], \
+                               [title], \
+                               [title_short], \
+                               [position_id], \
+                               [paygrade_title], \
+                               [is_manager], \
+                               [payment_method], \
+                               [payment_method_text], \
+                               [weekly_hours_numerator], \
+                               [weekly_hours_denominator], \
+                               [invoice_recipient], \
+                               [pos_pnr], \
+                               [dsuser], \
+                               [start_date], \
+                               [leave_date] \
+                        FROM [pyt].[positions] \
+                        WHERE [deleted] = 0;")
         for row in cursor.fetchall():
             opus_id = row[0]
             pos = Position(opus_id, row[1], row[2], row[3], row[4], row[5],
@@ -40,10 +41,26 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "INSERT into pyt.positions(opus_id, los_id, person_ref, title, title_short, position_id, paygrade_title, is_manager, \
-                                     payment_method, payment_method_text, weekly_hours_numerator, weekly_hours_denominator, \
-                                     invoice_recipient, pos_pnr, dsuser, start_date, leave_date, updated, deleted\
-                                         )  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
+            "INSERT into [pyt].[positions]([opus_id], \
+                                       [los_id], \
+                                       [person_ref], \
+                                       [title], \
+                                       [title_short], \
+                                       [position_id], \
+                                       [paygrade_title], \
+                                       [is_manager], \
+                                       [payment_method], \
+                                       [payment_method_text], \
+                                       [weekly_hours_numerator], \
+                                       [weekly_hours_denominator], \
+                                       [invoice_recipient], \
+                                       [pos_pnr], \
+                                       [dsuser], \
+                                       [start_date], \
+                                       [leave_date], \
+                                       [updated], \
+                                       [deleted]) \
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
             position.opus_id,
             position.los_id,
             position.person_ref,
@@ -67,10 +84,25 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "UPDATE pyt.positions SET los_id = ?, person_ref = ?, title = ?, title_short = ?, position_id = ?, \
-                                      paygrade_title = ?, is_manager = ?, payment_method = ?, payment_method_text = ?, \
-                                      weekly_hours_numerator = ?, weekly_hours_denominator = ?, invoice_recipient = ?, \
-                                          pos_pnr = ?, dsuser = ?, start_date = ?, leave_date = ?, updated = 1 WHERE opus_id = ?",
+            "UPDATE [pyt].[positions] \
+            SET [los_id] = ?, \
+                [person_ref] = ?, \
+                [title] = ?, \
+                [title_short] = ?, \
+                [position_id] = ?, \
+                [paygrade_title] = ?, \
+                [is_manager] = ?, \
+                [payment_method] = ?, \
+                [payment_method_text] = ?, \
+                [weekly_hours_numerator] = ?, \
+                [weekly_hours_denominator] = ?, \
+                [invoice_recipient] = ?, \
+                [pos_pnr] = ?, \
+                [dsuser] = ?, \
+                [start_date] = ?, \
+                [leave_date] = ?, \
+                [updated] = 1 \
+            WHERE [opus_id] = ?",
             position.los_id,
             position.person_ref,
             position.position_title,
@@ -94,5 +126,5 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "UPDATE pyt.positions SET deleted = 1 WHERE opus_id = ? ", opus_id)
+            "UPDATE [pyt].[positions] SET deleted = 1 WHERE [opus_id] = ? ", opus_id)
         cnxn.commit()
