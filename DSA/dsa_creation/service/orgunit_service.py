@@ -1,6 +1,7 @@
 from model.orgunit import Orgunit
 from dal.orgunit_repo import Orgunit_repo
 import xml.etree.ElementTree as ET
+import datetime
 
 
 class Orgunit_service:
@@ -15,18 +16,27 @@ class Orgunit_service:
             costCenter = None
             if orgunit.find('costCenter') != None:
                 costCenter = orgunit.find('costCenter').text
+
+            startdate = orgunit.find('startDate').text
+            if startdate == None:
+                startdate = datetime.datetime(1900, 1, 1)
+
+            phonenumber = orgunit.find('phoneNumber').text
+            if phonenumber == None:
+                phonenumber = '87947000'
+
             los_id = orgunit.get('id')
             org = Orgunit(los_id,
                           orgunit.get('lastChanged'),
                           orgunit.find('longName').text,
-                          orgunit.find('startDate').text,
+                          startdate,
                           orgunit.find('endDate').text,
                           orgunit.find('parentOrgUnit').text,
                           orgunit.find('shortName').text,
                           orgunit.find('street').text,
                           orgunit.find('zipCode').text,
                           orgunit.find('city').text,
-                          orgunit.find('phoneNumber').text,
+                          phonenumber,
                           orgunit.find('cvrNr').text,
                           orgunit.find('eanNr').text,
                           orgunit.find('seNr').text,
