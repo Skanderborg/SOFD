@@ -10,11 +10,12 @@ class Person_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("SELECT * FROM pyt.persons;")
+        cursor.execute(
+            "SELECT [cpr], [firstname], [lastname], [address], [zipcode], [city], [country] FROM pyt.persons;")
         for row in cursor.fetchall():
-            cpr = row[1]
-            per = Person(cpr, row[2], row[3],
-                         row[4], row[5], row[6], row[7])
+            cpr = row[0]
+            per = Person(cpr, row[1], row[2],
+                         row[3], row[4], row[5], row[6])
             result[cpr] = per
         return result
 

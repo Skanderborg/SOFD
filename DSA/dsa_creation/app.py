@@ -14,7 +14,7 @@ constr_lora = os.environ.get('constr_lora')
 
 emp_service = Employee_service(xml_path, constr_lora)
 emp_service.build_people_and_positions_from_opusxml()
-# emp_service.update_persons()
+emp_service.update_persons()
 
 posrepo = Position_repo(constr_lora)
 #posses = posrepo.get_positions()

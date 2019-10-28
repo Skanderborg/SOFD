@@ -10,12 +10,29 @@ class Position_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("SELECT * FROM pyt.positions;")
+        cursor.execute("SELECT ,[opus_id] \
+                               ,[los_id] \
+                               ,[person_ref] \
+                               ,[title] \
+                               ,[title_short] \
+                               ,[position_id] \
+                               ,[paygrade_title] \
+                               ,[is_manager] \
+                               ,[payment_method] \
+                               ,[payment_method_text] \
+                               ,[weekly_hours_numerator] \
+                               ,[weekly_hours_denominator] \
+                               ,[invoice_recipient] \
+                               ,[pos_pnr] \
+                               ,[dsuser] \
+                               ,[start_date] \
+                               ,[leave_date] \
+                        FROM pyt.positions;")
         for row in cursor.fetchall():
-            opus_id = row[1]
-            pos = Position(opus_id, row[2], row[3], row[4], row[5], row[6],
-                           row[7], row[8], row[9], row[10], row[11], row[12],
-                           row[13], row[14], row[15], row[16], row[17])
+            opus_id = row[0]
+            pos = Position(opus_id, row[1], row[2], row[3], row[4], row[5],
+                           row[6], row[7], row[8], row[9], row[10], row[11],
+                           row[12], row[13], row[14], row[15], row[16])
             result[opus_id] = pos
         return result
 

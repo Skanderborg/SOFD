@@ -34,3 +34,7 @@ class Orgunit_service:
                           costCenter)
             orgs.append(org)
         return orgs
+
+
+def update_orgunits(self):
+    return ""
