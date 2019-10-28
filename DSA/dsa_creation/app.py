@@ -5,23 +5,16 @@ from dotenv import load_dotenv
 from service.orgunit_service import Orgunit_service
 from service.employee_service import Employee_service
 
-
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 xml_path = os.environ.get('employee_org_xml_path')
 constr_lora = os.environ.get('constr_lora')
 
 
+org_service = Orgunit_service(xml_path, constr_lora)
+org_service.update_orgunits()
+
 emp_service = Employee_service(xml_path, constr_lora)
 emp_service.build_people_and_positions_from_opusxml()
 emp_service.update_persons()
-
-posrepo = Position_repo(constr_lora)
-#posses = posrepo.get_positions()
-#pos = posses[1]
-#pos.opus_id = 2
-
-posses = emp_service.get_positions()
-pos = posses['62117']
-
-posrepo.insert_position(pos)
+emp_service.update_positions()

@@ -28,8 +28,8 @@ class Orgunit_repo:
                                [orgtype], \
                                [orgtypetxt], \
                                [costcenter] \
-                        FROM [pyt].[Orgunits]; \
-                        WHERE [deleted] = 0")
+                        FROM [pyt].[Orgunits] \
+                        WHERE [deleted] = 0;")
         for row in cursor.fetchall():
             los_id = row[0]
             org = Orgunit(los_id, row[1], row[2], row[3], row[4], row[5],
