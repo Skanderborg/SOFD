@@ -7,7 +7,7 @@ class Orgunit_service:
         self.tree = ET.parse(xmlpath)
         self.root = self.tree.getroot()
 
-    def get_orgunits_from_xml(self):
+    def get_orgunits_from_opus_xml(self):
         orgs = []
         for orgunit in self.root.findall('orgUnit'):
             costCenter = None
