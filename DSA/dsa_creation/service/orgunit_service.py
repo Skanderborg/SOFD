@@ -17,26 +17,18 @@ class Orgunit_service:
             if orgunit.find('costCenter') != None:
                 costCenter = orgunit.find('costCenter').text
 
-            startdate = orgunit.find('startDate').text
-            if startdate == None:
-                startdate = datetime.datetime(1900, 1, 1)
-
-            phonenumber = orgunit.find('phoneNumber').text
-            if phonenumber == None:
-                phonenumber = '87947000'
-
             los_id = orgunit.get('id')
             org = Orgunit(los_id,
                           orgunit.get('lastChanged'),
                           orgunit.find('longName').text,
-                          startdate,
+                          orgunit.find('startDate').text,
                           orgunit.find('endDate').text,
                           orgunit.find('parentOrgUnit').text,
                           orgunit.find('shortName').text,
                           orgunit.find('street').text,
                           orgunit.find('zipCode').text,
                           orgunit.find('city').text,
-                          phonenumber,
+                          orgunit.find('phoneNumber').text,
                           orgunit.find('cvrNr').text,
                           orgunit.find('eanNr').text,
                           orgunit.find('seNr').text,
