@@ -30,10 +30,15 @@ class Employee_service:
 
         OBS: This script doesn't handle CPR changes. The OPUS system that supplies the data isn't woke enough to handle this, however, so it's not a problem right now.
         '''
+        pos_repo = Position_repo(self.constr_lora)
+        disabled_orgs = pos_repo.get_disabled_orgunits
         for emp in self.root.findall('employee'):
             if emp.get('action') == None:
                 cpr = emp.find('cpr').text
                 opus_id = emp.get('id')
+                los_id = emp.find('orgUnit').text
+                if los_id in disabled_orgs:
+                    continue
 
                 userId = None
                 if emp.find('userId') != None:
@@ -65,7 +70,7 @@ class Employee_service:
                              emp.find('country').text)
 
                 pos = Position(opus_id,
-                               emp.find('orgUnit').text,
+                               los_id,
                                cpr,
                                emp.find('position').text,
                                emp.find('positionId').text,

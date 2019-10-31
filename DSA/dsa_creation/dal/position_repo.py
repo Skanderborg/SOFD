@@ -128,3 +128,12 @@ class Position_repo:
         cursor.execute(
             "UPDATE [pyt].[positions] SET deleted = 1 WHERE [opus_id] = ? ", opus_id)
         cnxn.commit()
+
+    def get_disabled_orgunits(self):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute("SELECT [los_id] FROM [pyt].[disabled_orgunits]")
+        result = []
+        for row in cursor.fetchall():
+            result.append(row[0])
+        return result
