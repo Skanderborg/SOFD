@@ -37,8 +37,8 @@ namespace Lib_Core.Services
             // hvis forskellen på DSA sofd og LORA sofd er mindre end tolerancen, kører processen, ellers bliver adm advaret - dette er sat op fordi KMD nogen gange fucker op
             if(orgService.Get_DSA_LORA_ORG_difference() < difference_tolerance_orgunits)
             {
-                //Update_Lora();
-                //return true;
+                Update_Lora();
+                return true;
                 try
                 {
                     Update_Lora();

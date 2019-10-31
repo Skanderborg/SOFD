@@ -12,9 +12,9 @@ constr_lora = os.environ.get('constr_lora')
 
 
 org_service = Orgunit_service(xml_path, constr_lora)
-org_service.update_orgunits()
+# org_service.update_orgunits()
 
 emp_service = Employee_service(xml_path, constr_lora)
 emp_service.build_people_and_positions_from_opusxml()
-emp_service.update_persons()
-#emp_service.update_positions()
+# emp_service.update_persons()
+emp_service.update_positions()

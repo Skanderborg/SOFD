@@ -14,8 +14,8 @@ class Position_repo:
                                [los_id], \
                                [person_ref], \
                                [title], \
-                               [title_short], \
                                [position_id], \
+                               [title_short], \
                                [paygrade_title], \
                                [is_manager], \
                                [payment_method], \

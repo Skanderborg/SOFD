@@ -3,6 +3,7 @@ from model.person import Person
 from dal.person_repo import Person_repo
 from dal.position_repo import Position_repo
 import xml.etree.ElementTree as ET
+from datetime import datetime, date
 
 '''
 Author: Jacob Ågård Bennike
@@ -44,6 +45,11 @@ class Employee_service:
                     startdate = emp.find('initialEntry').text
                 elif emp.find('entryIntoGroup') != None:
                     startdate = emp.find('entryIntoGroup').text
+
+                if startdate == None:
+                    continue
+                else:
+                    startdate = datetime.strptime(startdate, '%Y-%m-%d').date()
 
                 leavedate = None
                 if emp.find('leaveDate') != None:
@@ -96,18 +102,6 @@ class Employee_service:
 
         for key in opus_persons:
             opus_per = opus_persons[key]
-            if opus_per.firstname == None:
-                opus_per.firstname = "Intet navn"
-            if opus_per.lastname == None:
-                opus_per.lastname = "Intet navn"
-            if opus_per.address == None:
-                opus_per.address = "Ingen addresse"
-            if opus_per.zipcode == None:
-                opus_per.zipcode = "Intet postnr"
-            if opus_per.city == None:
-                opus_per.city = "Ingen by"
-            if opus_per.country == None:
-                opus_per.country = "None"
 
             if key in sofd_persons:
                 sofd_per = sofd_persons[key]
@@ -133,7 +127,6 @@ class Employee_service:
 
         for key in opus_positions:
             opus_pos = opus_positions[key]
-
             if key in sofd_positions:
                 sofd_pos = sofd_positions[key]
                 if opus_pos.los_id == sofd_pos.los_id and opus_pos.person_ref == sofd_pos.person_ref and opus_pos.position_title == sofd_pos.position_title \

@@ -55,13 +55,13 @@ class Person_repo:
         cursor = cnxn.cursor()
         cursor.execute("UPDATE [pyt].[persons] \
                         SET [firstname] = ?, \
-                             lastname = ?, \
-                             address = ?, \
-                             zipcode = ?, \
-                             city = ?, \
-                             country = ?, \
-                             updated = 1, \
-                        WHERE cpr = ? ",
+                             [lastname] = ?, \
+                             [address] = ?, \
+                             [zipcode] = ?, \
+                             [city] = ?, \
+                             [country] = ?, \
+                             [updated] = 1 \
+                        WHERE [cpr] = ?",
                        person.firstname,
                        person.lastname,
                        person.address,
