@@ -11,10 +11,18 @@ class Orgunit_service:
         self.constr_lora = constr_lora
 
     def get_orgunits_from_opus_xml(self):
+        '''
+        OPUS XML filen fra KMD indeholder to tags employee og orgunit.
+        Denne funktion danner en dictionary for orgunits.
+
+        Det er los_id som er nøgle.
+        Dette er unikt og ændre sig ikke.
+        '''
         orgs = {}
         for orgunit in self.root.findall('orgUnit'):
             los_id = orgunit.get('id')
             longname = orgunit.find('longName').text
+            # orgunits med # i navnet er nedlagte, og derfor sorterer vi dem fra.
             if '#' in longname:
                 continue
             costCenter = None
@@ -47,11 +55,14 @@ class Orgunit_service:
         sofd_orgunits = org_repo.get_orgunits()
         opus_orgunits = self.get_orgunits_from_opus_xml()
 
+        # key er los_id
         for key in opus_orgunits:
             opus_org = opus_orgunits[key]
+            # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
             if opus_org.parent_orgunit_los_id is None:
                 opus_org.parent_orgunit_los_id = 0
 
+            # hvis en orgunit findes, tjekkes den for forandringer.
             if key in sofd_orgunits:
                 sofd_org = sofd_orgunits[key]
                 if opus_org.longname == sofd_org.longname and opus_org.startdate == sofd_org.startdate and opus_org.enddate == sofd_org.enddate \
@@ -60,12 +71,15 @@ class Orgunit_service:
                         opus_org.phonenumber == sofd_org.phonenumber and opus_org.cvr == sofd_org.cvr and opus_org.ean == sofd_org.ean and \
                         opus_org.seNr == sofd_org.seNr and opus_org.pnr == sofd_org.pnr and opus_org.orgtype == sofd_org.orgtype and \
                         opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter:
+                    # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
                     org_repo.update_orgunits(opus_org)
+            # ellers indsættes en ny orgunit
             else:
                 org_repo.insert_orgunit(opus_org)
 
         for key in sofd_orgunits:
+            # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
             if key not in opus_orgunits:
                 org_repo.delete_orgunit(key)

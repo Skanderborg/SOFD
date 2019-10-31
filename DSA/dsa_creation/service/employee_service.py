@@ -22,13 +22,20 @@ class Employee_service:
 
     def build_people_and_positions_from_opusxml(self):
         '''
-        This function reads the OPUS XML and splits the "employee" tag into two dictionaries, one for person objects and one for position objects.
-        The person key is CPR
-        The position key is OPUS ID (employee ID)
-        both are unique.
-        Positions are tied to persons in a many to one relationship that gets registered on position through the CPR.
+        OPUS XML filen fra KMD indeholder to tags employee og orgunit.
+        Denne funktion splitter "employee" tagget op i to dictionaries,
+        som indeholder henholdsvis Person og Position objekter, der bliver
+        kædet sammen med CPR.
+        Der er også en reference til den orgunit som en position tilhører.
 
-        OBS: This script doesn't handle CPR changes. The OPUS system that supplies the data isn't woke enough to handle this, however, so it's not a problem right now.
+        I Person dictionary er CPR nøgle.
+        I Position dictionary er OPUS ID (medarbejdernr) nøgle.
+        Begge er unikke og ændre sig ikke.
+
+        OBS: Et CPR nr kan i teorien godt ændre sig, hvis en person f.eks.
+        skifter køn, men OPUS kan ikke håndtere den slags forandringer, derfor
+        er det heller ikke et problem i dette script. Hvis OPUS engang bliver 
+        woke, skal scriptet her rettes til.
         '''
         pos_repo = Position_repo(self.constr_lora)
         disabled_orgs = pos_repo.get_disabled_orgunits()
@@ -38,12 +45,14 @@ class Employee_service:
                 opus_id = emp.get('id')
                 los_id = emp.find('orgUnit').text
                 if los_id in disabled_orgs:
+                    # vi har nogle orgunits som indeholder ikke-medarbejdere, dem ønsker vi ikke i SOFD'en og de bliver sorteret fra her.
                     continue
 
                 userId = None
                 if emp.find('userId') != None:
                     userId = emp.find('userId').text
 
+                #sætter en start dato fra de forskellige datapunkter vi har at gøre godt med. Det er lidt rodet fordi det er en manuel indtastning fra løn
                 startdate = None
                 if emp.find('entryDate') != None:
                     startdate = emp.find('entryDate').text
@@ -53,6 +62,7 @@ class Employee_service:
                     startdate = emp.find('entryIntoGroup').text
 
                 if startdate == None:
+                    # Hvis der ikke er en start dato for en stilling, er den oprettet forkert i løn og kan ikke meldes til vores andre systemer, derfor ignorer vi den.
                     continue
                 else:
                     startdate = datetime.strptime(startdate, '%Y-%m-%d').date()
@@ -90,6 +100,7 @@ class Employee_service:
                 self.persons[cpr] = per
                 self.positions[int(opus_id)] = pos
             elif emp.get('action') == 'leave':
+                # OPUS filen indeholder alle stillinger der har eksisteret, vi sorterer de nedlagte fra her.
                 continue
 
     def get_persons(self):
@@ -100,39 +111,49 @@ class Employee_service:
 
     def update_persons(self):
         '''
-        Function to insert new persons from OPUS, update people who have changed and mark absent people as deleted to be handled later because they are tied to positions
+        Funktion der indsætter nye personer fra OPUS, 
+        opdaterer personer hvor der er forandringer og sletter 
+        personer som ikke længere er en del af vores lønsystem
         '''
         per_repo = Person_repo(self.constr_lora)
         sofd_persons = per_repo.get_persons()
         opus_persons = self.get_persons()
 
+        # key er cpr
         for key in opus_persons:
             opus_per = opus_persons[key]
-
+            # hvis personen findes, tjekkes den for forandringer
             if key in sofd_persons:
                 sofd_per = sofd_persons[key]
                 if opus_per.firstname == sofd_per.firstname and opus_per.lastname == sofd_per.lastname and opus_per.address == sofd_per.address \
                         and opus_per.zipcode == sofd_per.zipcode and opus_per.city == sofd_per.city and opus_per.country == sofd_per.country:
+                    # Når der ikke er forandringer, springer vi videre til næste person
                     continue
                 else:
                     per_repo.update_person(opus_per)
+            # ellers indsættes en ny
             else:
                 per_repo.insert_person(opus_per)
 
         for key in sofd_persons:
+            # Hvis en nøgle (cpr) er i SOFD men ikke i OPUS udtræk er det fordi personens stillinger alle er nedlagte
             if key not in opus_persons:
                 per_repo.delete_person(key)
 
     def update_positions(self):
         '''
-        Function to insert new positions from OPUS, update people who have changed and mark absent positions as deleted to be handled later because they are tied to persons
+        Funktion der indsætter nye positions fra OPUS, 
+        opdaterer positions hvor der er forandringer og sletter 
+        positions som ikke længere er en del af vores lønsystem
         '''
         pos_repo = Position_repo(self.constr_lora)
         sofd_positions = pos_repo.get_positions()
         opus_positions = self.get_positions()
 
+        # key er opus_id (medarbejdernummer)
         for key in opus_positions:
             opus_pos = opus_positions[key]
+            # hvis stillingen findes, tjekkes den for forandringer
             if key in sofd_positions:
                 sofd_pos = sofd_positions[key]
                 if opus_pos.los_id == sofd_pos.los_id and opus_pos.person_ref == sofd_pos.person_ref and opus_pos.position_title == sofd_pos.position_title \
@@ -142,12 +163,15 @@ class Employee_service:
                         opus_pos.weekly_hours_numerator == sofd_pos.weekly_hours_numerator and opus_pos.weekly_hours_denominator == sofd_pos.weekly_hours_denominator \
                         and opus_pos.invoice_recipient == sofd_pos.invoice_recipient and opus_pos.pos_pnr == sofd_pos.pos_pnr and opus_pos.dsuser == sofd_pos.dsuser \
                         and opus_pos.start_date == sofd_pos.start_date and opus_pos.leave_date == sofd_pos.leave_date:
+                    # Når der ikke er forandringer, springer vi videre til næste position
                     continue
                 else:
                     pos_repo.update_position(opus_pos)
+            # ellers indsættes en ny
             else:
                 pos_repo.insert_position(opus_pos)
 
         for key in sofd_positions:
+            # hvis en nøgle (opus_id) er i SOFD men ikke i OPUS udtræk er det fordi stillingen er nedlagt
             if key not in opus_positions:
                 pos_repo.delete_position(key)
