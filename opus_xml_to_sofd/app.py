@@ -11,49 +11,39 @@ from service.email_service import Email_service
 python app that builds the SOFD from the OPUS XML export
 author - Jacob Ågård Bennike
 Skanderborg Kommune 2019
+Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse
 '''
-
-'''
-Enables and setsup the use of .env files, which is where we keep our secret stuff. This means you'll need to setup your own .env
-containing the required values.
-'''
+# sætter .env op
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-# sti til opus xml udtræk for medarbejdere
-xml_path = os.environ.get('employee_org_xml_path')
-# connection string til sofd databasen
-constr_lora = os.environ.get('constr_lora')
-
-# finder filnavnet på den seneste nye fil fra kmd på kfs-lan
-list_of_files = glob.glob(xml_path)
-latest_file = max(list_of_files, key=os.path.getctime)
-
-
+# starter vores e-mail service - henter smtp informationer fra .env fil
 es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
-
-# bygger orgunits
-org_service = Orgunit_service(latest_file, constr_lora)
+step = 'starting'
 try:
+    # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret
+    xml_path = os.environ.get('employee_org_xml_path')
+    # connection string til SOFD databasen
+    constr_lora = os.environ.get('constr_lora')
+
+    # finder frem til den seneste fil fra OPUS
+    list_of_files = glob.glob(xml_path)
+    latest_file = max(list_of_files, key=os.path.getctime)
+    step = 'setup complete'
+
+    # opdaterer orgunits fra OPUS til SOFD
+    org_service = Orgunit_service(latest_file, constr_lora)
     org_service.update_orgunits()
-except:
-    es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
-                 'Error: opus python - update_orgunits()', 'something went wrong')
+    step = 'org units complete'
 
-# bygger persons og positions
-emp_service = Employee_service(latest_file, constr_lora)
-try:
+    # opdaterer employee fra OPUS til position og person i SOFD
+    emp_service = Employee_service(latest_file, constr_lora)
     emp_service.build_people_and_positions_from_opusxml()
-except:
-    es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
-                 'Error: opus python - build_people_and_positions_from_opusxml()', 'something went wrong')
-try:
+    step = 'build pos + per complete'
     emp_service.update_persons()
-except:
-    es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
-                 'Error: opus python - update_persons()', 'something went wrong')
-try:
+    step = 'update persons complete'
     emp_service.update_positions()
+    step = 'update positions complete'
 except:
     es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
-                 'Error: opus python - update_positions()', 'something went wrong')
+                 'Error: opus python - update_positions()', step)
