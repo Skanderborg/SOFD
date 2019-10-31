@@ -36,7 +36,7 @@ class Orgunit_service:
                           orgunit.find('orgType').text,
                           orgunit.find('orgTypeTxt').text,
                           costCenter)
-            orgs[los_id] = org
+            orgs[int(los_id)] = org
         return orgs
 
     def update_orgunits(self):

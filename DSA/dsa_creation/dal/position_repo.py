@@ -34,7 +34,7 @@ class Position_repo:
             pos = Position(opus_id, row[1], row[2], row[3], row[4], row[5],
                            row[6], row[7], row[8], row[9], row[10], row[11],
                            row[12], row[13], row[14], row[15], row[16])
-            result[opus_id] = pos
+            result[int(opus_id)] = pos
         return result
 
     def insert_position(self, position):

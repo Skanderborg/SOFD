@@ -4,6 +4,7 @@ from dal.person_repo import Person_repo
 from dal.position_repo import Position_repo
 import xml.etree.ElementTree as ET
 from datetime import datetime, date
+from pprint import pprint
 
 '''
 Author: Jacob Ågård Bennike
@@ -82,7 +83,7 @@ class Employee_service:
                                leavedate)
 
                 self.persons[cpr] = per
-                self.positions[opus_id] = pos
+                self.positions[int(opus_id)] = pos
             elif emp.get('action') == 'leave':
                 continue
 
