@@ -13,14 +13,17 @@ class Orgunit_service:
     def get_orgunits_from_opus_xml(self):
         orgs = {}
         for orgunit in self.root.findall('orgUnit'):
+            los_id = orgunit.get('id')
+            longname = orgunit.find('longName').text
+            if '#' in longname:
+                continue
             costCenter = None
             if orgunit.find('costCenter') != None:
                 costCenter = orgunit.find('costCenter').text
 
-            los_id = orgunit.get('id')
             org = Orgunit(los_id,
                           orgunit.get('lastChanged'),
-                          orgunit.find('longName').text,
+                          longname,
                           orgunit.find('startDate').text,
                           orgunit.find('endDate').text,
                           orgunit.find('parentOrgUnit').text,
