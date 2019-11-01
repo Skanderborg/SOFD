@@ -6,7 +6,7 @@ class Orgunit_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def get_orgunits(self, whereclause):
+    def get_orgunits(self, whereclause=None):
         if whereclause == None:
             whereclause = ""
 
@@ -14,7 +14,7 @@ class Orgunit_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute("SELECT [los_id], \
-                               [Uuid], \
+                               [uuid], \
                                [last_changed], \
                                [longname], \
                                [startdate], \
@@ -93,12 +93,13 @@ class Orgunit_repo:
             orgunit.hierarchy)
         cnxn.commit()
 
-    def update_orgunits(self, orgunit):
+    def update_orgunit(self, orgunit):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
             "UPDATE [pyt].[Orgunits] \
             SET [los_id] = ?, \
+                [uuid] = ?, \
                 [last_changed] = ?, \
                 [longname] = ?, \
                 [startdate] = ?, \
@@ -116,9 +117,12 @@ class Orgunit_repo:
                 [orgtype] = ?, \
                 [orgtypetxt] = ?, \
                 [costcenter] = ?, \
+                [manager_opus_id] = ?, \
+                [hierarchy] = ?, \
                 [updated] = 1 \
             WHERE [los_id] = ?",
             orgunit.los_id,
+            orgunit.uuid,
             orgunit.last_changed,
             orgunit.longname,
             orgunit.startdate,
@@ -136,6 +140,8 @@ class Orgunit_repo:
             orgunit.orgtype,
             orgunit.orgtypetxt,
             orgunit.costcenter,
+            orgunit.manager_opus_id,
+            orgunit.hierarchy,
             orgunit.los_id)
         cnxn.commit()
 

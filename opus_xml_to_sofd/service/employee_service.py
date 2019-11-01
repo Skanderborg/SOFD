@@ -52,7 +52,7 @@ class Employee_service:
                 if emp.find('userId') != None:
                     userId = emp.find('userId').text
 
-                #sætter en start dato fra de forskellige datapunkter vi har at gøre godt med. Det er lidt rodet fordi det er en manuel indtastning fra løn
+                # sætter en start dato fra de forskellige datapunkter vi har at gøre godt med. Det er lidt rodet fordi det er en manuel indtastning fra løn
                 startdate = None
                 if emp.find('entryDate') != None:
                     startdate = emp.find('entryDate').text
@@ -80,6 +80,7 @@ class Employee_service:
                              emp.find('country').text)
 
                 pos = Position(opus_id,
+                               None,
                                los_id,
                                cpr,
                                emp.find('position').text,
@@ -95,7 +96,9 @@ class Employee_service:
                                emp.find('productionNumber').text,
                                userId,
                                startdate,
-                               leavedate)
+                               leavedate,
+                               None,
+                               None)
 
                 self.persons[cpr] = per
                 self.positions[int(opus_id)] = pos
@@ -147,7 +150,7 @@ class Employee_service:
         positions som ikke længere er en del af vores lønsystem
         '''
         pos_repo = Position_repo(self.constr_lora)
-        sofd_positions = pos_repo.get_positions()
+        sofd_positions = pos_repo.get_positions('WHERE [deleted] = 0')
         opus_positions = self.get_positions()
 
         # key er opus_id (medarbejdernummer)

@@ -78,7 +78,7 @@ class Orgunit_service:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
-                    org_repo.update_orgunits(opus_org)
+                    org_repo.update_orgunit(opus_org)
             # ellers indsættes en ny orgunit
             else:
                 org_repo.insert_orgunit(opus_org)
