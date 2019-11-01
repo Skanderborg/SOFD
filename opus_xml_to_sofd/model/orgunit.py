@@ -2,10 +2,11 @@ import datetime
 
 
 class Orgunit:
-    def __init__(self, los_id, last_changed, longname, startdate, enddate,
+    def __init__(self, los_id, uuid, last_changed, longname, startdate, enddate,
                  parent_orgunit_los_id, shortname, street, zipcode, city, phonenumber, cvr,
-                 ean, seNr, pnr, orgtype, orgtypetxt, costcenter=None):
+                 ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy, costcenter=None):
         self.los_id = los_id
+        self.uuid = uuid
         self.last_changed = last_changed
         self.longname = longname
         if startdate != None:
@@ -28,4 +29,6 @@ class Orgunit:
         self.pnr = pnr
         self.orgtype = orgtype
         self.orgtypetxt = orgtypetxt
+        self.manager_opus_id = manager_opus_id
+        self.hierarchy = hierarchy
         self.costcenter = costcenter

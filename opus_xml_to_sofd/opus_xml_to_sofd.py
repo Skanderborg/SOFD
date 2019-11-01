@@ -1,19 +1,18 @@
-from dal.position_repo import Position_repo
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+import glob
 from service.orgunit_service import Orgunit_service
 from service.employee_service import Employee_service
-import glob
 from service.email_service import Email_service
 
 '''
-python app that builds the SOFD from the OPUS XML export
+python app that builds the SOFD from the OPUS XML export.
+Needs to run before anything else.
 author - Jacob Ågård Bennike
 Skanderborg Kommune 2019
-Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse
 '''
-# sætter .env op
+# Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse.
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 # starter vores e-mail service - henter smtp informationer fra .env fil
@@ -46,4 +45,4 @@ try:
     step = 'update positions complete'
 except:
     es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
-                 'Error: opus python - update_positions()', step)
+                 'Error: opus_xml_to_sofd python app', step)

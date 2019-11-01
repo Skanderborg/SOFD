@@ -30,6 +30,7 @@ class Orgunit_service:
                 costCenter = orgunit.find('costCenter').text
 
             org = Orgunit(los_id,
+                          None,
                           orgunit.get('lastChanged'),
                           longname,
                           orgunit.find('startDate').text,
@@ -46,13 +47,16 @@ class Orgunit_service:
                           orgunit.find('pNr').text,
                           orgunit.find('orgType').text,
                           orgunit.find('orgTypeTxt').text,
+                          None,
+                          'opus',
                           costCenter)
             orgs[int(los_id)] = org
         return orgs
 
     def update_orgunits(self):
         org_repo = Orgunit_repo(self.constr_lora)
-        sofd_orgunits = org_repo.get_orgunits()
+        sofd_orgunits = org_repo.get_orgunits(
+            "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
         opus_orgunits = self.get_orgunits_from_opus_xml()
 
         # key er los_id
