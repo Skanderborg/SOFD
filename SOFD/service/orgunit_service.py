@@ -57,11 +57,12 @@ class Orgunit_service:
         org_repo = Orgunit_repo(self.constr_lora)
         sofd_orgunits = org_repo.get_orgunits(
             "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
-        opus_orgunits = self.get_orgunits_from_opus_xml()
+        self.opus_orgunits = Orgunit_service.get_orgunits_from_opus_xml(self)
 
         # key er los_id
-        for key in opus_orgunits:
-            opus_org = opus_orgunits[key]
+        for key in self.opus_orgunits:
+            opus_org = self.opus_orgunits[key]
+            opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, key)
             # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
             if opus_org.parent_orgunit_los_id is None:
                 opus_org.parent_orgunit_los_id = 0
@@ -74,7 +75,8 @@ class Orgunit_service:
                         opus_org.street == sofd_org.street and opus_org.zipcode == sofd_org.zipcode and opus_org.city == sofd_org.city and \
                         opus_org.phonenumber == sofd_org.phonenumber and opus_org.cvr == sofd_org.cvr and opus_org.ean == sofd_org.ean and \
                         opus_org.seNr == sofd_org.seNr and opus_org.pnr == sofd_org.pnr and opus_org.orgtype == sofd_org.orgtype and \
-                        opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter:
+                        opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter and \
+                        opus_org.niveau == sofd_org.niveau:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
@@ -87,3 +89,11 @@ class Orgunit_service:
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
             if key not in opus_orgunits:
                 org_repo.delete_orgunit(key)
+
+    def get_orgunit_niveau(self, los_id):
+        los_id = int(los_id)
+        current_org = self.opus_orgunits[los_id]
+        if current_org.parent_orgunit_los_id is None or current_org.parent_orgunit_los_id == 0:
+            return 1
+        else:
+            return 1 + Orgunit_service.get_orgunit_niveau(self, current_org.parent_orgunit_los_id)

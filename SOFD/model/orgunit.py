@@ -4,7 +4,8 @@ import datetime
 class Orgunit:
     def __init__(self, los_id, uuid, last_changed, longname, startdate, enddate,
                  parent_orgunit_los_id, shortname, street, zipcode, city, phonenumber, cvr,
-                 ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy, costcenter=None):
+                 ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy, niveau,
+                 costcenter=None):
         self.los_id = los_id
         self.uuid = uuid
         self.last_changed = last_changed
@@ -31,4 +32,5 @@ class Orgunit:
         self.orgtypetxt = orgtypetxt
         self.manager_opus_id = manager_opus_id
         self.hierarchy = hierarchy
+        self.niveau = niveau
         self.costcenter = costcenter

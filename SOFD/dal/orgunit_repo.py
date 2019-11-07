@@ -68,10 +68,11 @@ class Orgunit_repo:
                                        [orgtypetxt], \
                                        [costcenter], \
                                        [hierarchy], \
+                                       [niveau], \
                                        [new], \
                                        [updated], \
                                        [deleted]) \
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
             orgunit.los_id,
             orgunit.last_changed,
             orgunit.longname,
@@ -90,7 +91,8 @@ class Orgunit_repo:
             orgunit.orgtype,
             orgunit.orgtypetxt,
             orgunit.costcenter,
-            orgunit.hierarchy)
+            orgunit.hierarchy,
+            orgunit.niveau)
         cnxn.commit()
 
     def update_orgunit(self, orgunit):
@@ -119,6 +121,7 @@ class Orgunit_repo:
                 [costcenter] = ?, \
                 [manager_opus_id] = ?, \
                 [hierarchy] = ?, \
+                [niveau] = ?, \
                 [updated] = 1 \
             WHERE [los_id] = ?",
             orgunit.los_id,
@@ -142,6 +145,7 @@ class Orgunit_repo:
             orgunit.costcenter,
             orgunit.manager_opus_id,
             orgunit.hierarchy,
+            orgunit.niveau,
             orgunit.los_id)
         cnxn.commit()
 
