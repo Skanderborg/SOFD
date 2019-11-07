@@ -20,6 +20,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
+'''
 try:
     # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret
     xml_path = os.environ.get('employee_org_xml_path')
@@ -73,4 +74,4 @@ emp_service.update_persons()
 step = 'update persons complete'
 emp_service.update_positions()
 step = 'update positions complete'
-'''
+#'''

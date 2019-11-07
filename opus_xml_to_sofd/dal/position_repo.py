@@ -91,7 +91,7 @@ class Position_repo:
         cursor = cnxn.cursor()
         cursor.execute(
             "UPDATE [pyt].[positions] \
-            SET [uuid_userref] = ? \
+            SET [uuid_userref] = ?, \
                 [los_id] = ?, \
                 [person_ref] = ?, \
                 [title] = ?, \
