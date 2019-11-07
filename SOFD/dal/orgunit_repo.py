@@ -125,8 +125,8 @@ class Orgunit_repo:
                 [costcenter] = ?, \
                 [manager_opus_id] = ?, \
                 [hierarchy] = ?, \
-                [area] = ?, \
                 [niveau] = ?, \
+                [area] = ?, \
                 [updated] = 1 \
             WHERE [los_id] = ?",
             orgunit.los_id,

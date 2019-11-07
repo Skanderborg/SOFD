@@ -2,8 +2,8 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 import glob
-from service.orgunit_service import Orgunit_service
-from service.employee_service import Employee_service
+from service.opus_xml_to_sofd.orgunit_service import Orgunit_service
+from service.opus_xml_to_sofd.employee_service import Employee_service
 from service.email_service import Email_service
 
 '''
@@ -74,4 +74,4 @@ emp_service.update_persons()
 step = 'update persons complete'
 emp_service.update_positions()
 step = 'update positions complete'
-#'''
+# '''
