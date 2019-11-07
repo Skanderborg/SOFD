@@ -33,6 +33,8 @@ class Orgunit_repo:
                                [orgtypetxt], \
                                [manager_opus_id], \
                                [hierarchy], \
+                               [niveau], \
+                               [area], \
                                [costcenter] \
                         FROM [pyt].[Orgunits] \
                         " + whereclause + ";")
@@ -41,7 +43,7 @@ class Orgunit_repo:
             org = Orgunit(los_id, row[1], row[2], row[3], row[4], row[5],
                           row[6], row[7], row[8], row[9], row[10], row[11],
                           row[12], row[13], row[14], row[15], row[16], row[17],
-                          row[18], row[19], row[20])
+                          row[18], row[19], row[20], row[21], row[22])
             result[int(los_id)] = org
         return result
 
@@ -69,10 +71,11 @@ class Orgunit_repo:
                                        [costcenter], \
                                        [hierarchy], \
                                        [niveau], \
+                                       [area], \
                                        [new], \
                                        [updated], \
                                        [deleted]) \
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
             orgunit.los_id,
             orgunit.last_changed,
             orgunit.longname,
@@ -92,7 +95,8 @@ class Orgunit_repo:
             orgunit.orgtypetxt,
             orgunit.costcenter,
             orgunit.hierarchy,
-            orgunit.niveau)
+            orgunit.niveau,
+            orgunit.area)
         cnxn.commit()
 
     def update_orgunit(self, orgunit):
@@ -121,6 +125,7 @@ class Orgunit_repo:
                 [costcenter] = ?, \
                 [manager_opus_id] = ?, \
                 [hierarchy] = ?, \
+                [area] = ?, \
                 [niveau] = ?, \
                 [updated] = 1 \
             WHERE [los_id] = ?",
@@ -146,6 +151,7 @@ class Orgunit_repo:
             orgunit.manager_opus_id,
             orgunit.hierarchy,
             orgunit.niveau,
+            orgunit.area,
             orgunit.los_id)
         cnxn.commit()
 

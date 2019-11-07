@@ -49,6 +49,8 @@ class Orgunit_service:
                           orgunit.find('orgTypeTxt').text,
                           None,
                           'opus',
+                          None,
+                          None,
                           costCenter)
             orgs[int(los_id)] = org
         return orgs
@@ -63,6 +65,7 @@ class Orgunit_service:
         for key in self.opus_orgunits:
             opus_org = self.opus_orgunits[key]
             opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, key)
+            opus_org.area = Orgunit_service.get_orgunit_area(self, key)
             # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
             if opus_org.parent_orgunit_los_id is None:
                 opus_org.parent_orgunit_los_id = 0
@@ -76,7 +79,7 @@ class Orgunit_service:
                         opus_org.phonenumber == sofd_org.phonenumber and opus_org.cvr == sofd_org.cvr and opus_org.ean == sofd_org.ean and \
                         opus_org.seNr == sofd_org.seNr and opus_org.pnr == sofd_org.pnr and opus_org.orgtype == sofd_org.orgtype and \
                         opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter and \
-                        opus_org.niveau == sofd_org.niveau:
+                        opus_org.niveau == sofd_org.niveau and opus_org.area == sofd_org.area:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
@@ -97,3 +100,13 @@ class Orgunit_service:
             return 1
         else:
             return 1 + Orgunit_service.get_orgunit_niveau(self, current_org.parent_orgunit_los_id)
+
+    def get_orgunit_area(self, los_id):
+        los_id = int(los_id)
+        current_org = self.opus_orgunits[los_id]
+        if current_org.niveau == 5:
+            return current_org.longname
+        elif current_org.niveau < 5:
+            return 'Direktion'
+        else:
+            return Orgunit_service.get_orgunit_area(self, current_org.parent_orgunit_los_id)
