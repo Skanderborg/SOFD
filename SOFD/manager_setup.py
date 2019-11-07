@@ -17,15 +17,14 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
-
-# connection string til SOFD databasen
-constr_lora = os.environ.get('constr_lora')
-ms = Manager_setup_service(constr_lora)
-ms.set_orgunit_manager()
-ms.set_nearest_manager()
-
 try:
-    x = 1
+    # connection string til SOFD databasen
+    constr_lora = os.environ.get('constr_lora')
+    ms = Manager_setup_service(constr_lora)
+    ms.set_orgunit_manager()
+    step = 'ms.set_orgunit_manager() finished'
+    ms.set_nearest_manager()
+    step = 'ms.set_nearest_manager() finished'
 except:
     es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
                  'Error: manager_setup.py python app', step)
