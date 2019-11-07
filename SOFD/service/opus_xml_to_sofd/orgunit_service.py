@@ -60,6 +60,8 @@ class Orgunit_service:
         sofd_orgunits = org_repo.get_orgunits(
             "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
         self.opus_orgunits = Orgunit_service.get_orgunits_from_opus_xml(self)
+        orgs_to_insert = {}
+        orgs_to_update = {}
 
         # key er los_id
         for key in self.opus_orgunits:
@@ -83,10 +85,21 @@ class Orgunit_service:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
-                    org_repo.update_orgunit(opus_org)
+                    orgs_to_update[opus_org.los_id] = opus_org
+
             # ellers indsættes en ny orgunit
             else:
-                org_repo.insert_orgunit(opus_org)
+                orgs_to_insert[opus_org.los_id] = opus_org
+
+        for key in orgs_to_update:
+            org = orgs_to_update[key]
+            org.area = Orgunit_service.get_orgunit_area(self, org.los_id)
+            org_repo.update_orgunit(org)
+
+        for key in orgs_to_insert:
+            org = orgs_to_insert[key]
+            org.area = Orgunit_service.get_orgunit_area(self, org.los_id)
+            org_repo.insert_orgunit(org)
 
         for key in sofd_orgunits:
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
@@ -94,6 +107,7 @@ class Orgunit_service:
                 org_repo.delete_orgunit(key)
 
     def get_orgunit_niveau(self, los_id):
+        # Finder en orgunits niveau i org træet, starter ved 1.
         los_id = int(los_id)
         current_org = self.opus_orgunits[los_id]
         if current_org.parent_orgunit_los_id is None or current_org.parent_orgunit_los_id == 0:
