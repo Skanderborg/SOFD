@@ -2,7 +2,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 from service.email_service import Email_service
-from service.manager_setup_service import Manager_setup_service
+from service., amager_setup.manager_setup_service import Manager_setup_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
