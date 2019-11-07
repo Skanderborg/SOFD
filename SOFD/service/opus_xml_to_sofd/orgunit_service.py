@@ -1,5 +1,6 @@
 from model.orgunit import Orgunit
 from dal.orgunit_repo import Orgunit_repo
+from dal.org_uuid_repo import Org_uuid_repo
 import xml.etree.ElementTree as ET
 import datetime
 
@@ -67,7 +68,6 @@ class Orgunit_service:
         for key in self.opus_orgunits:
             opus_org = self.opus_orgunits[key]
             opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, key)
-            opus_org.area = Orgunit_service.get_orgunit_area(self, key)
             # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
             if opus_org.parent_orgunit_los_id is None:
                 opus_org.parent_orgunit_los_id = 0
@@ -81,7 +81,7 @@ class Orgunit_service:
                         opus_org.phonenumber == sofd_org.phonenumber and opus_org.cvr == sofd_org.cvr and opus_org.ean == sofd_org.ean and \
                         opus_org.seNr == sofd_org.seNr and opus_org.pnr == sofd_org.pnr and opus_org.orgtype == sofd_org.orgtype and \
                         opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter and \
-                        opus_org.niveau == sofd_org.niveau and opus_org.area == sofd_org.area:
+                        opus_org.niveau == sofd_org.niveau:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
@@ -103,7 +103,7 @@ class Orgunit_service:
 
         for key in sofd_orgunits:
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
-            if key not in opus_orgunits:
+            if key not in self.opus_orgunits:
                 org_repo.delete_orgunit(key)
 
     def get_orgunit_niveau(self, los_id):
@@ -124,3 +124,15 @@ class Orgunit_service:
             return 'Direktion'
         else:
             return Orgunit_service.get_orgunit_area(self, current_org.parent_orgunit_los_id)
+
+    def set_orgunit_uuid(self):
+        uuid_repo = Org_uuid_repo(self.constr_lora)
+        org_repo = Orgunit_repo(self.constr_lora)
+        uuids = uuid_repo.get_org_uuids()
+        orgs = org_repo.get_orgunits(
+            "WHERE [new] = 1 and [hierarchy] = 'opus'")
+        for key in orgs:
+            if key in uuids:
+                org = orgs[key]
+                org.uuid = uuids[key]
+                org_repo.update_orgunit(org)
