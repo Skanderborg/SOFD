@@ -91,47 +91,47 @@ class Position_repo:
         cursor = cnxn.cursor()
         cursor.execute(
             "UPDATE [pyt].[positions] \
-            SET [uuid_userref] = ?, \
-                [los_id] = ?, \
-                [person_ref] = ?, \
-                [title] = ?, \
-                [title_short] = ?, \
-                [position_id] = ?, \
-                [paygrade_title] = ?, \
-                [is_manager] = ?, \
-                [payment_method] = ?, \
-                [payment_method_text] = ?, \
-                [weekly_hours_numerator] = ?, \
-                [weekly_hours_denominator] = ?, \
-                [invoice_recipient] = ?, \
-                [pos_pnr] = ?, \
-                [dsuser] = ?, \
-                [start_date] = ?, \
-                [leave_date] = ?, \
-                [manager_opus_id] = ?, \
-                [manager_uuid_userref] = ?, \
-                [updated] = 1 \
-            WHERE [opus_id] = ?",
+                SET [uuid_userref] = ?, \
+                    [los_id] =?, \
+                    [person_ref] = ?, \
+                    [title] = ?, \
+                    [position_id] = ?, \
+                    [title_short] = ?, \
+                    [paygrade_title] = ?, \
+                    [is_manager] = ?, \
+                    [payment_method] = ?, \
+                    [payment_method_text] = ?, \
+                    [weekly_hours_numerator] = ?, \
+                    [weekly_hours_denominator] = ?, \
+                    [invoice_recipient] = ?, \
+                    [pos_pnr] = ?, \
+                    [dsuser] = ?, \
+                    [start_date] = ?, \
+                    [leave_date] = ?, \
+                    [manager_opus_id] = ?, \
+                    [manager_uuid_userref] = ?, \
+                    [updated] = 1 \
+                WHERE opus_id = ?",
             position.uuid_userref,
             position.los_id,
             position.person_ref,
             position.position_title,
-            position.position_title_short,
             position.position_id,
+            position.position_title_short,
             position.position_paygrade_text,
             position.is_manager,
             position.payment_method,
             position.payment_method_text,
-            position .weekly_hours_numerator,
+            position.weekly_hours_numerator,
             position.weekly_hours_denominator,
             position.invoice_recipient,
             position.pos_pnr,
             position.dsuser,
             position.start_date,
             position.leave_date,
-            position.opus_id,
             position.manager_opus_id,
-            position.manager_uuid_userref)
+            position.manager_uuid_userref,
+            position.opus_id)
         cnxn.commit()
 
     def delete_position(self, opus_id):

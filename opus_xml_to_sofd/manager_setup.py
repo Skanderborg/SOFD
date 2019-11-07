@@ -22,6 +22,7 @@ step = 'starting'
 constr_lora = os.environ.get('constr_lora')
 ms = Manager_setup_service(constr_lora)
 ms.set_orgunit_manager()
+ms.set_nearest_manager()
 
 try:
     x = 1

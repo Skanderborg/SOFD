@@ -6,6 +6,7 @@ class Manager_setup_service:
     def __init__(self, constr_lora):
         self.org_repo = Orgunit_repo(constr_lora)
         self.pos_repo = Position_repo(constr_lora)
+        self.orgs = None
 
     def set_orgunit_manager(self):
         orgs = self.org_repo.get_orgunits()
@@ -18,20 +19,27 @@ class Manager_setup_service:
                 continue
             else:
                 org.manager_opus_id = manager.opus_id
-                org_repo.update_orgunit(org)
+                self.org_repo.update_orgunit(org)
 
     def set_nearest_manager(self):
-        org_repo = Orgunit_repo(self.constr_lora)
-        pos_repo = Position_repo(self.constr_lora)
-        orgs = org_repo.get_orgunits()
-        positions = pos_repo.get_positions()
+        self.orgs = self.org_repo.get_orgunits()
+        positions = self.pos_repo.get_positions()
 
         for pkey in positions:
-            x = 1
+            position = positions[pkey]
+            manager_id = Manager_setup_service.get_manager(
+                self, position.los_id)
+            manager_uuid = positions[manager_id].uuid_userref
+            if position.manager_opus_id != manager_id or position.manager_uuid_userref != manager_uuid:
+                position.manager_opus_id = manager_id
+                position.manager_uuid_userref = manager_uuid
+                self.pos_repo.update_position(position)
+            else:
+                continue
 
     def get_manager(self, los_id):
-        orgunit = self.org_repo.get_orgunits('WHERE [los_id] = ' + los_id)[0]
+        orgunit = self.orgs[los_id]
         if orgunit.manager_opus_id != None:
             return orgunit.manager_opus_id
         else:
-            return get_manager(orgunit.parent_orgunit_los_id)
+            return Manager_setup_service.get_manager(self,  orgunit.parent_orgunit_los_id)
