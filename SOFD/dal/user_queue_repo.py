@@ -12,14 +12,37 @@ class User_queue_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("SELECT [uuid], \
+        cursor.execute("SELECT [system_id], \
+                                [uuid], \
                                 [opus_id], \
                                 [change_type], \
                                 [change_date] \
                         FROM [queue].[users] \
                         " + whereclause +";")
         for row in cursor.fetchall():
-            uuid = row[0]
-            usr_que = User_queue(uuid, row[1], row[2], row[3])
-            result[uuid] = usr_que
+            system_id = row[0]
+            usr_que = User_queue(system_id, row[1], row[2], row[3], row[4])
+            result[system_id] = usr_que
         return result
+
+    def insert_user_queue(self, usr_que):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute(
+            "INSERT INTO [queue].[users]([uuid], \
+                                         [opus_id], \
+                                         [change_type], \
+                                         [change_date])  \
+            VALUES (?, ?, ?, ?)",
+            usr_que.uuid,
+            usr_que.opus_id,
+            usr_que.change_type,
+            usr_que.change_date)
+        cnxn.commit()
+
+    def delete_person(self, system_id):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute(
+            "DELETE FROM [queue].[users] WHERE [system_id] = ? ", system_id)
+        cnxn.commit()        
