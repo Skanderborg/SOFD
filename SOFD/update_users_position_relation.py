@@ -18,6 +18,8 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
+
+
 try:
     x = 1
 except:
