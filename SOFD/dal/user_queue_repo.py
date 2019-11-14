@@ -1,5 +1,6 @@
 from model.user_queue import User_queue
-import pydoc
+import pyodbc
+
 
 class User_queue_repo:
     def __init__(self, constr_lora):
@@ -18,7 +19,7 @@ class User_queue_repo:
                                 [change_type], \
                                 [change_date] \
                         FROM [queue].[users] \
-                        " + whereclause +";")
+                        " + whereclause + ";")
         for row in cursor.fetchall():
             system_id = row[0]
             usr_que = User_queue(system_id, row[1], row[2], row[3], row[4])
@@ -45,4 +46,4 @@ class User_queue_repo:
         cursor = cnxn.cursor()
         cursor.execute(
             "DELETE FROM [queue].[users] WHERE [system_id] = ? ", system_id)
-        cnxn.commit()        
+        cnxn.commit()

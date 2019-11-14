@@ -1,5 +1,6 @@
 from model.user import User
-import pydoc
+import pyodbc
+
 
 class User_repo:
     def __init__(self, constr_lora):
@@ -12,16 +13,19 @@ class User_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("SELECT [opus_id], \
-                                [uuid], \
-                                [samaccount], \
-                                [email], \
-                                [phone], \
-                                [mobile] \
-                        FROM [dbo].[users] \
-                        " + whereclause +";")
+        cursor.execute("SELECT [Opus_id], \
+                                [Uuid], \
+                                [UserId], \
+                                [Email], \
+                                [Phone], \
+                                [Updated], \
+                                [WorkMobile], \
+                                [Deleted_in_ad] \
+                        FROM [dbo].[Users] \
+                        " + whereclause + ";")
         for row in cursor.fetchall():
             opus_id = row[0]
-            usr = User(opus_id, row[1], row[2], row[3], row[4], row[5])
+            usr = User(opus_id, row[1], row[2], row[3], row[4], row[5],
+                        row[6], row[7])
             result[int(opus_id)] = usr
         return result
