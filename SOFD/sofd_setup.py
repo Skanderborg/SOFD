@@ -2,7 +2,8 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 from service.email_service import Email_service
-from service.manager_setup.manager_setup_service import Manager_setup_service
+from service.sofd_setup.manager_setup_service import Manager_setup_service
+from service.sofd_setup.user_position_service import User_position_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
@@ -20,11 +21,19 @@ step = 'starting'
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
+    step = "manger service"
     ms = Manager_setup_service(constr_lora)
+    step = "ms.set_orgunit_manager()"
     ms.set_orgunit_manager()
-    step = 'ms.set_orgunit_manager() finished'
+    step = 'ms.set_nearest_manager()'
     ms.set_nearest_manager()
-    step = 'ms.set_nearest_manager() finished'
+
+    step = 'user position service'
+    user_position_service = User_position_service(constr_lora)
+    step = 'user_position_service.link_user_to_position()'
+    user_position_service.link_user_to_position()
+
+    step = 'finished'
 except:
     es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
                  'Error: manager_setup.py python app', step)

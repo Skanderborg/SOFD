@@ -6,5 +6,5 @@ class User:
         self.email = email
         self.phone = phone
         self.updated = updated in ['true', 'True', 1]
-        self.mobile = mobile
+        self.workmobile = workmobile
         self.deleteD_in_ad = deleted_in_ad in ['true', 'True', 1]
