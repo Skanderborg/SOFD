@@ -3,10 +3,10 @@
 ## Flow diagrammer
 
 ### Det fulde overblik
-![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_full_flow.png)
+![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet.png)
 
 ### Detaljeret overblik
-[Link til det fulde diagram](https://raw.githubusercontent.com/Skanderborg/SOFD/master/LORA_SOFD_detailed_flow.png)
+[Link til det fulde diagram](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet.png)
 
 ## SQL dokumentation
 ### LORA SOFD
