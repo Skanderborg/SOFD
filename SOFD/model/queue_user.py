@@ -1,6 +1,7 @@
 import datetime
 
-class User_queue:
+
+class Queue_user:
     def __init__(self, system_id, uuid, opus_id, change_type, change_date):
         self.system_id = system_id
         self.uuid = uuid

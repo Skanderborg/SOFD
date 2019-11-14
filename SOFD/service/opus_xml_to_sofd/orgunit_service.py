@@ -61,8 +61,6 @@ class Orgunit_service:
         sofd_orgunits = org_repo.get_orgunits(
             "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
         self.opus_orgunits = Orgunit_service.get_orgunits_from_opus_xml(self)
-        orgs_to_insert = {}
-        orgs_to_update = {}
 
         # key er los_id
         for key in self.opus_orgunits:
@@ -85,21 +83,21 @@ class Orgunit_service:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
-                    orgs_to_update[opus_org.los_id] = opus_org
+                    org_repo.update_orgunit(opus_org)
 
             # ellers indsættes en ny orgunit
             else:
-                orgs_to_insert[opus_org.los_id] = opus_org
+                org_repo.insert_orgunit(opus_org)
 
-        for key in orgs_to_update:
-            org = orgs_to_update[key]
-            org.area = Orgunit_service.get_orgunit_area(self, org.los_id)
-            org_repo.update_orgunit(org)
-
-        for key in orgs_to_insert:
-            org = orgs_to_insert[key]
-            org.area = Orgunit_service.get_orgunit_area(self, org.los_id)
-            org_repo.insert_orgunit(org)
+        # nu hvor scriptet har insat eller opdatret orgunits, skal vi lige tjekke at deres area er korrekt og eventuelt opdaterer det. area bruges af AD
+        sofd_orgunits = org_repo.get_orgunits(
+            "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
+        for key in sofd_orgunits:
+            sofd_org = sofd_orgunits[key]
+            current_area = Orgunit_service.get_orgunit_area(self, sofd_org.los_id)
+            if current_area != sofd_org.area:
+                sofd_org.area = current_area
+                org_repo.update_orgunit(sofd_org)
 
         for key in sofd_orgunits:
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt

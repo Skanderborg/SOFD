@@ -1,4 +1,4 @@
-from model.user_queue import User_queue
+from model.queue_user import Queue_user
 import pyodbc
 
 
@@ -22,11 +22,11 @@ class User_queue_repo:
                         " + whereclause + ";")
         for row in cursor.fetchall():
             system_id = row[0]
-            usr_que = User_queue(system_id, row[1], row[2], row[3], row[4])
+            usr_que = Queue_user(system_id, row[1], row[2], row[3], row[4])
             result[system_id] = usr_que
         return result
 
-    def insert_user_queue(self, usr_que):
+    def insert_user_queue(self, queue_user):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
@@ -35,10 +35,10 @@ class User_queue_repo:
                                          [change_type], \
                                          [change_date])  \
             VALUES (?, ?, ?, ?)",
-            usr_que.uuid,
-            usr_que.opus_id,
-            usr_que.change_type,
-            usr_que.change_date)
+            queue_user.uuid,
+            queue_user.opus_id,
+            queue_user.change_type,
+            queue_user.change_date)
         cnxn.commit()
 
     def delete_person(self, system_id):
