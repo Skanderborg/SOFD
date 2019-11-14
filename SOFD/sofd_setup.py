@@ -22,13 +22,13 @@ step = 'starting'
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
-    
+
     # skal kører før manager setup fordi managerset up henter uuider som reference til leder
     step = 'user position service'
     user_position_service = User_position_service(constr_lora)
     step = 'user_position_service.link_user_to_position()'
     user_position_service.link_user_to_position()
-    
+
     step = "manger service"
     ms = Manager_setup_service(constr_lora)
     step = "ms.set_orgunit_manager()"
