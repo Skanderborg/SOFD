@@ -1,1 +1,62 @@
-<mxfile host="www.draw.io" modified="2019-11-14T13:44:37.619Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="2bsjeHU860Jv6QvgWDMf" version="12.2.6" type="github" pages="1"><diagram id="0UKcfQKUNiVDt_W8MUo9" name="Page-1">dZHBDoIwDIafZnfYjOgZUS6eOHheWGVLBiVjBvTphWwTFzTpof32d//aEZa308XwXl5RgCY0ERNhJ0JpuqOULJGIpyPZ/uhAY5TwohVU6gUeJp4+lIAhElpEbVUfwxq7DmobMW4MjrHsjjp27XkDG1DVXG/pTQkrHT3QbOUlqEYG5zTM1/Ig9pMMkgscvxArCMsNonVZO+Wgl+WFvbi+85/Tz8MMdPZHw5ysd89F9EOseAM=</diagram></mxfile>
+<mxfile host="www.draw.io" modified="2019-11-14T13:49:44.152Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="ES2CIrLk5z0zuR4nX1KY" version="12.2.6" type="github" pages="1">
+  <diagram id="0UKcfQKUNiVDt_W8MUo9" name="Page-1">
+    <mxGraphModel dx="1422" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-1" target="Y-d0m-R7307Kc98WA1Yw-5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-1" target="Y-d0m-R7307Kc98WA1Yw-6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-1" value="OPUS/LOS" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="40" width="120" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-5" target="Y-d0m-R7307Kc98WA1Yw-10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-5" value="&lt;div&gt;SVKFS1&lt;/div&gt;&lt;div&gt;FRA_KMD/Medarbejder&lt;br&gt;XML&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-6" value="&lt;div&gt;SVKFS1&lt;/div&gt;&lt;div&gt;FRA_KMD/Ferietimer&lt;/div&gt;&lt;div&gt;KFS-udtræk&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="180" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-9" value="SOFD" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="630" width="60" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-10" target="Y-d0m-R7307Kc98WA1Yw-11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-10" value="&lt;div&gt;opus_xml_to_sofd.py&lt;/div&gt;&lt;div&gt;Script der opretter SOFD kernen fra OPUS/LOS udtrækket&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="320" width="120" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-11" target="Y-d0m-R7307Kc98WA1Yw-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="155" y="686"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-11" value="&lt;div&gt;setup_sofd.py&lt;/div&gt;&lt;div&gt;Opsætning af vores egen forretningsviden og forbindelser&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="95" y="504" width="120" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-15" value="&lt;div&gt;UNIC/STIL&lt;/div&gt;&lt;div&gt;WS17&lt;br&gt;&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="180" width="120" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-16" target="Y-d0m-R7307Kc98WA1Yw-17">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-16" value="AD" style="triangle;whiteSpace=wrap;html=1;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="680" y="625" width="70" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y-d0m-R7307Kc98WA1Yw-17" target="Y-d0m-R7307Kc98WA1Yw-9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-17" value="Powershell scripts" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="640" width="120" height="60" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
