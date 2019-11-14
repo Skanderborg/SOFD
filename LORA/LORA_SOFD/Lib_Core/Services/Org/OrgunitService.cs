@@ -245,7 +245,7 @@ namespace Lib_Core.Services.Org
             foreach (Orgunit org in lora_orgRepo.Query.Where(o => o.Uuid.Length < 1))
             {
                 org_uiid morg = org_uuid_repo.Query.Where(o => o.OrgOpusID.Equals(org.Los_id.ToString())).FirstOrDefault();
-                if(morg != null && morg.orguuid != null && morg.orguuid.Length < 5)
+                if(morg != null && morg.orguuid != null && morg.orguuid.Length > 5)
                 {
                     org.Uuid = morg.orguuid;
                     lora_orgRepo.Update(org);
