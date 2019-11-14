@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-11-14T13:50:46.334Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="eQUdPJe7uuYdHk4uwJPh" version="12.2.6" type="github" pages="1">
+<mxfile host="www.draw.io" modified="2019-11-14T13:50:58.990Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="IDPhr7nXs9uzH_poWwh3" version="12.2.6" type="github" pages="1">
   <diagram id="0UKcfQKUNiVDt_W8MUo9" name="Page-1">
     <mxGraphModel dx="1422" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -74,7 +74,7 @@
         <mxCell id="Y-d0m-R7307Kc98WA1Yw-21" value="OS2 produkter" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="60" y="950" width="120" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="Y-d0m-R7307Kc98WA1Yw-22" value="Støttesystemer" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="Y-d0m-R7307Kc98WA1Yw-22" value="&lt;div&gt;KOMBIT&lt;/div&gt;&lt;div&gt;systemer&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="290" y="950" width="120" height="80" as="geometry"/>
         </mxCell>
         <mxCell id="Y-d0m-R7307Kc98WA1Yw-23" value="Leverandører" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
