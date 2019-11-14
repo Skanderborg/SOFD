@@ -38,12 +38,14 @@ class Orgunit_repo:
                                [costcenter] \
                         FROM [pyt].[Orgunits] \
                         " + whereclause + ";")
-        for row in cursor.fetchall():
-            los_id = row[0]
-            org = Orgunit(los_id, row[1], row[2], row[3], row[4], row[5],
-                          row[6], row[7], row[8], row[9], row[10], row[11],
-                          row[12], row[13], row[14], row[15], row[16], row[17],
-                          row[18], row[19], row[20], row[21], row[22])
+        rows = cursor.fetchall()
+        for row in rows:
+            los_id = row.los_id
+            org = Orgunit(los_id, row.uuid, row.last_changed, row.longname, row.startdate,
+                          row.enddate, row.parent_orgunit_los_id, row.shortname, row.street,
+                          row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
+                          row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id,
+                          row.hierarchy, row.niveau, row.area, row.costcenter)
             result[int(los_id)] = org
         return result
 

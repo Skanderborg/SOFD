@@ -35,11 +35,12 @@ class Position_repo:
                         FROM [pyt].[positions] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
-            opus_id = row[0]
-            pos = Position(opus_id, row[1], row[2], row[3], row[4], row[5],
-                           row[6], row[7], row[8], row[9], row[10], row[11],
-                           row[12], row[13], row[14], row[15], row[16], row[17],
-                           row[18], row[19])
+            opus_id = row.opus_id
+            pos = Position(opus_id, row.uuid_userref, row.los_id, row.person_ref, row.title,
+                           row.position_id, row.title_short, row.paygrade_title, row.is_manager,
+                           row.payment_method, row.payment_method_text, row.weekly_hours_numerator,
+                           row.weekly_hours_denominator, row.invoice_recipient, row.pos_pnr, row.dsuser,
+                           row.start_date, row.leave_date, row.manager_opus_id, row.manager_uuid_userref)
             result[int(opus_id)] = pos
         return result
 

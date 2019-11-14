@@ -24,8 +24,8 @@ class User_repo:
                         FROM [dbo].[Users] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
-            opus_id = row[0]
-            usr = User(opus_id, row[1], row[2], row[3], row[4], row[5],
-                        row[6], row[7])
+            opus_id = row.Opus_id
+            usr = User(opus_id, row.Uuid, row.UserId, row.Email, row.Phone, row.Updated,
+                       row.WorkMobile, row.Deleted_in_ad)
             result[int(opus_id)] = usr
         return result

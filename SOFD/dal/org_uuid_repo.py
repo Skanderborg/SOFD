@@ -13,5 +13,5 @@ class Org_uuid_repo:
                                [orguuid] \
                         FROM [ad].[org_uiid];")
         for row in cursor.fetchall():
-            result[int(row[0])] = row[1]
+            result[int(row.OrgOpusID)] = row.orguuid
         return result

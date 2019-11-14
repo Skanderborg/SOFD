@@ -23,8 +23,11 @@ class Position:
         self.invoice_recipient = invoice_recipient in ['true', 'True', 1]
         self.pos_pnr = pos_pnr
         self.dsuser = dsuser
-        self.start_date = start_date
-        self.leave_date = leave_date
+        self.start_date = str(start_date)
+        if leave_date != None:
+            self.leave_date = str(leave_date)
+        else:
+            self.leave_date = leave_date
         if manager_opus_id != None:
             self.manager_opus_id = int(manager_opus_id)
         else:

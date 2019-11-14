@@ -18,9 +18,17 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
+'''
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
+    
+    # skal kører før manager setup fordi managerset up henter uuider som reference til leder
+    step = 'user position service'
+    user_position_service = User_position_service(constr_lora)
+    step = 'user_position_service.link_user_to_position()'
+    user_position_service.link_user_to_position()
+    
     step = "manger service"
     ms = Manager_setup_service(constr_lora)
     step = "ms.set_orgunit_manager()"
@@ -28,12 +36,17 @@ try:
     step = 'ms.set_nearest_manager()'
     ms.set_nearest_manager()
 
-    step = 'user position service'
-    user_position_service = User_position_service(constr_lora)
-    step = 'user_position_service.link_user_to_position()'
-    user_position_service.link_user_to_position()
-
     step = 'finished'
 except:
     es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
                  'Error: manager_setup.py python app', step)
+
+
+'''
+constr_lora = os.environ.get('constr_lora')
+user_position_service = User_position_service(constr_lora)
+user_position_service.link_user_to_position()
+ms = Manager_setup_service(constr_lora)
+ms.set_orgunit_manager()
+ms.set_nearest_manager()
+# '''

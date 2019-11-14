@@ -11,11 +11,16 @@ class Orgunit:
         self.last_changed = last_changed
         self.longname = longname
         if startdate != None:
-            self.startdate = startdate
+            self.startdate = str(startdate)
         else:
-            self.startdate = datetime.datetime(1900, 1, 1)
-        self.enddate = enddate
-        self.parent_orgunit_los_id = parent_orgunit_los_id
+            self.startdate = str(datetime.datetime(1900, 1, 1))
+        if enddate != None:
+            self.enddate = str(enddate)
+        else:
+            self.enddate = enddate
+        if parent_orgunit_los_id is None:
+            parent_orgunit_los_id = 0
+        self.parent_orgunit_los_id = int(parent_orgunit_los_id)
         self.shortname = shortname
         self.street = street
         self.zipcode = zipcode
@@ -28,7 +33,7 @@ class Orgunit:
         self.ean = ean
         self.seNr = seNr
         self.pnr = pnr
-        self.orgtype = orgtype
+        self.orgtype = int(orgtype)
         self.orgtypetxt = orgtypetxt
         self.manager_opus_id = manager_opus_id
         self.hierarchy = hierarchy

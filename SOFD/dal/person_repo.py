@@ -21,9 +21,9 @@ class Person_repo:
             FROM [pyt].[persons] \
             WHERE [deleted] = 0;")
         for row in cursor.fetchall():
-            cpr = row[0]
-            per = Person(cpr, row[1], row[2],
-                         row[3], row[4], row[5], row[6])
+            cpr = row.cpr
+            per = Person(cpr, row.firstname, row.lastname,
+                         row.address, row.zipcode, row.city, row.country)
             result[cpr] = per
         return result
 

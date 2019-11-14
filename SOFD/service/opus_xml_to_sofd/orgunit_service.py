@@ -61,6 +61,8 @@ class Orgunit_service:
         sofd_orgunits = org_repo.get_orgunits(
             "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
         self.opus_orgunits = Orgunit_service.get_orgunits_from_opus_xml(self)
+        orgs_to_update = {}
+        orgs_to_insert = {}
 
         # key er los_id
         for key in self.opus_orgunits:
@@ -83,26 +85,38 @@ class Orgunit_service:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
-                    org_repo.update_orgunit(opus_org)
+                    orgs_to_update[key] = opus_org
 
             # ellers indsættes en ny orgunit
             else:
-                org_repo.insert_orgunit(opus_org)
+                orgs_to_insert[key] = opus_org
 
-        # nu hvor scriptet har insat eller opdatret orgunits, skal vi lige tjekke at deres area er korrekt og eventuelt opdaterer det. area bruges af AD
-        sofd_orgunits = org_repo.get_orgunits(
-            "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
-        for key in sofd_orgunits:
-            sofd_org = sofd_orgunits[key]
-            current_area = Orgunit_service.get_orgunit_area(self, sofd_org.los_id)
-            if current_area != sofd_org.area:
-                sofd_org.area = current_area
-                org_repo.update_orgunit(sofd_org)
+        for los_id in orgs_to_insert:
+            org = orgs_to_insert[los_id]
+            org.area = Orgunit_service.get_orgunit_area(self, los_id)
+            org_repo.insert_orgunit(org)
 
-        for key in sofd_orgunits:
+        for los_id in orgs_to_update:
+            org = orgs_to_update[los_id]
+            org.area = Orgunit_service.get_orgunit_area(self, los_id)
+            org_repo.update_orgunit(org)
+
+        for los_id in sofd_orgunits:
+            '''
+            Tjekker først om område har ændret sig på orgunits, det forventer vi sjællendt at det gør, men hvis nu
+            Derefter slettes orgunits, som ikkel ængere er i OPUS
+            '''
+            if los_id not in orgs_to_insert and los_id not in orgs_to_update:
+                org = sofd_orgunits[los_id]
+                current_area = Orgunit_service.get_orgunit_area(self, los_id)
+                if org.area != current_area:
+                    print('hej')
+                    org.area = current_area
+                    org_repo.update_orgunit(org)
+
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
-            if key not in self.opus_orgunits:
-                org_repo.delete_orgunit(key)
+            if los_id not in self.opus_orgunits:
+                org_repo.delete_orgunit(los_id)
 
     def get_orgunit_niveau(self, los_id):
         # Finder en orgunits niveau i org træet, starter ved 1.
