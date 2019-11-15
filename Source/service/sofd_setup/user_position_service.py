@@ -13,9 +13,11 @@ class User_position_service:
         usr_repo = User_repo(self.constr_lora)
         positions = pos_repo.get_positions("WHERE uuid_userref is null")
         users = usr_repo.get_users()
+        positions_to_update = {}
         for key in positions:
             if key in users:
                 position = positions[key]
                 user = users[key]
                 position.uuid_userref = user.uuid
-                pos_repo.update_position(position)
+                positions_to_update[key] = position
+        pos_repo.update_positions(positions_to_update)
