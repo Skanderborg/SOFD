@@ -27,48 +27,52 @@ class Person_repo:
             result[cpr] = per
         return result
 
-    def insert_person(self, person):
+    def insert_persons(self, persons):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute(
-            "INSERT INTO [pyt].[persons]([cpr], \
-                                         [firstname], \
-                                         [lastname], \
-                                         [address], \
-                                         [zipcode], \
-                                         [city], \
-                                         [country], \
-                                         [updated], \
-                                         [deleted])  \
-            VALUES (?, ?, ?, ?, ?, ?, ?, 1, 0)",
-            person.cpr,
-            person.firstname,
-            person.lastname,
-            person.address,
-            person.zipcode,
-            person.city,
-            person.country)
+        for key in persons:
+            person = persons[key]
+            cursor.execute(
+                "INSERT INTO [pyt].[persons]([cpr], \
+                                             [firstname], \
+                                             [lastname], \
+                                             [address], \
+                                             [zipcode], \
+                                             [city], \
+                                             [country], \
+                                             [updated], \
+                                             [deleted])  \
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, 0)",
+                person.cpr,
+                person.firstname,
+                person.lastname,
+                person.address,
+                person.zipcode,
+                person.city,
+                person.country)
         cnxn.commit()
 
-    def update_person(self, person):
+    def update_persons(self, persons):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute("UPDATE [pyt].[persons] \
-                        SET [firstname] = ?, \
-                             [lastname] = ?, \
-                             [address] = ?, \
-                             [zipcode] = ?, \
-                             [city] = ?, \
-                             [country] = ?, \
-                             [updated] = 1 \
-                        WHERE [cpr] = ?",
-                       person.firstname,
-                       person.lastname,
-                       person.address,
-                       person.zipcode,
-                       person.city,
-                       person.country,
-                       person.cpr)
+        for key in persons:
+            person = persons[key]
+            cursor.execute("UPDATE [pyt].[persons] \
+                            SET [firstname] = ?, \
+                                [lastname] = ?, \
+                                [address] = ?, \
+                                [zipcode] = ?, \
+                                [city] = ?, \
+                                [country] = ?, \
+                                [updated] = 1 \
+                            WHERE [cpr] = ?",
+                           person.firstname,
+                           person.lastname,
+                           person.address,
+                           person.zipcode,
+                           person.city,
+                           person.country,
+                           person.cpr)
         cnxn.commit()
 
     def delete_person(self, cpr):

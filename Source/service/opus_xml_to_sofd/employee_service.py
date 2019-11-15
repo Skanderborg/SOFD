@@ -121,6 +121,8 @@ class Employee_service:
         per_repo = Person_repo(self.constr_lora)
         sofd_persons = per_repo.get_persons()
         opus_persons = self.get_persons()
+        persons_to_insert = {}
+        persons_to_update = {}
 
         # key er cpr
         for key in opus_persons:
@@ -133,10 +135,13 @@ class Employee_service:
                     # Når der ikke er forandringer, springer vi videre til næste person
                     continue
                 else:
-                    per_repo.update_person(opus_per)
+                    persons_to_update[key] = opus_per
             # ellers indsættes en ny
             else:
-                per_repo.insert_person(opus_per)
+                persons_to_insert[key] = opus_per
+
+        per_repo.insert_persons(persons_to_insert)
+        per_repo.update_persons(persons_to_update)
 
         for key in sofd_persons:
             # Hvis en nøgle (cpr) er i SOFD men ikke i OPUS udtræk er det fordi personens stillinger alle er nedlagte
@@ -152,6 +157,8 @@ class Employee_service:
         pos_repo = Position_repo(self.constr_lora)
         sofd_positions = pos_repo.get_positions('WHERE [deleted] = 0')
         opus_positions = self.get_positions()
+        positions_to_insert = {}
+        positions_to_update = {}
 
         # key er opus_id (medarbejdernummer)
         for key in opus_positions:
@@ -169,11 +176,13 @@ class Employee_service:
                     # Når der ikke er forandringer, springer vi videre til næste position
                     continue
                 else:
-                    pos_repo.update_position(opus_pos)
+                    positions_to_update[key] = opus_pos
             # ellers indsættes en ny
             else:
-                pos_repo.insert_position(opus_pos)
+                positions_to_insert[key] = opus_pos
 
+        pos_repo.insert_positions(positions_to_insert)
+        pos_repo.update_positions(positions_to_update)
         for key in sofd_positions:
             # hvis en nøgle (opus_id) er i SOFD men ikke i OPUS udtræk er det fordi stillingen er nedlagt
             if key not in opus_positions:
