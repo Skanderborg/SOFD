@@ -3,6 +3,7 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import glob
 from service.email_service import Email_service
+from service.feriesaldo_to_sofd.feriesaldo_service import Feriesaldo_service
 
 
 '''
@@ -27,8 +28,13 @@ except:
 '''
 
 # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret
-kfs_path = os.environ.get('feriesaldo_path')
+kfs_filepath = os.environ.get('feriesaldo_path')
 # connection string til SOFD databasen
 constr_lora = os.environ.get('constr_lora')
-
+# finder frem til den seneste fil fra OPUS
+list_of_files = glob.glob(kfs_filepath)
+latest_file = max(list_of_files, key=os.path.getctime)
+step = 'setup complete'
+feriesaldo_Service = Feriesaldo_service(latest_file, constr_lora)
+feriesaldo_Service.insert_feriesaldos()
 # '''
