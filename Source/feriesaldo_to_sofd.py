@@ -36,5 +36,5 @@ list_of_files = glob.glob(kfs_filepath)
 latest_file = max(list_of_files, key=os.path.getctime)
 step = 'setup complete'
 feriesaldo_Service = Feriesaldo_service(latest_file, constr_lora)
-feriesaldo_Service.insert_feriesaldos()
+feriesaldo_Service.insert_feriesaldos_in_sofd()
 # '''
