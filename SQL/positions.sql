@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[positions]    Script Date: 14-11-2019 15:02:12 ******/
+/****** Object:  Table [pyt].[positions]    Script Date: 20-11-2019 11:29:37 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,6 +14,7 @@ CREATE TABLE [pyt].[positions](
 	[uuid_userref] [nvarchar](200) NULL,
 	[los_id] [int] NOT NULL,
 	[person_ref] [nvarchar](15) NOT NULL,
+	[kmd_suppid] [int] NOT NULL,
 	[title] [nvarchar](250) NOT NULL,
 	[position_id] [int] NOT NULL,
 	[title_short] [nvarchar](50) NOT NULL,
@@ -39,3 +40,5 @@ CREATE TABLE [pyt].[positions](
 ) ON [PRIMARY]
 
 GO
+
+
