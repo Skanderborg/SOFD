@@ -13,30 +13,31 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute("SELECT [opus_id], \
-                               [uuid_userref], \
-                               [los_id], \
-                               [person_ref], \
-                               [title], \
-                               [position_id], \
-                               [title_short], \
-                               [paygrade_title], \
-                               [is_manager], \
-                               [payment_method], \
-                               [payment_method_text], \
-                               [weekly_hours_numerator], \
-                               [weekly_hours_denominator], \
-                               [invoice_recipient], \
-                               [pos_pnr], \
-                               [dsuser], \
-                               [start_date], \
-                               [leave_date], \
-                               [manager_opus_id], \
-                               [manager_uuid_userref] \
+                                [uuid_userref], \
+                                [los_id], \
+                                [person_ref], \
+                                [kmd_suppid], \
+                                [title], \
+                                [position_id], \
+                                [title_short], \
+                                [paygrade_title], \
+                                [is_manager], \
+                                [payment_method], \
+                                [payment_method_text], \
+                                [weekly_hours_numerator], \
+                                [weekly_hours_denominator], \
+                                [invoice_recipient], \
+                                [pos_pnr], \
+                                [dsuser], \
+                                [start_date], \
+                                [leave_date], \
+                                [manager_opus_id], \
+                                [manager_uuid_userref] \
                         FROM [pyt].[positions] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
             opus_id = row.opus_id
-            pos = Position(opus_id, row.uuid_userref, row.los_id, row.person_ref, row.title,
+            pos = Position(opus_id, row.uuid_userref, row.los_id, row.person_ref, row.kmd_suppid, row.title,
                            row.position_id, row.title_short, row.paygrade_title, row.is_manager,
                            row.payment_method, row.payment_method_text, row.weekly_hours_numerator,
                            row.weekly_hours_denominator, row.invoice_recipient, row.pos_pnr, row.dsuser,
@@ -51,28 +52,30 @@ class Position_repo:
             position = positions[key]
             cursor.execute(
                 "INSERT into [pyt].[positions]([opus_id], \
-                                               [los_id], \
-                                               [person_ref], \
-                                               [title], \
-                                               [title_short], \
-                                               [position_id], \
-                                               [paygrade_title], \
-                                               [is_manager], \
-                                               [payment_method], \
-                                               [payment_method_text], \
-                                               [weekly_hours_numerator], \
-                                               [weekly_hours_denominator], \
-                                               [invoice_recipient], \
-                                               [pos_pnr], \
-                                               [dsuser], \
-                                               [start_date], \
-                                               [leave_date], \
-                                               [updated], \
-                                               [deleted]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
+                                                [los_id], \
+                                                [person_ref], \
+                                                [kmd_suppid], \
+                                                [title], \
+                                                [title_short], \
+                                                [position_id], \
+                                                [paygrade_title], \
+                                                [is_manager], \
+                                                [payment_method], \
+                                                [payment_method_text], \
+                                                [weekly_hours_numerator], \
+                                                [weekly_hours_denominator], \
+                                                [invoice_recipient], \
+                                                [pos_pnr], \
+                                                [dsuser], \
+                                                [start_date], \
+                                                [leave_date], \
+                                                [updated], \
+                                                [deleted]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
                 position.opus_id,
                 position.los_id,
                 position.person_ref,
+                position.kmd_suppid,
                 position.position_title,
                 position.position_title_short,
                 position.position_id,
@@ -99,6 +102,7 @@ class Position_repo:
                 SET [uuid_userref] = ?, \
                     [los_id] =?, \
                     [person_ref] = ?, \
+                    [kmd_suppid] = ?, \
                     [title] = ?, \
                     [position_id] = ?, \
                     [title_short] = ?, \
@@ -120,6 +124,7 @@ class Position_repo:
                 position.uuid_userref,
                 position.los_id,
                 position.person_ref,
+                position.kmd_suppid,
                 position.position_title,
                 position.position_id,
                 position.position_title_short,

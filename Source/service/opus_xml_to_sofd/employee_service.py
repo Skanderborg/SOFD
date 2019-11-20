@@ -84,6 +84,7 @@ class Employee_service:
                                None,
                                los_id,
                                cpr,
+                               emp.find('cpr').get('suppId'),
                                emp.find('position').text,
                                emp.find('positionId').text,
                                emp.find('positionShort').text,
