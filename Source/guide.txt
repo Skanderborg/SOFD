@@ -19,3 +19,4 @@ https://pypi.org/project/python-dotenv/
 pip install pyodbc
 https://docs.microsoft.com/en-us/sql/connect/python/pyodbc/python-sql-driver-pyodbc?view=sql-server-ver15
 https://pypi.org/project/pyodbc/
+
