@@ -152,5 +152,5 @@ class Position_repo:
         cursor.execute("SELECT [los_id] FROM [pyt].[disabled_orgunits]")
         result = []
         for row in cursor.fetchall():
-            result.append(row[0])
+            result.append(row.los_id)
         return result

@@ -4,7 +4,6 @@ from dal.person_repo import Person_repo
 from dal.position_repo import Position_repo
 import xml.etree.ElementTree as ET
 from datetime import datetime, date
-from pprint import pprint
 
 '''
 Author: Jacob Ågård Bennike
@@ -43,7 +42,7 @@ class Employee_service:
             if emp.get('action') == None:
                 cpr = emp.find('cpr').text
                 opus_id = emp.get('id')
-                los_id = emp.find('orgUnit').text
+                los_id = int(emp.find('orgUnit').text)
                 if los_id in disabled_orgs:
                     # vi har nogle orgunits som indeholder ikke-medarbejdere, dem ønsker vi ikke i SOFD'en og de bliver sorteret fra her.
                     continue
@@ -53,8 +52,9 @@ class Employee_service:
                     userId = emp.find('userId').text
 
                 # sætter en start dato fra de forskellige datapunkter vi har at gøre godt med. Det er lidt rodet fordi det er en manuel indtastning fra løn
+                # Entry date er aldrig none, men tom når der ikke er en dato
                 startdate = None
-                if emp.find('entryDate') != None:
+                if emp.find('entryDate').text != None:
                     startdate = emp.find('entryDate').text
                 elif emp.find('initialEntry') != None:
                     startdate = emp.find('initialEntry').text
@@ -63,6 +63,7 @@ class Employee_service:
 
                 if startdate == None:
                     # Hvis der ikke er en start dato for en stilling, er den oprettet forkert i løn og kan ikke meldes til vores andre systemer, derfor ignorer vi den.
+                    print(opus_id)
                     continue
                 else:
                     startdate = datetime.strptime(startdate, '%Y-%m-%d').date()
