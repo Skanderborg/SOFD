@@ -19,7 +19,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
-'''
+# '''
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
@@ -36,6 +36,10 @@ try:
     ms.set_orgunit_manager()
     step = 'ms.set_nearest_manager()'
     ms.set_nearest_manager()
+    step = "orgunit_parent_uuid_service"
+    orgunit_parent_uuid_service = Orgunit_parent_uuid_service(constr_lora)
+    step = "orgunit_parent_uuid_service.set_parent_uuids()"
+    orgunit_parent_uuid_service.set_parent_uuids()
 
     step = 'finished'
 except:
