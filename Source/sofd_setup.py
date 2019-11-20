@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from service.email_service import Email_service
 from service.sofd_setup.manager_setup_service import Manager_setup_service
 from service.sofd_setup.user_position_service import User_position_service
+from service.sofd_setup.orgunit_parent_uuid_service import Orgunit_parent_uuid_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
@@ -49,4 +50,9 @@ user_position_service.link_user_to_position()
 ms = Manager_setup_service(constr_lora)
 ms.set_orgunit_manager()
 ms.set_nearest_manager()
+
+
+orgunit_parent_uuid_service = Orgunit_parent_uuid_service(constr_lora)
+orgunit_parent_uuid_service.set_parent_uuids()
+
 # '''

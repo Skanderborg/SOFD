@@ -37,6 +37,7 @@ class Orgunit_service:
                           orgunit.find('startDate').text,
                           orgunit.find('endDate').text,
                           orgunit.find('parentOrgUnit').text,
+                          None,
                           orgunit.find('shortName').text,
                           orgunit.find('street').text,
                           orgunit.find('zipCode').text,

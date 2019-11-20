@@ -3,9 +3,9 @@ import datetime
 
 class Orgunit:
     def __init__(self, los_id, uuid, last_changed, longname, startdate, enddate,
-                 parent_orgunit_los_id, shortname, street, zipcode, city, phonenumber, cvr,
-                 ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy, niveau,
-                 area, costcenter=None):
+                 parent_orgunit_los_id, parent_orgunit_uuid, shortname, street, zipcode, city,
+                 phonenumber, cvr, ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy,
+                 niveau,  area, costcenter=None):
         self.los_id = los_id
         self.uuid = uuid
         self.last_changed = last_changed
@@ -21,6 +21,7 @@ class Orgunit:
         if parent_orgunit_los_id is None:
             parent_orgunit_los_id = 0
         self.parent_orgunit_los_id = int(parent_orgunit_los_id)
+        self.parent_orgunit_uuid = parent_orgunit_uuid
         self.shortname = shortname
         self.street = street
         self.zipcode = zipcode

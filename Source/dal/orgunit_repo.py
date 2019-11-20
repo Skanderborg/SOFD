@@ -20,6 +20,7 @@ class Orgunit_repo:
                                [startdate], \
                                [enddate], \
                                [parent_orgunit_los_id], \
+                               [parent_orgunit_uuid], \
                                [shortname], \
                                [street], \
                                [zipcode], \
@@ -42,10 +43,10 @@ class Orgunit_repo:
         for row in rows:
             los_id = row.los_id
             org = Orgunit(los_id, row.uuid, row.last_changed, row.longname, row.startdate,
-                          row.enddate, row.parent_orgunit_los_id, row.shortname, row.street,
-                          row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
-                          row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id,
-                          row.hierarchy, row.niveau, row.area, row.costcenter)
+                          row.enddate, row.parent_orgunit_los_id, row.parent_orgunit_uuid, row.shortname,
+                          row.street, row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
+                          row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id, row.hierarchy,
+                          row.niveau, row.area, row.costcenter)
             result[int(los_id)] = org
         return result
 
@@ -54,36 +55,38 @@ class Orgunit_repo:
         cursor = cnxn.cursor()
         cursor.execute(
             "INSERT INTO [pyt].[Orgunits]([los_id], \
-                                       [last_changed], \
-                                       [longname], \
-                                       [startdate], \
-                                       [enddate], \
-                                       [parent_orgunit_los_id], \
-                                       [shortname], \
-                                       [street], \
-                                       [zipcode], \
-                                       [city], \
-                                       [phonenumber], \
-                                       [cvr], \
-                                       [ean], \
-                                       [seNr], \
-                                       [pnr], \
-                                       [orgtype], \
-                                       [orgtypetxt], \
-                                       [costcenter], \
-                                       [hierarchy], \
-                                       [niveau], \
-                                       [area], \
-                                       [new], \
-                                       [updated], \
-                                       [deleted]) \
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
+                                        [last_changed], \
+                                        [longname], \
+                                        [startdate], \
+                                        [enddate], \
+                                        [parent_orgunit_los_id], \
+                                        [parent_orgunit_uuid], \
+                                        [shortname], \
+                                        [street], \
+                                        [zipcode], \
+                                        [city], \
+                                        [phonenumber], \
+                                        [cvr], \
+                                        [ean], \
+                                        [seNr], \
+                                        [pnr], \
+                                        [orgtype], \
+                                        [orgtypetxt], \
+                                        [costcenter], \
+                                        [hierarchy], \
+                                        [niveau], \
+                                        [area], \
+                                        [new], \
+                                        [updated], \
+                                        [deleted]) \
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
             orgunit.los_id,
             orgunit.last_changed,
             orgunit.longname,
             orgunit.startdate,
             orgunit.enddate,
             orgunit.parent_orgunit_los_id,
+            orgunit.parent_orgunit_uuid,
             orgunit.shortname,
             orgunit.street,
             orgunit.zipcode,
@@ -113,6 +116,7 @@ class Orgunit_repo:
                 [startdate] = ?, \
                 [enddate] = ?, \
                 [parent_orgunit_los_id] = ?, \
+                [parent_orgunit_uuid] = ?, \
                 [shortname] = ?, \
                 [street] = ?, \
                 [zipcode] = ?, \
@@ -138,6 +142,7 @@ class Orgunit_repo:
             orgunit.startdate,
             orgunit.enddate,
             orgunit.parent_orgunit_los_id,
+            orgunit.parent_orgunit_uuid,
             orgunit.shortname,
             orgunit.street,
             orgunit.zipcode,
