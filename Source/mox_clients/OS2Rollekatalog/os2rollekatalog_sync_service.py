@@ -19,7 +19,34 @@ class Os2rollekatalog_sync_service:
         self.lora_constr = lora_constr
 
     def create_org_json(self):
-        x = 1
+        result = Sts_collection_json()
+        org_repo = Orgunit_repo(self.lora_constr)
+        pos_repo = Position_repo(self.lora_constr)
+        per_repo = Person_repo(self.lora_constr)
+        usr_repo = User_repo(self.lora_constr)
+        orgs = org_repo.get_orgunits()
+        poss = pos_repo.get_positions('WHERE [uuid_userref] is not NULL and [deleted] = 0')
+        pers = per_repo.get_persons()
+        usrs = usr_repo.get_users()
+
+        for los_id in orgs:
+            sofd_org = orgs[los_id]
+            sofd_manager = None
+            jsman = None
+            # den sidste del er pga de ledere der også er politikere som snyder med deres brugerkonti, det skal der egentligt rydes op i
+            if sofd_org.manager_opus_id != None and int(sofd_org.manager_opus_id) in usrs:
+                sofd_manager = usrs[int(sofd_org.manager_opus_id)]
+                jsman = Manager_json(sofd_manager.uuid, sofd_manager.userid)
+            jsorg = Orgunit_json(
+                sofd_org.uuid, sofd_org.longname, sofd_org.parent_orgunit_uuid, jsman)
+            result.add_org(jsorg)
+
+        for opus_id in poss:
+            sofd_pos = poss[opus_id]
+            sofd_usr = usrs[opus_id]
+            sofd_per = pers[sofd_pos.person_ref]
+
+        print(json.dumps(result.reprJSON(), cls=ComplexEncoder))
 
     def post_json(self, json):
         x = 2

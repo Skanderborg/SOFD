@@ -11,13 +11,19 @@ class User_position_service:
     def link_user_to_position(self):
         pos_repo = Position_repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
-        positions = pos_repo.get_positions("WHERE uuid_userref is null")
+        positions = pos_repo.get_positions()
         users = usr_repo.get_users()
         positions_to_update = {}
         for key in positions:
+            position = positions[key]
             if key in users:
-                position = positions[key]
                 user = users[key]
-                position.uuid_userref = user.uuid
-                positions_to_update[key] = position
+                if position.uuid_userref == None or position.uuid_userref != user.uuid:
+                    position.uuid_userref = user.uuid
+                    positions_to_update[key] = position
+            else:
+                if position.uuid_userref != None:
+                    position.uuid_userref = None
+                    positions_to_update[key] = position
+
         pos_repo.update_positions(positions_to_update)
