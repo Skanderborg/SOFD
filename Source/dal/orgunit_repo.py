@@ -50,116 +50,120 @@ class Orgunit_repo:
             result[int(los_id)] = org
         return result
 
-    def insert_orgunit(self, orgunit):
+    def insert_orgunit(self, orgunits):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute(
-            "INSERT INTO [pyt].[Orgunits]([los_id], \
-                                        [last_changed], \
-                                        [longname], \
-                                        [startdate], \
-                                        [enddate], \
-                                        [parent_orgunit_los_id], \
-                                        [parent_orgunit_uuid], \
-                                        [shortname], \
-                                        [street], \
-                                        [zipcode], \
-                                        [city], \
-                                        [phonenumber], \
-                                        [cvr], \
-                                        [ean], \
-                                        [seNr], \
-                                        [pnr], \
-                                        [orgtype], \
-                                        [orgtypetxt], \
-                                        [costcenter], \
-                                        [hierarchy], \
-                                        [niveau], \
-                                        [area], \
-                                        [new], \
-                                        [updated], \
-                                        [deleted]) \
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
-            orgunit.los_id,
-            orgunit.last_changed,
-            orgunit.longname,
-            orgunit.startdate,
-            orgunit.enddate,
-            orgunit.parent_orgunit_los_id,
-            orgunit.parent_orgunit_uuid,
-            orgunit.shortname,
-            orgunit.street,
-            orgunit.zipcode,
-            orgunit.city,
-            orgunit.phonenumber,
-            orgunit.cvr,
-            orgunit.ean,
-            orgunit.seNr,
-            orgunit.pnr,
-            orgunit.orgtype,
-            orgunit.orgtypetxt,
-            orgunit.costcenter,
-            orgunit.hierarchy,
-            orgunit.niveau,
-            orgunit.area)
+        for key in orgunits:
+            orgunit = orgunits[key]
+            cursor.execute(
+                "INSERT INTO [pyt].[Orgunits]([los_id], \
+                                            [last_changed], \
+                                            [longname], \
+                                            [startdate], \
+                                            [enddate], \
+                                            [parent_orgunit_los_id], \
+                                            [parent_orgunit_uuid], \
+                                            [shortname], \
+                                            [street], \
+                                            [zipcode], \
+                                            [city], \
+                                            [phonenumber], \
+                                            [cvr], \
+                                            [ean], \
+                                            [seNr], \
+                                            [pnr], \
+                                            [orgtype], \
+                                            [orgtypetxt], \
+                                            [costcenter], \
+                                            [hierarchy], \
+                                            [niveau], \
+                                            [area], \
+                                            [new], \
+                                            [updated], \
+                                            [deleted]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
+                orgunit.los_id,
+                orgunit.last_changed,
+                orgunit.longname,
+                orgunit.startdate,
+                orgunit.enddate,
+                orgunit.parent_orgunit_los_id,
+                orgunit.parent_orgunit_uuid,
+                orgunit.shortname,
+                orgunit.street,
+                orgunit.zipcode,
+                orgunit.city,
+                orgunit.phonenumber,
+                orgunit.cvr,
+                orgunit.ean,
+                orgunit.seNr,
+                orgunit.pnr,
+                orgunit.orgtype,
+                orgunit.orgtypetxt,
+                orgunit.costcenter,
+                orgunit.hierarchy,
+                orgunit.niveau,
+                orgunit.area)
         cnxn.commit()
 
-    def update_orgunit(self, orgunit):
+    def update_orgunit(self, orgunits):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute(
-            "UPDATE [pyt].[Orgunits] \
-            SET [los_id] = ?, \
-                [uuid] = ?, \
-                [last_changed] = ?, \
-                [longname] = ?, \
-                [startdate] = ?, \
-                [enddate] = ?, \
-                [parent_orgunit_los_id] = ?, \
-                [parent_orgunit_uuid] = ?, \
-                [shortname] = ?, \
-                [street] = ?, \
-                [zipcode] = ?, \
-                [city] = ?, \
-                [phonenumber] = ?, \
-                [cvr] = ?, \
-                [ean] = ?, \
-                [seNr] = ?, \
-                [pnr] = ?, \
-                [orgtype] = ?, \
-                [orgtypetxt] = ?, \
-                [costcenter] = ?, \
-                [manager_opus_id] = ?, \
-                [hierarchy] = ?, \
-                [niveau] = ?, \
-                [area] = ?, \
-                [updated] = 1 \
-            WHERE [los_id] = ?",
-            orgunit.los_id,
-            orgunit.uuid,
-            orgunit.last_changed,
-            orgunit.longname,
-            orgunit.startdate,
-            orgunit.enddate,
-            orgunit.parent_orgunit_los_id,
-            orgunit.parent_orgunit_uuid,
-            orgunit.shortname,
-            orgunit.street,
-            orgunit.zipcode,
-            orgunit.city,
-            orgunit.phonenumber,
-            orgunit.cvr,
-            orgunit.ean,
-            orgunit.seNr,
-            orgunit.pnr,
-            orgunit.orgtype,
-            orgunit.orgtypetxt,
-            orgunit.costcenter,
-            orgunit.manager_opus_id,
-            orgunit.hierarchy,
-            orgunit.niveau,
-            orgunit.area,
-            orgunit.los_id)
+        for key in orgunits:
+            orgunit = orgunits[key]
+            cursor.execute(
+                "UPDATE [pyt].[Orgunits] \
+                SET [los_id] = ?, \
+                    [uuid] = ?, \
+                    [last_changed] = ?, \
+                    [longname] = ?, \
+                    [startdate] = ?, \
+                    [enddate] = ?, \
+                    [parent_orgunit_los_id] = ?, \
+                    [parent_orgunit_uuid] = ?, \
+                    [shortname] = ?, \
+                    [street] = ?, \
+                    [zipcode] = ?, \
+                    [city] = ?, \
+                    [phonenumber] = ?, \
+                    [cvr] = ?, \
+                    [ean] = ?, \
+                    [seNr] = ?, \
+                    [pnr] = ?, \
+                    [orgtype] = ?, \
+                    [orgtypetxt] = ?, \
+                    [costcenter] = ?, \
+                    [manager_opus_id] = ?, \
+                    [hierarchy] = ?, \
+                    [niveau] = ?, \
+                    [area] = ?, \
+                    [updated] = 1 \
+                WHERE [los_id] = ?",
+                orgunit.los_id,
+                orgunit.uuid,
+                orgunit.last_changed,
+                orgunit.longname,
+                orgunit.startdate,
+                orgunit.enddate,
+                orgunit.parent_orgunit_los_id,
+                orgunit.parent_orgunit_uuid,
+                orgunit.shortname,
+                orgunit.street,
+                orgunit.zipcode,
+                orgunit.city,
+                orgunit.phonenumber,
+                orgunit.cvr,
+                orgunit.ean,
+                orgunit.seNr,
+                orgunit.pnr,
+                orgunit.orgtype,
+                orgunit.orgtypetxt,
+                orgunit.costcenter,
+                orgunit.manager_opus_id,
+                orgunit.hierarchy,
+                orgunit.niveau,
+                orgunit.area,
+                orgunit.los_id)
         cnxn.commit()
 
     def delete_orgunit(self, los_id):

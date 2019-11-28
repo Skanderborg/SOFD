@@ -36,8 +36,6 @@ try:
     org_service = Orgunit_service(latest_file, constr_lora)
     org_service.update_orgunits()
     step = 'org_service.update_orgunits() complete'
-    org_service.set_orgunit_uuid()
-    step = 'org_service.set_orgunit_uuid() complete'
 
     # opdaterer employee fra OPUS til position og person i SOFD
     emp_service = Employee_service(latest_file, constr_lora)
@@ -67,8 +65,6 @@ step = 'setup complete'
 org_service = Orgunit_service(latest_file, constr_lora)
 org_service.update_orgunits()
 step = 'org_service.update_orgunits() complete'
-org_service.set_orgunit_uuid()
-step = 'org_service.set_orgunit_uuid() complete'
 
 # opdaterer employee fra OPUS til position og person i SOFD
 emp_service = Employee_service(latest_file, constr_lora)

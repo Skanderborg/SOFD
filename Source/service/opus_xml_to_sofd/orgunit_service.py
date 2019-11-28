@@ -1,6 +1,5 @@
 from model.orgunit import Orgunit
 from dal.orgunit_repo import Orgunit_repo
-from dal.org_uuid_repo import Org_uuid_repo
 import xml.etree.ElementTree as ET
 import datetime
 
@@ -66,55 +65,41 @@ class Orgunit_service:
         orgs_to_insert = {}
 
         # key er los_id
-        for key in self.opus_orgunits:
-            opus_org = self.opus_orgunits[key]
-            opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, key)
+        for los_id in self.opus_orgunits:
+            opus_org = self.opus_orgunits[los_id]
+            opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, los_id)
             # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
             if opus_org.parent_orgunit_los_id is None:
                 opus_org.parent_orgunit_los_id = 0
 
+            opus_org.area = Orgunit_service.get_orgunit_area(self, los_id)
+
             # hvis en orgunit findes, tjekkes den for forandringer.
-            if key in sofd_orgunits:
-                sofd_org = sofd_orgunits[key]
+            if los_id in sofd_orgunits:
+                sofd_org = sofd_orgunits[los_id]
                 if opus_org.longname == sofd_org.longname and opus_org.startdate == sofd_org.startdate and opus_org.enddate == sofd_org.enddate \
                         and opus_org.parent_orgunit_los_id == sofd_org.parent_orgunit_los_id and opus_org.shortname == sofd_org.shortname and \
                         opus_org.street == sofd_org.street and opus_org.zipcode == sofd_org.zipcode and opus_org.city == sofd_org.city and \
                         opus_org.phonenumber == sofd_org.phonenumber and opus_org.cvr == sofd_org.cvr and opus_org.ean == sofd_org.ean and \
                         opus_org.seNr == sofd_org.seNr and opus_org.pnr == sofd_org.pnr and opus_org.orgtype == sofd_org.orgtype and \
                         opus_org.orgtypetxt == sofd_org.orgtypetxt and opus_org.costcenter == sofd_org.costcenter and \
-                        opus_org.niveau == sofd_org.niveau:
+                        opus_org.niveau == sofd_org.niveau and opus_org.area == sofd_org.area:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
-                    orgs_to_update[key] = opus_org
+                    orgs_to_update[los_id] = opus_org
 
             # ellers indsættes en ny orgunit
             else:
-                orgs_to_insert[key] = opus_org
+                orgs_to_insert[los_id] = opus_org
 
-        for los_id in orgs_to_insert:
-            org = orgs_to_insert[los_id]
-            org.area = Orgunit_service.get_orgunit_area(self, los_id)
-            org_repo.insert_orgunit(org)
-
-        for los_id in orgs_to_update:
-            org = orgs_to_update[los_id]
-            org.area = Orgunit_service.get_orgunit_area(self, los_id)
-            org_repo.update_orgunit(org)
+        org_repo.insert_orgunit(orgs_to_insert)
+        org_repo.update_orgunit(orgs_to_update)
 
         for los_id in sofd_orgunits:
             '''
-            Tjekker først om område har ændret sig på orgunits, det forventer vi sjællendt at det gør, men hvis nu
-            Derefter slettes orgunits, som ikkel ængere er i OPUS
+            Markerer orgunits, som ikke ængere er i OPUS til deleted = 1
             '''
-            if los_id not in orgs_to_insert and los_id not in orgs_to_update:
-                org = sofd_orgunits[los_id]
-                current_area = Orgunit_service.get_orgunit_area(self, los_id)
-                if org.area != current_area:
-                    print('hej')
-                    org.area = current_area
-                    org_repo.update_orgunit(org)
-
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
             if los_id not in self.opus_orgunits:
                 org_repo.delete_orgunit(los_id)
@@ -137,15 +122,3 @@ class Orgunit_service:
             return 'Direktion'
         else:
             return Orgunit_service.get_orgunit_area(self, current_org.parent_orgunit_los_id)
-
-    def set_orgunit_uuid(self):
-        uuid_repo = Org_uuid_repo(self.constr_lora)
-        org_repo = Orgunit_repo(self.constr_lora)
-        uuids = uuid_repo.get_org_uuids()
-        orgs = org_repo.get_orgunits(
-            "WHERE [new] = 1 and [hierarchy] = 'opus'")
-        for key in orgs:
-            if key in uuids:
-                org = orgs[key]
-                org.uuid = uuids[key]
-                org_repo.update_orgunit(org)

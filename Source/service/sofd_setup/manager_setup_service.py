@@ -11,7 +11,7 @@ class Manager_setup_service:
     def set_orgunit_manager(self):
         orgs = self.org_repo.get_orgunits()
         managers = self.pos_repo.get_positions('WHERE [is_manager] = 1')
-
+        orgs_to_update = {}
         for mkey in managers:
             manager = managers[mkey]
             org = orgs[manager.los_id]
@@ -19,7 +19,8 @@ class Manager_setup_service:
                 continue
             else:
                 org.manager_opus_id = manager.opus_id
-                self.org_repo.update_orgunit(org)
+                orgs_to_update[org.los_id] = org
+        self.org_repo.update_orgunit(orgs_to_update)
 
     def set_nearest_manager(self):
         self.orgs = self.org_repo.get_orgunits()

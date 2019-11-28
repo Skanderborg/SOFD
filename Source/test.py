@@ -8,7 +8,8 @@ load_dotenv(dotenv_path)
 constr_lora = os.environ.get('constr_lora')
 
 oss = Os2rollekatalog_sync_service(constr_lora)
-oss.create_org_json()
+json_str = oss.create_org_json()
+oss.post_json(json_str)
 
 '''
 import json
