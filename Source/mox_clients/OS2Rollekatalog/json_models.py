@@ -1,7 +1,7 @@
 import json
 
 
-class Stsjson:
+class Sts_collection_json:
     def __init__(self):
         self.orgUnits = []
         self.users = []
@@ -16,7 +16,7 @@ class Stsjson:
         return dict(orgUnits=self.orgUnits, users=self.users)
 
 
-class Orgunit:
+class Orgunit_json:
     def __init__(self, uuid, name, parentOrgUnitUuid, manager):
         self.uuid = uuid
         self.name = name
@@ -27,7 +27,7 @@ class Orgunit:
         return dict(uuid=self.uuid, name=self.name, parentOrgUnitUuid=self.parentOrgUnitUuid)
 
 
-class Manager:
+class Manager_json:
     def __init__(self, uuid, userId):
         self.uuid = uuid
         self.userId = userId
@@ -36,7 +36,7 @@ class Manager:
             return dict(uuid=self.uuid, userId=self.userId)
 
 
-class User:
+class User_json:
     def __init__(self, extUuid, userId, name, email):
         self.extUuid = extUuid
         self.userId = userId
@@ -51,7 +51,7 @@ class User:
         return dict(extUuid=self.extUuid, userId=self.userId, name=self.name, email=self.email, positions=self.positions)
 
 
-class Position:
+class Position_json:
     def __init__(self, name, orgUnitUuid):
         self.name = name
         self.orgUnitUuid = orgUnitUuid
