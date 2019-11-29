@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[positions]    Script Date: 20-11-2019 11:29:37 ******/
+/****** Object:  Table [pyt].[positions]    Script Date: 29-11-2019 12:52:52 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -36,7 +36,7 @@ CREATE TABLE [pyt].[positions](
  CONSTRAINT [PK_positions_1] PRIMARY KEY CLUSTERED 
 (
 	[system_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO

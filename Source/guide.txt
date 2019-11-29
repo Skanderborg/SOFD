@@ -1,5 +1,4 @@
 
-
 ODBC driver - til server:
 https://techcommunity.microsoft.com/t5/SQL-Server/ODBC-Driver-17-for-SQL-Server-Released/ba-p/385825
 
@@ -13,7 +12,7 @@ kun: Windows 10 SDK + MSVC cl.exe C / C++ compiler from the command line
 python 3.8
 https://www.python.org/downloads/release/python-380/
 
-pip install dotenv
+pip install python-dotenv
 https://pypi.org/project/python-dotenv/
 
 pip install pyodbc

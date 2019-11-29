@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[Orgunits]    Script Date: 14-11-2019 15:01:26 ******/
+/****** Object:  Table [pyt].[Orgunits]    Script Date: 29-11-2019 12:52:34 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,6 +17,7 @@ CREATE TABLE [pyt].[Orgunits](
 	[startdate] [date] NOT NULL,
 	[enddate] [date] NULL,
 	[parent_orgunit_los_id] [int] NOT NULL,
+	[parent_orgunit_uuid] [nvarchar](200) NULL,
 	[shortname] [nvarchar](250) NOT NULL,
 	[street] [nvarchar](max) NOT NULL,
 	[zipcode] [nvarchar](16) NOT NULL,
