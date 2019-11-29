@@ -1,12 +1,20 @@
 # SOFD
+Skanderborgs Organisations og Forretnings Databrønd.
 
-## Flow diagrammer
+## documentation
+Vores SOFD består af en række Python scripts, der har forskelligt ansvar.
 
-### Det fulde overblik
-![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet.png)
+### opus_xml_to_sofd.py
+Script, som omdanner KFS XML fil fra KMD til data i tabellerne Orgunits, Persons og Positions. Kan i princippet anvendes af alle kommuner, som får et XML udtræk fra OPUS.
 
-### Detaljeret overblik
-[Link til det fulde diagram](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet.png)
+### feriesaldo.py
+Script, som omdanner KFS fil fra KMD til data i tabellen feriesaldo. Kan i princippet anvendes af alle kommuner, som får ferie udtræk fra OPUS LØN og Personale.
+
+### sofd_setup.py
+Script, som bearbejder vores forretningsdata, og bl.a. tilføjer UUID'er til brugere og organisaitonsenehder. Er et Skanderborg script, som ikke umiddelbart kan anvendes af andre, da det antager, at man har et AD dump i tabellerne Users og org_uiid, som er magen til vores.
+
+### Data flows:
+![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet_v3.png)
 
 ## SQL dokumentation
 ### CREATE TABLE examples_
