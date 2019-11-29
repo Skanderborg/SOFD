@@ -11,7 +11,7 @@ Script, som omdanner KFS XML fil fra KMD til data i tabellerne Orgunits, Persons
 Script, som omdanner KFS fil fra KMD til data i tabellen feriesaldo. Kan i princippet anvendes af alle kommuner, som får ferie udtræk fra OPUS LØN og Personale.
 
 ### sofd_setup.py
-Script, som bearbejder vores forretningsdata, og bl.a. tilføjer UUID'er til brugere og organisaitonsenehder. Er et Skanderborg script, som ikke umiddelbart kan anvendes af andre, da det antager, at man har et AD dump i tabellerne Users og org_uiid, som er magen til vores.
+Script, som bearbejder vores forretningsdata. Her tilføjes KOMBIT vendte UUID'er til Orgunits, og AD brugere + Positions tilknyttes til hinanden. Hver Orgunit bliver tilknyttet en leders Position, og hver Position bliver tilknyttet sin nærmeste Leder. Er et Skanderborg script, som ikke umiddelbart kan anvendes af andre, da det antager, at man har et AD dump i tabellerne Users og org_uiid, som er magen til vores.
 
 ### Data flows:
 ![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet_v3.png)
