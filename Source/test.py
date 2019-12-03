@@ -9,8 +9,8 @@ constr_lora = os.environ.get('constr_lora')
 
 oss = Os2rollekatalog_sync_service(constr_lora)
 json_str = oss.create_org_json()
-oss.post_json(json_str)
-#test af git
+print(json_str)
+#oss.post_json('url', 'apikey', json_str)
 
 '''
 import json

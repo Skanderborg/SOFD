@@ -9,7 +9,7 @@ from dal.person_repo import Person_repo
 
 
 class ComplexEncoder(json.JSONEncoder):
-    def default(self, obj):
+    def default(self, obj): # pylint: disable=E0202
         if hasattr(obj, 'reprJSON'):
             return obj.reprJSON()
         else:
