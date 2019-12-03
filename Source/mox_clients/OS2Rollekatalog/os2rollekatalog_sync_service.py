@@ -59,9 +59,7 @@ class Os2rollekatalog_sync_service:
 
     def post_json(self, url, apikey, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': apikey}
-        #auth = HTTPBasicAuth('apiKey', apikey)
-        req = requests.post(url=url, headers=headers, json=json_str) #,auth=auth, )
-                            
-        #print(req.headers)
+        req = requests.post(url=url, headers=headers, json=json_str)
         print(req.text)
         print(req.status_code)
+        return req.status_code
