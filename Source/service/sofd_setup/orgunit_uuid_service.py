@@ -18,6 +18,8 @@ class Orgunit_uuid_service:
             if los_id in uuids:
                 org = orgs[los_id]
                 org.uuid = uuids[los_id]
+                org.new = False
+                org.updated = True
                 orgs_to_update[los_id] = org
         org_repo.update_orgunit(orgs_to_update)
 
@@ -34,5 +36,6 @@ class Orgunit_uuid_service:
                     continue
                 else:
                     orgunit.parent_orgunit_uuid = parent.uuid
+                    orgunit.updated = True
                     orgs_to_update[los_id] = orgunit
         repo.update_orgunit(orgs_to_update)

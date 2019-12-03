@@ -14,29 +14,31 @@ class Orgunit_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute("SELECT [los_id], \
-                               [uuid], \
-                               [last_changed], \
-                               [longname], \
-                               [startdate], \
-                               [enddate], \
-                               [parent_orgunit_los_id], \
-                               [parent_orgunit_uuid], \
-                               [shortname], \
-                               [street], \
-                               [zipcode], \
-                               [city], \
-                               [phonenumber], \
-                               [cvr], \
-                               [ean], \
-                               [seNr], \
-                               [pnr], \
-                               [orgtype], \
-                               [orgtypetxt], \
-                               [manager_opus_id], \
-                               [hierarchy], \
-                               [niveau], \
-                               [area], \
-                               [costcenter] \
+                                [uuid], \
+                                [last_changed], \
+                                [longname], \
+                                [startdate], \
+                                [enddate], \
+                                [parent_orgunit_los_id], \
+                                [parent_orgunit_uuid], \
+                                [shortname], \
+                                [street], \
+                                [zipcode], \
+                                [city], \
+                                [phonenumber], \
+                                [cvr], \
+                                [ean], \
+                                [seNr], \
+                                [pnr], \
+                                [orgtype], \
+                                [orgtypetxt], \
+                                [manager_opus_id], \
+                                [hierarchy], \
+                                [niveau], \
+                                [area], \
+                                [costcenter], \
+                                [new] , \
+                                [updated] \
                         FROM [pyt].[Orgunits] \
                         " + whereclause + ";")
         rows = cursor.fetchall()
@@ -46,7 +48,7 @@ class Orgunit_repo:
                           row.enddate, row.parent_orgunit_los_id, row.parent_orgunit_uuid, row.shortname,
                           row.street, row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
                           row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id, row.hierarchy,
-                          row.niveau, row.area, row.costcenter)
+                          row.niveau, row.area, row.new, row.updated, row.costcenter)
             result[int(los_id)] = org
         return result
 
@@ -137,7 +139,8 @@ class Orgunit_repo:
                     [hierarchy] = ?, \
                     [niveau] = ?, \
                     [area] = ?, \
-                    [updated] = 1 \
+                    [new] = ?, \
+                    [updated] = ? \
                 WHERE [los_id] = ?",
                 orgunit.los_id,
                 orgunit.uuid,
@@ -163,6 +166,8 @@ class Orgunit_repo:
                 orgunit.hierarchy,
                 orgunit.niveau,
                 orgunit.area,
+                orgunit.new,
+                orgunit.updated,
                 orgunit.los_id)
         cnxn.commit()
 

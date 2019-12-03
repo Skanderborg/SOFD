@@ -52,6 +52,8 @@ class Orgunit_service:
                           'opus',
                           None,
                           None,
+                          False,
+                          False,
                           costCenter)
             orgs[int(los_id)] = org
         return orgs
@@ -87,6 +89,7 @@ class Orgunit_service:
                     # er der ikke forandringer, går scriptet videre til næste orgunit
                     continue
                 else:
+                    opus_org.updated = True
                     orgs_to_update[los_id] = opus_org
 
             # ellers indsættes en ny orgunit
