@@ -24,7 +24,7 @@ class Orgunit_json:
         self.manager = manager
 
     def reprJSON(self):
-        return dict(uuid=self.uuid, name=self.name, parentOrgUnitUuid=self.parentOrgUnitUuid)
+        return dict(uuid=self.uuid, name=self.name, parentOrgUnitUuid=self.parentOrgUnitUuid, manager=self.manager)
 
 
 class Manager_json:
@@ -32,8 +32,8 @@ class Manager_json:
         self.uuid = uuid
         self.userId = userId
 
-        def reprJSON(self):
-            return dict(uuid=self.uuid, userId=self.userId)
+    def reprJSON(self):
+        return dict(uuid=self.uuid, userId=self.userId)
 
 
 class User_json:
