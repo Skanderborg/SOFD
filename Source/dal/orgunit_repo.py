@@ -167,9 +167,16 @@ class Orgunit_repo:
                 orgunit.los_id)
         cnxn.commit()
 
-    def delete_orgunit(self, los_id):
+    def mark_orgunit_for_delition(self, los_id):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
             "UPDATE [pyt].[Orgunits] SET [deleted] = 1 WHERE [los_id] = ? ", los_id)
+        cnxn.commit()
+
+    def delete_orgunit(self, los_id):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute(
+            "DELETE FROM [pyt].[Orgunits] WHERE [los_id] = ? ", los_id)
         cnxn.commit()

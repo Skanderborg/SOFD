@@ -1,7 +1,7 @@
 import json
 import requests
 from requests.auth import HTTPBasicAuth
-from mox_clients.OS2Rollekatalog.json_models import Sts_collection_json, Orgunit_json, Manager_json, User_json, Position_json
+from mox_clients.os2rollekatalog.json_models import Sts_collection_json, Orgunit_json, Manager_json, User_json, Position_json
 from dal.orgunit_repo import Orgunit_repo
 from dal.users_repo import User_repo
 from dal.position_repo import Position_repo

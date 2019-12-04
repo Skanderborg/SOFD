@@ -22,5 +22,20 @@ class Orgunit_queue_service:
                 i += 1
             org.updated = False
             orgs_to_update[org.los_id] = org
+        for los_id in deleted_orgs:
+            org = deleted_orgs[los_id]
+            que_org = Queue_orgunit(org.uuid, org.los_id, 'Deleted')
+            queue_orgs[i] = que_org
+            i += 1
+            org.deleted = False
         self.orgunit_repo.update_orgunits(orgs_to_update)
         self.queue_repo.insert_queue_orgunits(queue_orgs)
+        
+    def clean_orgunit_queue(self):
+        queue_items_to_delete = self.queue_repo.get_orgunit_queueitems('WHERE [sts_org] = 1')
+        for system_id in queue_items_to_delete:
+            item = queue_items_to_delete[system_id]
+            if item.change_type == "Deleted":
+                self.orgunit_repo.delete_orgunit(item.los_id)
+            self.queue_repo.delete_queue_orgunit(system_id)
+        

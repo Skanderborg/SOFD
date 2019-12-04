@@ -5,7 +5,7 @@ class Queue_orgunit_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def get_user_queues(self, whereclause=None):
+    def get_orgunit_queueitems(self, whereclause=None):
         if whereclause is None:
             whereclause = ""
         result = {}
@@ -14,7 +14,7 @@ class Queue_orgunit_repo:
         cursor.execute("SELECT  [system_id], \
                                 [uuid], \
                                 [los_id], \
-                                [change_type], \
+                                [change_type] \
                         FROM [queue].[orgunit_queue]\
                         " + whereclause + ";")
         for row in cursor.fetchall():
@@ -30,11 +30,29 @@ class Queue_orgunit_repo:
             cursor.execute(
                 "INSERT INTO [queue].[orgunit_queue]([uuid], \
                                                     [los_id], \
-                                                    [change_type])  \
+                                                    [change_type]) \
                 VALUES (?, ?, ?)",
                 org.uuid,
                 org.los_id,
                 org.change_type)
+        cnxn.commit()
+
+    def update_queue_orgunits(self, org_ques):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        for system_id in org_ques:
+            org_que = org_ques[system_id]
+            cursor.execute("UPDATE [queue].[orgunit_queue] \
+                            SET [uuid] = ?, \
+                                [los_id] = ?, \
+                                [change_type] = ?, \
+                                [sts_org] = ? \
+                            WHERE [system_id] = ?",
+                           org_que.uuid,
+                           org_que.los_id,
+                           org_que.change_type,
+                           org_que.sts_org,
+                           system_id)
         cnxn.commit()
 
     def delete_queue_orgunit(self, system_id):

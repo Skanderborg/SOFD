@@ -104,7 +104,7 @@ class Orgunit_service:
             '''
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
             if los_id not in self.opus_orgunits:
-                org_repo.delete_orgunit(los_id)
+                org_repo.mark_orgunit_for_delition(los_id)
 
     def get_orgunit_niveau(self, los_id):
         # Finder en orgunits niveau i org træet, starter ved 1.
