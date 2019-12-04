@@ -55,11 +55,11 @@ class Os2rollekatalog_sync_service:
             json_usr.add_position(json_pos)
             result.add_user(json_usr)
         result = json.dumps(result.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
-        return result.decode()
+        return result
 
     def post_json(self, url, apikey, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': apikey}
-        req = requests.post(url=url, headers=headers, json=json_str)
+        req = requests.post(url=url, headers=headers, data=json_str)
         print(req.text)
         print(req.status_code)
         return req.status_code

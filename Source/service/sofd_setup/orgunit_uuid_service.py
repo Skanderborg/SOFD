@@ -13,7 +13,7 @@ class Orgunit_uuid_service:
         org_repo = Orgunit_repo(self.constr_lora)
         uuids = uuid_repo.get_org_uuids()
         orgs = org_repo.get_orgunits(
-            "WHERE [new] = 1 and [hierarchy] = 'opus'")
+            "WHERE [uuid] is null and [hierarchy] = 'opus'")
         for los_id in orgs:
             if los_id in uuids:
                 org = orgs[los_id]
