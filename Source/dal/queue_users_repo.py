@@ -2,7 +2,7 @@ from model.queue_user import Queue_user
 import pyodbc
 
 
-class User_queue_repo:
+class Queue_users_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 

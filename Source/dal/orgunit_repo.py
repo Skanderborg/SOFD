@@ -37,7 +37,6 @@ class Orgunit_repo:
                                 [niveau], \
                                 [area], \
                                 [costcenter], \
-                                [new] , \
                                 [updated] \
                         FROM [pyt].[Orgunits] \
                         " + whereclause + ";")
@@ -48,7 +47,7 @@ class Orgunit_repo:
                           row.enddate, row.parent_orgunit_los_id, row.parent_orgunit_uuid, row.shortname,
                           row.street, row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
                           row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id, row.hierarchy,
-                          row.niveau, row.area, row.new, row.updated, row.costcenter)
+                          row.niveau, row.area, row.updated, row.costcenter)
             result[int(los_id)] = org
         return result
 
@@ -80,10 +79,9 @@ class Orgunit_repo:
                                             [hierarchy], \
                                             [niveau], \
                                             [area], \
-                                            [new], \
                                             [updated], \
                                             [deleted]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0)",
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)",
                 orgunit.los_id,
                 orgunit.last_changed,
                 orgunit.longname,
@@ -108,7 +106,7 @@ class Orgunit_repo:
                 orgunit.area)
         cnxn.commit()
 
-    def update_orgunit(self, orgunits):
+    def update_orgunits(self, orgunits):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         for key in orgunits:
@@ -139,7 +137,6 @@ class Orgunit_repo:
                     [hierarchy] = ?, \
                     [niveau] = ?, \
                     [area] = ?, \
-                    [new] = ?, \
                     [updated] = ? \
                 WHERE [los_id] = ?",
                 orgunit.los_id,
@@ -166,7 +163,6 @@ class Orgunit_repo:
                 orgunit.hierarchy,
                 orgunit.niveau,
                 orgunit.area,
-                orgunit.new,
                 orgunit.updated,
                 orgunit.los_id)
         cnxn.commit()

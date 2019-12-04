@@ -5,7 +5,7 @@ class Orgunit:
     def __init__(self, los_id, uuid, last_changed, longname, startdate, enddate,
                  parent_orgunit_los_id, parent_orgunit_uuid, shortname, street, zipcode, city,
                  phonenumber, cvr, ean, seNr, pnr, orgtype, orgtypetxt, manager_opus_id, hierarchy,
-                 niveau,  area, new, updated, costcenter=None):
+                 niveau,  area, updated, costcenter=None):
         self.los_id = los_id
         self.uuid = uuid
         self.last_changed = last_changed
@@ -41,5 +41,4 @@ class Orgunit:
         self.niveau = niveau
         self.area = area
         self.costcenter = costcenter
-        self.new = new in ['true', 'True', 1]
         self.updated = updated in ['true', 'True', 1]

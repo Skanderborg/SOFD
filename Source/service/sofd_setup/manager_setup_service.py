@@ -20,7 +20,7 @@ class Manager_setup_service:
             else:
                 org.manager_opus_id = manager.opus_id
                 orgs_to_update[org.los_id] = org
-        self.org_repo.update_orgunit(orgs_to_update)
+        self.org_repo.update_orgunits(orgs_to_update)
 
     def set_nearest_manager(self):
         self.orgs = self.org_repo.get_orgunits()

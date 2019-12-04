@@ -53,7 +53,6 @@ class Orgunit_service:
                           None,
                           None,
                           False,
-                          False,
                           costCenter)
             orgs[int(los_id)] = org
         return orgs
@@ -97,7 +96,7 @@ class Orgunit_service:
                 orgs_to_insert[los_id] = opus_org
 
         org_repo.insert_orgunit(orgs_to_insert)
-        org_repo.update_orgunit(orgs_to_update)
+        org_repo.update_orgunits(orgs_to_update)
 
         for los_id in sofd_orgunits:
             '''

@@ -19,7 +19,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 step = 'starting'
 
-# '''
+'''
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
@@ -71,6 +71,8 @@ ms.set_orgunit_manager()
 step = 'ms.set_orgunit_manager() complete'
 ms.set_nearest_manager()
 step = 'ms.set_nearest_manager() complete'
+
+
 step = 'finished'
 
 # '''

@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[Orgunits]    Script Date: 29-11-2019 12:52:34 ******/
+/****** Object:  Table [pyt].[Orgunits]    Script Date: 04-12-2019 10:03:01 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -34,7 +34,6 @@ CREATE TABLE [pyt].[Orgunits](
 	[hierarchy] [nvarchar](25) NOT NULL,
 	[niveau] [int] NOT NULL,
 	[area] [nvarchar](max) NULL,
-	[new] [bit] NOT NULL,
 	[updated] [bit] NOT NULL,
 	[deleted] [bit] NOT NULL,
  CONSTRAINT [PK_Orgunits_1] PRIMARY KEY CLUSTERED 
