@@ -11,9 +11,11 @@ load_dotenv(dotenv_path)
 constr_lora = os.environ.get('constr_lora')
 step = 'setup complete'
 
+ms = Os2sync_sync_service(constr_lora)
+
 qs = Orgunit_queue_service(constr_lora)
 
-qs.run_orgunit_queue_setup()
+#qs.run_orgunit_queue_setup()
 
-qs.execute_stsorg_sync()
+ms.sync_orgunits()
 #qs.clean_orgunit_queue()
