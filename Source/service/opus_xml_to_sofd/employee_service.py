@@ -78,7 +78,9 @@ class Employee_service:
                              emp.find('address').text,
                              emp.find('postalCode').text,
                              emp.find('city').text,
-                             emp.find('country').text)
+                             emp.find('country').text,
+                             True,
+                             False)
 
                 pos = Position(opus_id,
                                None,
@@ -137,6 +139,7 @@ class Employee_service:
                     # Når der ikke er forandringer, springer vi videre til næste person
                     continue
                 else:
+                    opus_per.updated = True
                     persons_to_update[key] = opus_per
             # ellers indsættes en ny
             else:
