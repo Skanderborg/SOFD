@@ -125,7 +125,7 @@ class Position_repo:
                     [manager_opus_id] = ?, \
                     [manager_uuid_userref] = ?, \
                     [updated] = ?, \
-                    [deleted] = ?, \
+                    [deleted] = ? \
                 WHERE opus_id = ?",
                 position.uuid_userref,
                 position.los_id,
@@ -156,7 +156,7 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "Delete from [pyt].[positions] WHERE [opus_id] = ? ", opus_id)
+            "DELETE from [pyt].[positions] WHERE [opus_id] = ? ", opus_id)
         cnxn.commit()
 
     def get_disabled_orgunits(self):

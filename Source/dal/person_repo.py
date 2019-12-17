@@ -20,7 +20,7 @@ class Person_repo:
                     [zipcode], \
                     [city], \
                     [country], \
-                    [updated], \
+                    [updated] \
             FROM [pyt].[persons] \
             " + whereclause + ";")
         for row in cursor.fetchall():
@@ -43,7 +43,7 @@ class Person_repo:
                                              [zipcode], \
                                              [city], \
                                              [country], \
-                                             [updated], \
+                                             [updated]) \
                 VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
                 person.cpr,
                 person.firstname,
@@ -66,7 +66,7 @@ class Person_repo:
                                 [zipcode] = ?, \
                                 [city] = ?, \
                                 [country] = ?, \
-                                [updated] = ?, \
+                                [updated] = ? \
                             WHERE [cpr] = ?",
                            person.firstname,
                            person.lastname,
