@@ -9,11 +9,14 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 # starter vores e-mail service - henter smtp informationer fra .env fil
 constr_lora = os.environ.get('constr_lora')
+os2sync_apikey = os.environ.get('os2sync_apikey')
+os2sync_orgunit_endpoint = os.environ.get('os2sync_orgunit_endpointurl')
+os2sync_user_endpoint = os.environ.get('os2sync_user_endpointurl')
 step = 'setup complete'
 
-ms = Os2sync_sync_service(constr_lora)
+ms = Os2sync_sync_service(constr_lora, os2sync_apikey, os2sync_orgunit_endpoint)
 
-qs = Orgunit_queue_service(constr_lora)
+#qs = Orgunit_queue_service(constr_lora)
 
 #qs.run_orgunit_queue_setup()
 
