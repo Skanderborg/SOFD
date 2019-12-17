@@ -19,6 +19,7 @@ class Manager_setup_service:
                 continue
             else:
                 org.manager_opus_id = manager.opus_id
+                org.updated = True
                 orgs_to_update[org.los_id] = org
         self.org_repo.update_orgunits(orgs_to_update)
 
@@ -35,6 +36,7 @@ class Manager_setup_service:
             if position.manager_opus_id != manager_id or position.manager_uuid_userref != manager_uuid:
                 position.manager_opus_id = manager_id
                 position.manager_uuid_userref = manager_uuid
+                position.updated = True
                 positions_to_update[pkey] = position
             else:
                 continue
