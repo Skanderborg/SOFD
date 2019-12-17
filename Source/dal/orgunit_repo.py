@@ -37,7 +37,8 @@ class Orgunit_repo:
                                 [niveau], \
                                 [area], \
                                 [costcenter], \
-                                [updated] \
+                                [updated], \
+                                [deleted] \
                         FROM [pyt].[Orgunits] \
                         " + whereclause + ";")
         rows = cursor.fetchall()
@@ -47,7 +48,7 @@ class Orgunit_repo:
                           row.enddate, row.parent_orgunit_los_id, row.parent_orgunit_uuid, row.shortname,
                           row.street, row.zipcode, row.city, row.phonenumber, row.cvr, row.ean, row.seNr,
                           row.pnr, row.orgtype, row.orgtypetxt, row.manager_opus_id, row.hierarchy,
-                          row.niveau, row.area, row.updated, row.costcenter)
+                          row.niveau, row.area, row.updated, row.deleted, row.costcenter)
             result[int(los_id)] = org
         return result
 
@@ -137,7 +138,8 @@ class Orgunit_repo:
                     [hierarchy] = ?, \
                     [niveau] = ?, \
                     [area] = ?, \
-                    [updated] = ? \
+                    [updated] = ?, \
+                    [deleted] = ? \
                 WHERE [los_id] = ?",
                 orgunit.los_id,
                 orgunit.uuid,
@@ -164,14 +166,8 @@ class Orgunit_repo:
                 orgunit.niveau,
                 orgunit.area,
                 orgunit.updated,
+                orgunit.deleted,
                 orgunit.los_id)
-        cnxn.commit()
-
-    def mark_orgunit_for_delition(self, los_id):
-        cnxn = pyodbc.connect(self.constr_lora)
-        cursor = cnxn.cursor()
-        cursor.execute(
-            "UPDATE [pyt].[Orgunits] SET [deleted] = 1 WHERE [los_id] = ? ", los_id)
         cnxn.commit()
 
     def delete_orgunit(self, los_id):

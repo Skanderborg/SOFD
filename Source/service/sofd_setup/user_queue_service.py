@@ -7,6 +7,7 @@ from model.Person import Person
 
 class User_queue_service:
     def __init__(self, constr_lora):
+        self.constr_lora = constr_lora
         self.position_repo = Position_repo(constr_lora)
         self.person_repo = Person_repo(constr_lora)
 
@@ -44,7 +45,28 @@ class User_queue_service:
         User_queue_service.handle_deleted_and_updated_positions(self)
         updated_positions = self.position_repo.get_positions('WHERE [updated] = 1')
         deleted_positions = self.position_repo.get_positions('WHERE [deleted] = 1')
+        if len(updated_positions) > 0 or len(deleted_positions) > 0:
+            positions_to_update = {}
+            queue_items_to_insert = {}
+            queue_repo = Queue_users_repo(self.constr_lora)
+            i = 0
+            for opus_id in updated_positions:
+                pos = updated_positions[opus_id]
+                queue_item = Queue_user(i, pos.uuid, opus_id, 'Updated', True)
+                i+=1
+                pos.updated = False
+                positions_to_update[opus_id] = pos
+                queue_items_to_insert[i] = queue_item
         
+            for opus_id in deleted_positions:
+                pos = deleted_positions[opus_id]
+                queue_item = Queue_user(i, pos.uuid, opus_id, 'Deleted', True)
+                i+=1
+                queue_items_to_insert[i] = queue_item
+
+            queue_repo.insert_user_queue(queue_items_to_insert)
+            self.position_repo.update_positions(positions_to_update)
+            
 
 
 
