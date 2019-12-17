@@ -70,7 +70,7 @@ class Employee_service:
 
                 leavedate = None
                 if emp.find('leaveDate') != None:
-                    leaveDate = emp.find('leaveDate').text
+                    leavedate = emp.find('leaveDate').text
 
                 per = Person(cpr,
                              emp.find('firstName').text,
@@ -79,7 +79,7 @@ class Employee_service:
                              emp.find('postalCode').text,
                              emp.find('city').text,
                              emp.find('country').text,
-                             Updated)
+                             True)
 
                 pos = Position(opus_id,
                                None,
