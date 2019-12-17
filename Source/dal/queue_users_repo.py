@@ -17,33 +17,50 @@ class Queue_users_repo:
                                 [uuid], \
                                 [opus_id], \
                                 [change_type], \
-                                [change_date] \
-                        FROM [queue].[users] \
+                                [sts_org] \
+                        FROM [queue].[users_queue] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
-            system_id = row[0]
-            usr_que = Queue_user(system_id, row[1], row[2], row[3], row[4])
-            result[system_id] = usr_que
+            usr_que = Queue_user(row.system_id, row.uuid, row.opus_id, row.change_type, row.sts_org)
+            result[row.system_id] = usr_que
         return result
 
-    def insert_user_queue(self, queue_user):
+    def insert_user_queue(self, queue_users):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
-        cursor.execute(
-            "INSERT INTO [queue].[users]([uuid], \
-                                         [opus_id], \
-                                         [change_type], \
-                                         [change_date])  \
-            VALUES (?, ?, ?, ?)",
-            queue_user.uuid,
-            queue_user.opus_id,
-            queue_user.change_type,
-            queue_user.change_date)
+        for key in queue_users:
+            queue_user = queue_users[key]
+            cursor.execute(
+                "INSERT INTO [queue].[users_queue]([uuid], \
+                                             [opus_id], \
+                                             [change_type])  \
+                VALUES (?, ?, ?, ?)",
+                queue_user.uuid,
+                queue_user.opus_id,
+                queue_user.change_type)
+        cnxn.commit()
+
+    def update_queue_userss(self, queue_users):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        for system_id in queue_users:
+            user_queue = queue_users[system_id]
+            cursor.execute("UPDATE [queue].[users_queue] \
+                            SET [uuid] = ?, \
+                                [opus_id] = ?, \
+                                [change_type] = ?, \
+                                [sts_org] = ? \
+                            WHERE [system_id] = ?",
+                           user_queue.uuid,
+                           user_queue.los_id,
+                           user_queue.change_type,
+                           user_queue.sts_org,
+                           system_id)
         cnxn.commit()
 
     def delete_person(self, system_id):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "DELETE FROM [queue].[users] WHERE [system_id] = ? ", system_id)
+            "DELETE FROM [queue].[users_queue] WHERE [system_id] = ? ", system_id)
         cnxn.commit()

@@ -12,21 +12,25 @@ class Orgunit_queue_service:
         updated_orgs = self.orgunit_repo.get_orgunits('WHERE [updated] = 1')
         deleted_orgs = self.orgunit_repo.get_orgunits('WHERE [deleted] = 1')
         orgs_to_update = {}
+        i=0
         queue_orgs = {}
-        i = 0
         for los_id in updated_orgs:
-            org = updated_orgs[los_id]
-            if org.uuid != None:
-                que_org = Queue_orgunit(org.uuid, org.los_id, 'Updated')
-                queue_orgs[i] = que_org
-                i += 1
-            org.updated = False
-            orgs_to_update[org.los_id] = org
+            # hvis org både er updated og deleted:
+            if los_id in deleted_orgs:
+                continue
+            else:
+                org = updated_orgs[los_id]
+                if org.uuid != None:
+                    que_org = Queue_orgunit(org.uuid, org.los_id, 'Updated')
+                    queue_orgs[i] = que_org
+                    i+=1
+                org.updated = False
+                orgs_to_update[org.los_id] = org
         for los_id in deleted_orgs:
             org = deleted_orgs[los_id]
             que_org = Queue_orgunit(org.uuid, org.los_id, 'Deleted')
             queue_orgs[i] = que_org
-            i += 1
+            i+=1
             org.deleted = False
         self.orgunit_repo.update_orgunits(orgs_to_update)
         self.queue_repo.insert_queue_orgunits(queue_orgs)

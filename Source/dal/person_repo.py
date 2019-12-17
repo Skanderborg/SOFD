@@ -6,7 +6,9 @@ class Person_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def get_persons(self):
+    def get_persons(self, whereclause=None):
+        if whereclause == None:
+            whereclause = ""
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
@@ -19,7 +21,7 @@ class Person_repo:
                     [city], \
                     [country] \
             FROM [pyt].[persons] \
-            WHERE [deleted] = 0;")
+            " + whereclause + ";")
         for row in cursor.fetchall():
             cpr = row.cpr
             per = Person(cpr, row.firstname, row.lastname,
