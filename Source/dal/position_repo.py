@@ -32,7 +32,9 @@ class Position_repo:
                                 [start_date], \
                                 [leave_date], \
                                 [manager_opus_id], \
-                                [manager_uuid_userref] \
+                                [manager_uuid_userref], \
+                                [updated], \
+                                [deleted] \
                         FROM [pyt].[positions] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
@@ -41,7 +43,8 @@ class Position_repo:
                            row.position_id, row.title_short, row.paygrade_title, row.is_manager,
                            row.payment_method, row.payment_method_text, row.weekly_hours_numerator,
                            row.weekly_hours_denominator, row.invoice_recipient, row.pos_pnr, row.dsuser,
-                           row.start_date, row.leave_date, row.manager_opus_id, row.manager_uuid_userref)
+                           row.start_date, row.leave_date, row.manager_opus_id, row.manager_uuid_userref,
+                           row.updated, row.deleted)
             result[int(opus_id)] = pos
         return result
 
@@ -71,7 +74,7 @@ class Position_repo:
                                                 [leave_date], \
                                                 [updated], \
                                                 [deleted]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)",
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 position.opus_id,
                 position.los_id,
                 position.person_ref,
@@ -89,7 +92,9 @@ class Position_repo:
                 position.pos_pnr,
                 position.dsuser,
                 position.start_date,
-                position.leave_date)
+                position.leave_date,
+                position.updated,
+                position.deleted)
         cnxn.commit()
 
     def update_positions(self, positions):
@@ -119,7 +124,8 @@ class Position_repo:
                     [leave_date] = ?, \
                     [manager_opus_id] = ?, \
                     [manager_uuid_userref] = ?, \
-                    [updated] = 1 \
+                    [updated] = ?, \
+                    [deleted] = ?, \
                 WHERE opus_id = ?",
                 position.uuid_userref,
                 position.los_id,
@@ -141,6 +147,8 @@ class Position_repo:
                 position.leave_date,
                 position.manager_opus_id,
                 position.manager_uuid_userref,
+                position.updated,
+                position.deleted,
                 position.opus_id)
         cnxn.commit()
 
@@ -148,7 +156,7 @@ class Position_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "UPDATE [pyt].[positions] SET deleted = 1 WHERE [opus_id] = ? ", opus_id)
+            "Delete from [pyt].[positions] WHERE [opus_id] = ? ", opus_id)
         cnxn.commit()
 
     def get_disabled_orgunits(self):
