@@ -82,5 +82,5 @@ class Person_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "UPDATE [pyt].[persons] SET [deleted] = 1 WHERE [cpr] = ? ", cpr)
+            "DELETE FROM [pyt].[persons] WHERE [cpr] = ?", cpr)
         cnxn.commit()
