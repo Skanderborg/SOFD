@@ -8,6 +8,12 @@ from model.orgunit import Orgunit
 from mox_clients.os2sync.json_models import Orgunit_json, Generic_address_json
 
 class ComplexEncoder(json.JSONEncoder):
+    '''
+    JSON decoder, udvidelse til pythons json bibliotek, anvendes fordi nogle af vores objekter kan indeholde objekter, noget
+    der som standard ikke kan håndteres i pythons standard bibliotek. Dette giver os samtidig bedre mulighed for at styrer
+    navngivningen af Json attributerne.
+    # pylint: disable=E0202 - er fordi Visual Studio Codes pylint giver falsepositive på "An attribute affected in %s line %s hide this method"
+    '''
     def default(self, obj): # pylint: disable=E0202
         if hasattr(obj, 'reprJSON'):
             return obj.reprJSON()
