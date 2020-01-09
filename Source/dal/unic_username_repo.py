@@ -14,7 +14,6 @@ class Unic_username_repo:
         cursor.execute(
             "SELECT [cpr], \
                     [unic_userid], \
-                    [lastname], \
                     [institution_nr], \
                     [opus_id] \
             FROM [unic].[unic_usernames] \
