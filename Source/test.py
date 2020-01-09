@@ -1,7 +1,7 @@
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-from service.sofd_setup.orgunit_queue_service import Orgunit_queue_service
+from service.queues.orgunit_queue_service import Orgunit_queue_service
 from mox_clients.os2sync.os2sync_sync_service import Os2sync_sync_service
 
 # Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse.
