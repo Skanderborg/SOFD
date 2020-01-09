@@ -18,6 +18,7 @@ load_dotenv(dotenv_path)
 # starter vores e-mail service - henter smtp informationer fra .env fil
 es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
+error_email = os.environ.get('error_email')
 step = 'starting'
 
 #'''
@@ -46,7 +47,7 @@ try:
     emp_service.update_positions()
     step = 'update positions complete'
 except:
-    es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
+    es.send_mail(error_email,
                  'Error: opus_xml_to_sofd python app', step)
 '''
 # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret

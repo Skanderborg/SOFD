@@ -12,6 +12,7 @@ load_dotenv(dotenv_path)
 es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 constr_lora = os.environ.get('constr_lora')
+error_email = os.environ.get('error_email')
 
 try:
     #Kalenda_greenbyte SOFD Sync
@@ -21,5 +22,5 @@ try:
     kalenda_greenbyte_mox_client = Kalenda_greenbyte_sync_service(constr_lora)
     kalenda_greenbyte_mox_client.post_json(kalenda_greenbyte_endpointurl, kalenda_greenbyte_apikey, kalenda_greenbyte_parent_los_id)
 except:
-    es.send_mail('jacob.aagaard.bennike@skanderborg.dk',
+    es.send_mail(error_email,
                  'Error: execute_mox_clients.py python app', 'HJÆLP')
