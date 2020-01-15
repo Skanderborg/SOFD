@@ -7,6 +7,7 @@ from service.sofd_setup.manager_setup_service import Manager_setup_service
 from service.sofd_setup.user_position_service import User_position_service
 from service.sofd_setup.orgunit_uuid_service import Orgunit_uuid_service
 from service.sofd_setup.feriesaldo_service import Feriesaldo_service
+from service.queues.orgunit_queue_service import Orgunit_queue_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
@@ -61,6 +62,10 @@ try:
     step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
 
     # unic setup
+
+    # add changes to queues
+    orgunit_queue_service = Orgunit_queue_service(constr_lora)
+    orgunit_queue_service.create_orgunit_queue()
 
     step = 'finished'
 except:

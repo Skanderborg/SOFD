@@ -3,7 +3,7 @@ from dal.position_repo import Position_repo
 from dal.person_repo import Person_repo
 from model.queue_user import Queue_user
 from model.position import Position
-from model.Person import Person
+from model.person import Person
 
 class User_queue_service:
     def __init__(self, constr_lora):

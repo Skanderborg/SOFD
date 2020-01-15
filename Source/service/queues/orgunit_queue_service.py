@@ -2,14 +2,13 @@ from dal.orgunit_repo import Orgunit_repo
 from dal.queue_orgunit_repo import Queue_orgunit_repo
 from model.queue_orgunit import Queue_orgunit
 from model.orgunit import Orgunit
-from service.email_service import Email_service
 
 class Orgunit_queue_service:
     def __init__(self, constr_lora):
         self.orgunit_repo = Orgunit_repo(constr_lora)
         self.queue_repo = Queue_orgunit_repo(constr_lora)
 
-    def run_orgunit_queue_setup(self, email_service):
+    def create_orgunit_queue(self):
         orgs_to_handle = self.orgunit_repo.get_orgunits('WHERE [updated] = 1 or [deleted] = 1')
         orgs_to_update = {}
         queue = {}
@@ -22,17 +21,16 @@ class Orgunit_queue_service:
                 i+=1
                 org.updated = False
                 orgs_to_update[los_id] = org
-            elif org.updated == False and org.deleted == True:
+            else:
+                # hvis en orgunit er både uodated og deleted, vejer deleted tungere end updated
                 queue_item = Queue_orgunit(org.uuid, org.los_id, 'Deleted', True)
                 queue[i] = queue_item
                 i+=1
                 org.deleted = False
+                org.updated = False
                 orgs_to_update[los_id] = org
-            else:
-                email_service.send_mail('jacob.aagaard.bennike@skanderborg.dk', 'SOFD Error: orgunit_queue.py', 'Orgunit er både opdateret og slettet los_id: ' + los_id)
-                continue
         self.orgunit_repo.update_orgunits(orgs_to_update)
-        self.queue_repo.update_queue_orgunits(queue)
+        self.queue_repo.insert_queue_orgunits(queue)
         
     def clean_orgunit_queue(self):
         queue_items_to_delete = self.queue_repo.get_orgunit_queueitems('WHERE [sts_org] = 1')
