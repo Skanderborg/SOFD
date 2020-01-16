@@ -33,11 +33,13 @@ class Queue_users_repo:
             cursor.execute(
                 "INSERT INTO [queue].[users_queue]([uuid], \
                                              [opus_id], \
-                                             [change_type])  \
+                                             [change_type], \
+                                             [sts_org])  \
                 VALUES (?, ?, ?, ?)",
                 queue_user.uuid,
                 queue_user.opus_id,
-                queue_user.change_type)
+                queue_user.change_type,
+                queue_user.sts_org)
         cnxn.commit()
 
     def update_queue_userss(self, queue_users):

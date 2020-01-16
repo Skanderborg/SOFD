@@ -7,7 +7,8 @@ class Orgunit_queue_service:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def create_orgunit_queue(self):
+    def update_orgunit_queue(self):
+        # funktion som bearbejder alle orgunits som er enten opdaterede eller slettede
         orgunit_repo = Orgunit_repo(self.constr_lora)
         queue_repo = Queue_orgunit_repo(self.constr_lora)
         orgs_to_handle = orgunit_repo.get_orgunits('WHERE [updated] = 1 or [deleted] = 1')

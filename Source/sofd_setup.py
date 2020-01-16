@@ -23,7 +23,6 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
 error_email = os.environ.get('error_email')
 step = 'starting'
 
-
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
@@ -44,12 +43,14 @@ try:
     step = 'user_position_service.link_user_to_position() complete'
 
     # tilføjer manager til de orgenheder, der har en. Sætter nærmeste leder på positions.
-    ms = Manager_setup_service(constr_lora)
+    manager_setup_service = Manager_setup_service(constr_lora)
     step = 'Manager_setup_service complete'
-    ms.set_orgunit_manager()
-    step = 'ms.set_orgunit_manager() complete'
-    ms.set_nearest_manager()
-    step = 'ms.set_nearest_manager() complete'
+    manager_setup_service.remove_deleted_managers_from_orgunits()
+    step = 'manager_setup_service.remove_deleted_managers_from_orgunits() complete'
+    manager_setup_service.set_orgunit_manager()
+    step = 'manager_setup_service.set_orgunit_manager() complete'
+    manager_setup_service.set_nearest_manager()
+    step = 'manager_setup_service.set_nearest_manager() complete'
 
     # finder og indsætter ferie saldo
     # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret
@@ -65,7 +66,12 @@ try:
 
     # add changes to queues
     orgunit_queue_service = Orgunit_queue_service(constr_lora)
-    #orgunit_queue_service.create_orgunit_queue()
+    orgunit_queue_service.update_orgunit_queue()
+    step = 'orgunit_queue_service.update_orgunit_queue() complete'
+
+    user_queue_service = User_queue_service(constr_lora)
+    user_queue_service.update_user_queue()
+    step = 'user_queue_service.update_user_queue() complete'
 
     step = 'finished'
 except:
