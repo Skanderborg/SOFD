@@ -8,6 +8,8 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 # starter vores e-mail service - henter smtp informationer fra .env fil
 constr_lora = os.environ.get('constr_lora')
+intranote_csv_directory = 'c:/work/'
 
-s = Intranote_csv_service(constr_lora)
-s.create_orgunit_csv()
+intranote_csv_service = Intranote_csv_service(constr_lora)
+intranote_csv_service.create_orgunit_csv(intranote_csv_directory)
+intranote_csv_service.create_users_csv(intranote_csv_directory)
