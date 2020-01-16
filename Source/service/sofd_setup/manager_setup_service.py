@@ -10,7 +10,7 @@ class Manager_setup_service:
 
     def set_orgunit_manager(self):
         orgs = self.org_repo.get_orgunits()
-        managers = self.pos_repo.get_positions('WHERE [is_manager] = 1')
+        managers = self.pos_repo.get_positions('WHERE [is_manager] = 1 and [deleted] = 0')
         orgs_to_update = {}
         for mkey in managers:
             manager = managers[mkey]

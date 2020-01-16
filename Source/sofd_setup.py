@@ -65,7 +65,7 @@ try:
 
     # add changes to queues
     orgunit_queue_service = Orgunit_queue_service(constr_lora)
-    orgunit_queue_service.create_orgunit_queue()
+    #orgunit_queue_service.create_orgunit_queue()
 
     step = 'finished'
 except:
