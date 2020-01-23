@@ -13,10 +13,14 @@ class Intranote_csv_service:
         orgs = org_repo.get_orgunits('WHERE [deleted] = 0')
         with open(csv_file_path + 'intranote_orgs.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=";")
-            writer.writerow(['orgunit_id','name','parent_orgunit_id'])
+            writer.writerow(['los_id','uuid','last_changed','longname','startdate','enddate','parent_orgunit_los_id',
+                                'parent_orgunit_uuid','shortname', 'street', 'zipcode','city','phonenumber','cvr',
+                                'ean','manager_opus_id'])
             for los_id in orgs:
                 org = orgs[los_id]
-                writer.writerow([org.los_id,org.longname,org.parent_orgunit_los_id])
+                writer.writerow([org.los_id, org.uuid, org.last_changed, org.longname, org.startdate, org.enddate,
+                                    org.parent_orgunit_los_id, org.parent_orgunit_uuid, org.shortname, org.street, org.city,
+                                    org.zipcode, org.city, org.phonenumber, org.cvr, org.ean, org.manager_opus_id])
 
     def create_users_csv(self, csv_file_path):
         pos_repo = Position_repo(self.constr_lora)
@@ -27,9 +31,13 @@ class Intranote_csv_service:
         pers = per_repo.get_persons()
         with open(csv_file_path + 'intranote_usrs.csv', 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=";")
-            writer.writerow(['position_title','orgunit_id','ad_samaccount','email'])
+            writer.writerow(['cpr','firstname','lastname','opus_id','uuid_userref','los_id','title','is_manager','start_date',
+                                'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
+            print(len(poss))
             for opus_id in poss:
                 pos = poss[opus_id]
                 usr = usrs[opus_id]
                 per = pers[pos.person_ref]
-                writer.writerow([pos.position_title,pos.los_id,usr.userid,usr.email])
+                writer.writerow([pos.person_ref, per.firstname, per.lastname, opus_id, pos.uuid_userref, pos.los_id, pos.position_title,
+                                    pos.is_manager, pos.start_date, pos.leave_date, pos.manager_opus_id, pos.uuid_userref, usr.userid,
+                                    usr.email, usr.phone, usr.workmobile])

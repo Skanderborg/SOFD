@@ -24,7 +24,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
 error_email = os.environ.get('error_email')
 step = 'starting'
 
-#'''
+'''
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
@@ -123,13 +123,13 @@ step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
 # unic setup
 
 # add changes to queues
-orgunit_queue_service = Orgunit_queue_service(constr_lora)
-orgunit_queue_service.update_orgunit_queue()
-step = 'orgunit_queue_service.update_orgunit_queue() complete'
+#orgunit_queue_service = Orgunit_queue_service(constr_lora)
+#orgunit_queue_service.update_orgunit_queue()
+#step = 'orgunit_queue_service.update_orgunit_queue() complete'
 
-user_queue_service = User_queue_service(constr_lora)
-user_queue_service.update_user_queue()
-step = 'user_queue_service.update_user_queue() complete'
+#user_queue_service = User_queue_service(constr_lora)
+#user_queue_service.update_user_queue()
+#step = 'user_queue_service.update_user_queue() complete'
 
-step = 'finished'
+#step = 'finished'
 #'''
