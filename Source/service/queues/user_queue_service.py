@@ -46,7 +46,7 @@ class User_queue_service:
         # sørger for at alle person opdateringer er gået igennem før funktionen kører
         User_queue_service.handle_updated_persons(self)
         position_repo = Position_repo(self.constr_lora)
-        updated_positions = position_repo.get_positions('where [updated] = 1 or [deleted] = 0')
+        updated_positions = position_repo.get_positions('where [updated] = 1 or [deleted] = 1')
         
         if len(updated_positions) > 0:
             positions_to_update = {}
