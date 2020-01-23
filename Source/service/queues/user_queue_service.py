@@ -68,7 +68,7 @@ class User_queue_service:
                         queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Deleted', True)
                         i+=1
                         queue_items_to_insert[i] = queue_item
-                    position_repo.delete_position(opus_id)
+                    #position_repo.delete_position(opus_id)
             queue_repo.insert_user_queue(queue_items_to_insert)
             position_repo.update_positions(positions_to_update)
 
