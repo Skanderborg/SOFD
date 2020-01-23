@@ -29,6 +29,7 @@ try:
     intranote_csv_service = Intranote_csv_service(constr_lora)
     intranote_csv_service.create_orgunit_csv(intranote_csv_directory)
     intranote_csv_service.create_users_csv(intranote_csv_directory)
+    intranote_csv_service.create_unic_csv(intranote_csv_directory)
 except:
     es.send_mail(error_email,
                  'Error: execute_mox_clients.py python app', 'HJÆLP')
@@ -47,4 +48,5 @@ intranote_csv_directory = os.environ.get('intranote_cvs_directory')
 intranote_csv_service = Intranote_csv_service(constr_lora)
 intranote_csv_service.create_orgunit_csv(intranote_csv_directory)
 intranote_csv_service.create_users_csv(intranote_csv_directory)
+intranote_csv_service.create_unic_csv(intranote_csv_directory)
 #'''
