@@ -15,7 +15,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
 constr_lora = os.environ.get('constr_lora')
 error_email = os.environ.get('error_email')
 
-'''
+#'''
 try:
     #Kalenda_greenbyte SOFD Sync
     kalenda_greenbyte_endpointurl = os.environ.get('kalenda_greenbyte_endpointurl')

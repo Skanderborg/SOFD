@@ -24,7 +24,7 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
 error_email = os.environ.get('error_email')
 step = 'starting'
 
-'''
+#'''
 try:
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
