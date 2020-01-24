@@ -31,8 +31,13 @@ class Sbsys_extensions_service:
     def get_sbsys_orgunits(self, org, orgs, res):
         res.append(current_org.shortname)
         current_org = orgs[org.parent_orgunit_los_id]
-        if current_org.longname == 'Direktion':
+        # OBS, direktion 1-3 skal sorteres fra, derfor skal vi fange niveau her og jeg kan ikke huske det
+        # i hovedet
+        if current_org.niveau ==:
+            current_org = orgs[org.parent_orgunit_los_id]
+            Sbsys_extensions_service.get_sbsys_orgunits(self, current_org, orgs, res)
+        elif current_org.longname == 'Direktion':
             return res.reverse()
         else:
-            Sbsys_extensions_service.get_sbsys_orgunits(current_org, orgs, res)
+            Sbsys_extensions_service.get_sbsys_orgunits(self, current_org, orgs, res)
 
