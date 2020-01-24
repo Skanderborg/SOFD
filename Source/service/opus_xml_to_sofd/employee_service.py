@@ -70,7 +70,7 @@ class Employee_service:
 
                 leavedate = None
                 if emp.find('leaveDate') != None:
-                    leaveDate = emp.find('leaveDate').text
+                    leavedate = emp.find('leaveDate').text
 
                 per = Person(cpr,
                              emp.find('firstName').text,
@@ -78,7 +78,8 @@ class Employee_service:
                              emp.find('address').text,
                              emp.find('postalCode').text,
                              emp.find('city').text,
-                             emp.find('country').text)
+                             emp.find('country').text,
+                             True)
 
                 pos = Position(opus_id,
                                None,
@@ -100,7 +101,9 @@ class Employee_service:
                                startdate,
                                leavedate,
                                None,
-                               None)
+                               None,
+                               True,
+                               False)
 
                 self.persons[cpr] = per
                 self.positions[int(opus_id)] = pos
@@ -137,6 +140,7 @@ class Employee_service:
                     # Når der ikke er forandringer, springer vi videre til næste person
                     continue
                 else:
+                    opus_per.updated = True
                     persons_to_update[key] = opus_per
             # ellers indsættes en ny
             else:
@@ -178,14 +182,19 @@ class Employee_service:
                     # Når der ikke er forandringer, springer vi videre til næste position
                     continue
                 else:
+                    opus_pos.updated = True
                     positions_to_update[key] = opus_pos
             # ellers indsættes en ny
             else:
                 positions_to_insert[key] = opus_pos
 
-        pos_repo.insert_positions(positions_to_insert)
-        pos_repo.update_positions(positions_to_update)
         for key in sofd_positions:
             # hvis en nøgle (opus_id) er i SOFD men ikke i OPUS udtræk er det fordi stillingen er nedlagt
             if key not in opus_positions:
-                pos_repo.delete_position(key)
+                pos = sofd_positions[key]
+                pos.deleted = True
+                positions_to_update[key] = pos
+
+        pos_repo.insert_positions(positions_to_insert)
+        pos_repo.update_positions(positions_to_update)
+        

@@ -1,18 +1,18 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [ad].[org_uiid]    Script Date: 29-11-2019 12:52:23 ******/
+/****** Object:  Table [pyt].[disabled_orgunits]    Script Date: 16-01-2020 13:59:04 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [ad].[org_uiid](
+CREATE TABLE [pyt].[disabled_orgunits](
 	[system_id] [int] IDENTITY(1,1) NOT NULL,
-	[OrgOpusID] [nvarchar](max) NOT NULL,
-	[orguuid] [nvarchar](max) NOT NULL,
- CONSTRAINT [PK_org_uiid] PRIMARY KEY CLUSTERED 
+	[los_id] [int] NOT NULL,
+	[reason] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_disabled_orgunits] PRIMARY KEY CLUSTERED 
 (
 	[system_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

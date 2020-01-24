@@ -61,3 +61,4 @@ class Queue_orgunit_repo:
         cursor.execute(
             "DELETE FROM [queue].[orgunit_queue] WHERE [system_id] = ? ", system_id)
         cnxn.commit()
+

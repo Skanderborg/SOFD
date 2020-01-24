@@ -53,6 +53,7 @@ class Orgunit_service:
                           None,
                           None,
                           False,
+                          False,
                           costCenter)
             orgs[int(los_id)] = org
         return orgs
@@ -95,16 +96,18 @@ class Orgunit_service:
             else:
                 orgs_to_insert[los_id] = opus_org
 
-        org_repo.insert_orgunit(orgs_to_insert)
-        org_repo.update_orgunits(orgs_to_update)
-
         for los_id in sofd_orgunits:
             '''
             Markerer orgunits, som ikke ængere er i OPUS til deleted = 1
             '''
             # hvis nøglen (los_id) er i SOFD men ikke i OPUS udtræk, er det fordi organisationsenheden er nedlagt
             if los_id not in self.opus_orgunits:
-                org_repo.mark_orgunit_for_delition(los_id)
+                org = sofd_orgunits[los_id]
+                org.deleted = True
+                orgs_to_update[los_id] = org
+
+        org_repo.insert_orgunit(orgs_to_insert)
+        org_repo.update_orgunits(orgs_to_update)
 
     def get_orgunit_niveau(self, los_id):
         # Finder en orgunits niveau i org træet, starter ved 1.

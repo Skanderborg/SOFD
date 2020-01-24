@@ -6,7 +6,9 @@ class Person_repo:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def get_persons(self):
+    def get_persons(self, whereclause=None):
+        if whereclause == None:
+            whereclause = ""
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
@@ -17,13 +19,14 @@ class Person_repo:
                     [address], \
                     [zipcode], \
                     [city], \
-                    [country] \
+                    [country], \
+                    [updated] \
             FROM [pyt].[persons] \
-            WHERE [deleted] = 0;")
+            " + whereclause + ";")
         for row in cursor.fetchall():
             cpr = row.cpr
-            per = Person(cpr, row.firstname, row.lastname,
-                         row.address, row.zipcode, row.city, row.country)
+            per = Person(cpr, row.firstname, row.lastname, row.address, row.zipcode, row.city, 
+                            row.country, row.updated)
             result[cpr] = per
         return result
 
@@ -40,9 +43,8 @@ class Person_repo:
                                              [zipcode], \
                                              [city], \
                                              [country], \
-                                             [updated], \
-                                             [deleted])  \
-                VALUES (?, ?, ?, ?, ?, ?, ?, 1, 0)",
+                                             [updated]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
                 person.cpr,
                 person.firstname,
                 person.lastname,
@@ -64,7 +66,7 @@ class Person_repo:
                                 [zipcode] = ?, \
                                 [city] = ?, \
                                 [country] = ?, \
-                                [updated] = 1 \
+                                [updated] = ? \
                             WHERE [cpr] = ?",
                            person.firstname,
                            person.lastname,
@@ -72,6 +74,7 @@ class Person_repo:
                            person.zipcode,
                            person.city,
                            person.country,
+                           person.updated,
                            person.cpr)
         cnxn.commit()
 
@@ -79,5 +82,5 @@ class Person_repo:
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
         cursor.execute(
-            "UPDATE [pyt].[persons] SET [deleted] = 1 WHERE [cpr] = ? ", cpr)
+            "DELETE FROM [pyt].[persons] WHERE [cpr] = ?", cpr)
         cnxn.commit()

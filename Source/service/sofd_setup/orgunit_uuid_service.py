@@ -8,6 +8,7 @@ class Orgunit_uuid_service:
         self.constr_lora = constr_lora
 
     def set_orgunit_uuid(self):
+        # opsætter UUID'er på organisations enehder, der kommer fra OPUS XML'en som endnu ikke har et UUID
         orgs_to_update = {}
         uuid_repo = Org_uuid_repo(self.constr_lora)
         org_repo = Orgunit_repo(self.constr_lora)
@@ -23,6 +24,7 @@ class Orgunit_uuid_service:
         org_repo.update_orgunits(orgs_to_update)
 
     def set_parent_uuids(self):
+        # Tjekker parent UUID på organisations enheder, og opdaterer det hvis der er lavet forandringer.
         orgs_to_update = {}
         repo = Orgunit_repo(self.constr_lora)
         orgunits = repo.get_orgunits()

@@ -16,7 +16,7 @@ class Feriesaldo_service:
                 continue
             else:
                 # kfs fil format er mere eller mindre bare en linje, hvor hvert sæt tegn betyder forskellige ting - her er de splittet op efter beskrivelsen
-                kommuneinfo = line[0:9]
+                kommuneinfo = line[0:9] # - vi bruger deti kke pt
                 cpr = line[9:19]
                 ans_forhold_nr = line[19:20]
                 afloeningsform = line[20:21]
@@ -30,14 +30,36 @@ class Feriesaldo_service:
                 evt_overfoerte_dage = line[65:71]
                 feriedagstimer_sum = line[71:78]
                 identifier = cpr + ans_forhold_nr
-                feriesaldo = Feriesaldo(kommuneinfo, cpr, ans_forhold_nr, afloeningsform, ferieoptjeningsaar,
-                                        dato_for_saldo, ferietimer_med_loen, evt_feriedage_med_loen, ferietimer_uden_loen,
-                                        evt_feriedage_uden_loen, overfoerte_timer, evt_overfoerte_dage, feriedagstimer_sum)
+                feriesaldo = Feriesaldo(cpr,
+                                        ans_forhold_nr,
+                                        afloeningsform,
+                                        ferieoptjeningsaar,
+                                        dato_for_saldo,
+                                        ferietimer_med_loen,
+                                        evt_feriedage_med_loen,
+                                        ferietimer_uden_loen,
+                                        evt_feriedage_uden_loen,
+                                        overfoerte_timer,
+                                        evt_overfoerte_dage,
+                                        feriedagstimer_sum)
                 result[identifier] = feriesaldo
         return result
 
     def insert_feriesaldos_in_sofd(self):
         repo = Feriesaldo_repo(self.constr_lora)
-        feriesaldos_to_insert = Feriesaldo_service.get_feriesaldos_from_kfsfile(
-            self)
+        sofd_feriesaldos = repo.get_feriesaldos()
+        kmd_feriesaldos = Feriesaldo_service.get_feriesaldos_from_kfsfile(self)
+        feriesaldos_to_insert = {}
+        feriesaldos_to_update = {}
+        for cpr in kmd_feriesaldos:
+            if cpr not in sofd_feriesaldos:
+                feriesaldos_to_insert[cpr] = kmd_feriesaldos[cpr]
+            else:
+                sofd_saldo = sofd_feriesaldos[cpr]
+                kmd_saldo = kmd_feriesaldos[cpr]
+                if sofd_saldo == kmd_saldo:
+                    continue
+                else:
+                    feriesaldos_to_update[cpr] = kmd_saldo
         repo.insert_feriesaldo(feriesaldos_to_insert)
+        repo.update_feriesaldo(feriesaldos_to_update)
