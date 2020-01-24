@@ -12,15 +12,17 @@ class Sbsys_extensions_service:
         poss = pos_repo.get_positions('WHERE uuid_userref IS NOT NULL')
         for opus_id in poss:
             pos = poss[opus_id]
+            Sbsys_extensions_service.create_sbsys_extension_thing(self, pos.los_id, opus_id)
 
-
-    def create_sbsys_extension_thing(self, los_id):
+    # der skal muligvis mere med end opus_id og los
+    def create_sbsys_extension_thing(self, los_id, opus_id):
         org_repo = Orgunit_repo(constr_lora)
         orgs = org_repo.get_orgunits()
         user_org = orgs[los_id]
         sbsys_list = Sbsys_extensions_service.get_sbsys_orgunits(user_org, orgs, [])
         last_org = len(sbsys_list) - 1
         sbsys_ext = Sbsys_extension()
+        # test range
         for i in range(5):
             if i < last_org:
                 sbsys_ext.add_extensionAttriute(sbsys_list[i])
