@@ -14,24 +14,26 @@ class User_position_service:
         med users, hvis data kommer fra AD.
         Hvis der er en AD bruger med OPUS ID, kan der oprettes forbindelse mellem de to.
         Ligeledes, hvis der har været en forbindelse, som ikke er der længere, skal linket mellem de to fjernes.
+
+        IT har et redskab hvor de kan flytte opus_id på brugere, derfor skal vi også tjekke om opus_id på position og user stemmer over ens.
         '''
         pos_repo = Position_repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
         positions = pos_repo.get_positions()
         users = usr_repo.get_users()
         positions_to_update = {}
-        for key in positions:
-            position = positions[key]
-            if key in users:
-                user = users[key]
-                if position.uuid_userref == None or position.uuid_userref != user.uuid:
+        for opus_id in positions:
+            position = positions[opus_id]
+            if opus_id in users:
+                user = users[opus_id]
+                if position.uuid_userref == None or position.uuid_userref != user.uuid or position.opus_id != user.opus_id:
                     position.uuid_userref = user.uuid
                     position.updated = True
-                    positions_to_update[key] = position
+                    positions_to_update[opus_id] = position
             else:
                 if position.uuid_userref != None:
                     position.uuid_userref = None
                     position.updated = True
-                    positions_to_update[key] = position
+                    positions_to_update[opus_id] = position
 
         pos_repo.update_positions(positions_to_update)
