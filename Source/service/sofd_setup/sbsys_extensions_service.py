@@ -7,7 +7,7 @@ class Sbsys_extensions_service:
         self.constr_lora = constr_lora
 
     def setup_sbsys_extensions(self):
-        pos_repo = Position_repo(constr_lora)
+        pos_repo = Position_repo(self.constr_lora)
         
         poss = pos_repo.get_positions('WHERE uuid_userref IS NOT NULL')
         for opus_id in poss:
@@ -16,7 +16,7 @@ class Sbsys_extensions_service:
 
     # der skal muligvis mere med end opus_id og los
     def create_sbsys_extension_thing(self, los_id, opus_id):
-        org_repo = Orgunit_repo(constr_lora)
+        org_repo = Orgunit_repo(self.constr_lora)
         orgs = org_repo.get_orgunits()
         user_org = orgs[los_id]
         sbsys_list = Sbsys_extensions_service.get_sbsys_orgunits(user_org, orgs, [])
@@ -31,11 +31,11 @@ class Sbsys_extensions_service:
 
 
     def get_sbsys_orgunits(self, org, orgs, res):
-        res.append(current_org.shortname)
+        res.append(org.longname)
         current_org = orgs[org.parent_orgunit_los_id]
         # OBS, direktion 1-3 skal sorteres fra, derfor skal vi fange niveau her og jeg kan ikke huske det
         # i hovedet
-        if current_org.niveau ==:
+        if current_org.niveau == 4:
             current_org = orgs[org.parent_orgunit_los_id]
             Sbsys_extensions_service.get_sbsys_orgunits(self, current_org, orgs, res)
         elif current_org.longname == 'Direktion':
