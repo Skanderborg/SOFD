@@ -21,7 +21,7 @@ class Intranote_csv_service:
             for los_id in orgs:
                 org = orgs[los_id]
                 writer.writerow([org.los_id, org.uuid, org.last_changed, org.longname, org.startdate, org.enddate,
-                                    org.parent_orgunit_los_id, org.parent_orgunit_uuid, org.shortname, org.street, org.city,
+                                    org.parent_orgunit_los_id, org.parent_orgunit_uuid, org.shortname, org.street,
                                     org.zipcode, org.city, org.phonenumber, org.cvr, org.ean, org.manager_opus_id])
 
     def create_users_csv(self, csv_file_path):

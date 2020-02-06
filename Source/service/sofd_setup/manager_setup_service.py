@@ -79,4 +79,4 @@ class Manager_setup_service:
         if orgunit.manager_opus_id != None:
             return orgunit.manager_opus_id
         else:
-            return Manager_setup_service.get_manager(self,  orgunit.parent_orgunit_los_id, orgs)
+            return Manager_setup_service.get_manager(self, orgunit.parent_orgunit_los_id, orgs)
