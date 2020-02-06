@@ -8,6 +8,8 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 # starter vores e-mail service - henter smtp informationer fra .env fil
 constr_lora = os.environ.get('constr_lora')
+sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
+sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
 
-sbsys_extensions_service = Sbsys_extensions_service(constr_lora)
+sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
 sbsys_extensions_service.setup_sbsys_extensions()

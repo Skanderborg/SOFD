@@ -19,6 +19,9 @@ class Intranote_csv_service:
                                 'parent_orgunit_uuid','shortname', 'street', 'zipcode','city','phonenumber','cvr',
                                 'ean','manager_opus_id'])
             for los_id in orgs:
+                # 855822 - tabt arbftj, 878772 - plejefamilie, 878774 - lommepenge, 878775 - støtteperson, 878771 - aflastningsfamilie
+                if los_id == 855822 or los_id == 878772 or los_id == 878774 or los_id == 878775 or los_id == 878771:
+                    continue
                 org = orgs[los_id]
                 writer.writerow([org.los_id, org.uuid, org.last_changed, org.longname, org.startdate, org.enddate,
                                     org.parent_orgunit_los_id, org.parent_orgunit_uuid, org.shortname, org.street,
