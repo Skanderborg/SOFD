@@ -5,7 +5,7 @@ from dal.orgunit_repo import Orgunit_repo
 from dal.queue_orgunit_repo import Queue_orgunit_repo
 from model.queue_orgunit import Queue_orgunit
 from model.orgunit import Orgunit
-from mox_clients.os2sync.json_models import Orgunit_json, Generic_address_json
+from mox_clients.os2sync.json_models import Orgunit_json, User_json, Person_json, Position_json
 
 class ComplexEncoder(json.JSONEncoder):
     '''
@@ -29,7 +29,7 @@ class Os2sync_sync_service:
 
     def sync_orgunits(self):
         queue_repo = Queue_orgunit_repo(self.constr_lora)
-        queue = queue_repo.get_orgunit_queueitems('WHERE sts_org = 0')
+        queue = queue_repo.get_orgunit_queueitems('WHERE los_id = 1030006')
 
         if(len(queue) > 0):
             orgs = self.org_repo.get_orgunits()
@@ -39,9 +39,8 @@ class Os2sync_sync_service:
                 org = orgs[item.los_id]
                 result = None
                 if item.change_type == 'Updated':
-                    phone = Generic_address_json(org.phonenumber)
-                    email = Generic_address_json('skanderborg.kommune@skanderborg.dk')
-                    org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, org.startdate, phone, email)
+                    org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '8794 7000', 'skanderborg.kommune@skanderborg.dk')
+
                     json_to_submit = json.dumps(org_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
                     result = Os2sync_sync_service.post_json(self, json_to_submit)
                 elif item.change_type == 'Deleted':
@@ -50,11 +49,11 @@ class Os2sync_sync_service:
                 if result == 200:
                     item.sts_org = True
                     synced_queue_items[system_id] = item
-                queue_repo.update_queue_orgunits(synced_queue_items)
+                    queue_repo.update_queue_orgunits(synced_queue_items)
 
     def post_json(self, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         req = requests.post(url=self.orgunit_api_url, headers=headers, data=json_str)
-        print(req.text)
-        print(req.status_code)
+        print('request - text', req.text)
+        print('request - status code', req.status_code)
         return req.status_code
