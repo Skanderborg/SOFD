@@ -55,9 +55,42 @@ class Orgunit_json:
                     ContactForTasks=self.ContactForTasks)
 
 
-class Generic_address_json:
-    def __init__(self, Value):
-        self.Value = Value
+class User_json:
+    def __init__(self, Uuid, UserId, Email, Location, Person, ShortKey=None, PhoneNumber=None):
+        self.Uuid = Uuid
+        self.ShortKey = ShortKey
+        self.UserId = UserId
+        self.PhoneNumber = PhoneNumber
+        self.Email = Email
+        self.Location = Location
+        self.Positions = []
+        self.Person = Person
+
+    def add_position(self, position):
+        self.Positions.append(position)
 
     def reprJSON(self):
-        return dict(Value=self.Value)
+        return dict(Uuid=self.Uuid,
+                    ShortKey=self.ShortKey,
+                    UserId=self.UserId,
+                    PhoneNumber=self.PhoneNumber,
+                    Email=self.Email,
+                    Location=self.Location,
+                    Positions=self.Positions,
+                    Person=self.Person)
+
+class Person_json:
+    def __init__(self, Name, Cpr=None):
+        self.Name = Name
+        self.Cpr = Cpr
+
+    def reprJSON(self):
+        return dict(Name=self.Name, Cpr=self.Cpr)
+
+class Position_json:
+    def __init__(self, OrgUnitUuid, Name):
+        self.OrgUnitUuid = OrgUnitUuid
+        self.Name = Name
+
+    def reprJSON(self):
+        return dict(OrgUnitUuid=self.OrgUnitUuid, Name=self.Name)
