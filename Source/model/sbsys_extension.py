@@ -6,3 +6,6 @@ class Sbsys_extension:
 
     def add_extensionAttriute(self, extensionAttribute):
         self.extensionAttributes.append(extensionAttribute)
+    
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__

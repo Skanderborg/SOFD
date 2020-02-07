@@ -12,4 +12,4 @@ sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
 sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
 
 sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
-sbsys_extensions_service.setup_sbsys_extensions()
+sbsys_extensions_service.update_sbsys_extensions()

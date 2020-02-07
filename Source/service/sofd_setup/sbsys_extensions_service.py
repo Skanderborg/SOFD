@@ -10,7 +10,7 @@ class Sbsys_extensions_service:
         self.sbsys_extensionfield9 = sbsys_extensionfield9
         self.sbsys_extensionfield10 = sbsys_extensionfield10
 
-    def setup_sbsys_extensions(self):
+    def update_sbsys_extensions(self):
         pos_repo = Position_repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
         sbsys_repo = Sbsys_extension_repo(self.constr_lora)
@@ -20,16 +20,29 @@ class Sbsys_extensions_service:
         for opus_id in poss:
             pos = poss[opus_id]
             usr = usrs[opus_id]
-            sbsys_extensions_full_list[opus_id] = Sbsys_extensions_service.create_sbsys_extension_thing(self, pos.los_id, opus_id, usr.userid)
-        sbsys_repo.insert_sbsys_extensions(sbsys_extensions_full_list)
+            sbsys_extensions_full_list[opus_id] = Sbsys_extensions_service.get_sbsys_extension(self, pos.los_id, opus_id, usr.userid)
+        sbsys_extensions_to_insert = {}
+        sbsys_extensions_to_update = {}
+        sbsys_extensions_in_sofd = sbsys_repo.get_sbsys_extensions()
+
+        for opus_id in sbsys_extensions_full_list:
+            sbsys_extension_actual = sbsys_extensions_full_list[opus_id]
+            if opus_id not in sbsys_extensions_in_sofd:
+                sbsys_extensions_to_insert[opus_id] = sbsys_extension_actual
+            else:
+                sbsys_sofd = sbsys_extensions_in_sofd[opus_id]
+                if sbsys_extension_actual != sbsys_sofd:
+                    sbsys_extensions_to_update[opus_id] = sbsys_extension_actual
+        sbsys_repo.insert_sbsys_extensions(sbsys_extensions_to_insert)
+        sbsys_repo.update_sbsys_extensions(sbsys_extensions_to_update)
 
     # der skal muligvis mere med end opus_id og los
-    def create_sbsys_extension_thing(self, los_id, opus_id, userid):
+    def get_sbsys_extension(self, los_id, opus_id, userid):
         org_repo = Orgunit_repo(self.constr_lora)
         orgs = org_repo.get_orgunits()
         user_org = orgs[los_id]
         
-        sbsys_list = Sbsys_extensions_service.get_sbsys_orgunits(self, user_org, orgs, [])
+        sbsys_list = Sbsys_extensions_service.get_sbsys_extension_orgunits(self, user_org, orgs, [])
         last_org = len(sbsys_list) - 1
         sbsys_ext = Sbsys_extension(opus_id, userid)
         # test range
@@ -40,8 +53,8 @@ class Sbsys_extensions_service:
                 sbsys_ext.add_extensionAttriute(sbsys_list[last_org])
         return sbsys_ext
     
-    def get_sbsys_orgunits(self, org, orgs, res):
-        res.append([org.los_id, org.longname])
+    def get_sbsys_extension_orgunits(self, org, orgs, res):
+        res.append(org.longname)
         current_org = orgs[org.parent_orgunit_los_id]
         # OBS, direktion 1-3 (på niveau 4) og Borgmester (på niveau 2) skal sorteres fra, toppen af ORG strukturen ændre sig næsten aldrig
         # og fordi niveau 1-4 altid er de samme, springer vi dem faktisk bare helt over.
@@ -52,4 +65,4 @@ class Sbsys_extensions_service:
             res.append(self.sbsys_extensionfield9)
             return res[::-1]
         else:
-            return Sbsys_extensions_service.get_sbsys_orgunits(self, current_org, orgs, res)
+            return Sbsys_extensions_service.get_sbsys_extension_orgunits(self, current_org, orgs, res)

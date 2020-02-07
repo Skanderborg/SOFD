@@ -41,30 +41,24 @@ class Sbsys_extension_repo:
         cursor = cnxn.cursor()
         for key in sbsys_extensions:
             ext = sbsys_extensions[key]
-            ext9 = ext.extensionAttributes[0]
-            ext10 = ext.extensionAttributes[1]
-            ext11 = ext.extensionAttributes[2]
-            ext12 = ext.extensionAttributes[3]
-            ext13 = ext.extensionAttributes[4]
-            ext14 = ext.extensionAttributes[5]
-            cursor.execute(
-                "INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
+            cursor.execute("INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
                                                         [userid], \
                                                         [extensionAttribute9], \
                                                         [extensionAttribute10], \
                                                         [extensionAttribute11], \
                                                         [extensionAttribute12], \
                                                         [extensionAttribute13], \
-                                                        [extensionAttribute14]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                                        [extensionAttribute14], \
+                                                        [updated]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)",
                 ext.opus_id,
                 ext.userid,
-                ext9,
-                ext10,
-                ext11,
-                ext12,
-                ext13,
-                ext14)
+                ext.extensionAttributes[0],
+                ext.extensionAttributes[1],
+                ext.extensionAttributes[2],
+                ext.extensionAttributes[3],
+                ext.extensionAttributes[4],
+                ext.extensionAttributes[5])
         cnxn.commit()
 
     def update_sbsys_extensions(self, sbsys_extensions):
@@ -72,26 +66,21 @@ class Sbsys_extension_repo:
         cursor = cnxn.cursor()
         for key in sbsys_extensions:
             ext = sbsys_extensions[key]
-            ext9 = ext.extensionAttributes[0]
-            ext10 = ext.extensionAttributes[1]
-            ext11 = ext.extensionAttributes[2]
-            ext12 = ext.extensionAttributes[3]
-            ext13 = ext.extensionAttributes[4]
-            ext14 = ext.extensionAttributes[5]
             cursor.execute("UPDATE [sbsys].[sbsysusers_orgs] \
                             SET [extensionAttribute9] = ?, \
                                 [extensionAttribute10] = ?, \
                                 [extensionAttribute11] = ?, \
                                 [extensionAttribute12] = ?, \
                                 [extensionAttribute13] = ?, \
-                                [extensionAttribute14] = ? \
+                                [extensionAttribute14] = ?, \
+                                [updated] = 1 \
                             WHERE [opus_id] = ?",
-                            ext9,
-                            ext10,
-                            ext11,
-                            ext12,
-                            ext13,
-                            ext14,
+                            ext.extensionAttributes[0],
+                            ext.extensionAttributes[1],
+                            ext.extensionAttributes[2],
+                            ext.extensionAttributes[3],
+                            ext.extensionAttributes[4],
+                            ext.extensionAttributes[5],
                             ext.opus_id)
         cnxn.commit()
 
