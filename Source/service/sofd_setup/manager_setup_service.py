@@ -62,8 +62,18 @@ class Manager_setup_service:
 
         for pkey in positions:
             position = positions[pkey]
+            # fordi managers ikke skal have sig selv som leder skal vi lige finde det rigtige los_id,
+            # hvis du er leder, starter vi på niveauet over dig.
+            # dette skal stoppe ved borgmesteren
+            los_id_for_recursion = position.los_id
+            if position.is_manager == True:
+                org_actual = orgs[los_id_for_recursion]
+                if org_actual.niveau > 2:
+                    los_id_for_recursion = org_actual.parent_orgunit_los_id
+
+
             manager_id = Manager_setup_service.get_manager(
-                self, position.los_id, orgs)
+                self, los_id_for_recursion, orgs)
             manager_uuid = positions[manager_id].uuid_userref
             if position.manager_opus_id != manager_id or position.manager_uuid_userref != manager_uuid:
                 position.manager_opus_id = manager_id
