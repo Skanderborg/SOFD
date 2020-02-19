@@ -13,7 +13,7 @@ class Intranote_csv_service:
     def create_orgunit_csv(self, csv_file_path):
         org_repo = Orgunit_repo(self.constr_lora)
         orgs = org_repo.get_orgunits('WHERE [deleted] = 0')
-        with open(csv_file_path + 'Orgenhed.csv', 'w', newline='', encoding='UTF-16LE') as file:
+        with open(csv_file_path + 'Orgenhed.csv', 'w', newline='', encoding='iso-8859-1') as file:
             writer = csv.writer(file, delimiter=";")
             writer.writerow(['los_id','uuid','last_changed','longname','startdate','enddate','parent_orgunit_los_id',
                                 'parent_orgunit_uuid','shortname', 'street', 'zipcode','city','phonenumber','cvr',
@@ -34,7 +34,7 @@ class Intranote_csv_service:
         poss = pos_repo.get_positions('WHERE [uuid_userref] is not NULL and [deleted] = 0')
         usrs = usr_repo.get_users()
         pers = per_repo.get_persons()
-        with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='UTF-16LE') as file:
+        with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
             writer = csv.writer(file, delimiter=";")
             writer.writerow(['cpr','firstname','lastname','opus_id','uuid_userref','los_id','title','is_manager','start_date',
                                 'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
@@ -49,7 +49,7 @@ class Intranote_csv_service:
     def create_unic_csv(self, csv_file_path):
         unic_repo = Unic_username_repo(self.constr_lora)
         unics = unic_repo.get_unic_usernames('WHERE [opus_id] is not null')
-        with open(csv_file_path + 'Unilogin.csv', 'w', newline='', encoding='UTF-16LE') as file:
+        with open(csv_file_path + 'Unilogin.csv', 'w', newline='', encoding='iso-8859-1') as file:
             writer = csv.writer(file, delimiter=";")
             writer.writerow(['cpr','unilogin'])
             for unilogin in unics:
