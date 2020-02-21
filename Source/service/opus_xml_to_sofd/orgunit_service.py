@@ -68,6 +68,10 @@ class Orgunit_service:
 
         # key er los_id
         for los_id in self.opus_orgunits:
+            
+            if los_id == 880897 or los_id == 1024015:
+                continue
+
             opus_org = self.opus_orgunits[los_id]
             opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, los_id)
             # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
