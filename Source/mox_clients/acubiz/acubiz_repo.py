@@ -40,5 +40,5 @@ class Acubiz_repo:
                                 row.unic_userid,
                                 row.deleted,
                                 row.opus_id)
-            result[row.opus_id] = am
+            result[int(row.opus_id)] = am
         return result

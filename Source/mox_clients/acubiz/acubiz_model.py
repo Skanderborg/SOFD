@@ -9,7 +9,7 @@ class Acubiz_model:
             self.userid = unic_userid
             self.uuid_userref = unic_userid
         self.email = email
-        if email is None:
+        if email is None and unic_userid is not None:
             self.email = unic_userid + '@skole.skanderborg.dk'
         self.costcenter = costcenter
         self.los_id = los_id
@@ -17,4 +17,4 @@ class Acubiz_model:
         self.manager_uuid_userref = manager_uuid_userref
         self.longname = longname
         self.deleted = deleted in ['true', 'True', 1]
-        self.opus_id = opus_id
+        self.opus_id = int(opus_id)
