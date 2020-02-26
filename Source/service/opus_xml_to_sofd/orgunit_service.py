@@ -58,7 +58,7 @@ class Orgunit_service:
             orgs[int(los_id)] = org
         return orgs
 
-    def update_orgunits(self):
+    def update_orgunits(self, skb_top_organisation_los_id):
         org_repo = Orgunit_repo(self.constr_lora)
         sofd_orgunits = org_repo.get_orgunits(
             "WHERE [deleted] = 0 and [hierarchy] = 'opus'")
@@ -70,9 +70,14 @@ class Orgunit_service:
         for los_id in self.opus_orgunits:
             opus_org = self.opus_orgunits[los_id]
             opus_org.niveau = Orgunit_service.get_orgunit_niveau(self, los_id)
-            # top organisationsenheden har ikke en parent, men feltet er not null i DB, derfor dette hack.
-            if opus_org.parent_orgunit_los_id is None:
+            # top organisationen har ikke en parent, men feltet kan/skal ikke være NULL i databasen, derfor sætter vi den til 0
+            if los_id == skb_top_organisation_los_id:
                 opus_org.parent_orgunit_los_id = 0
+
+            # Vi bygger organisationstræet nedefra fordi det er den vej relationen er i datasættet, derfor vil orgunits
+            # uden parent, ødelægge servicen. Vi skipper dem. Dette er kun sket 1 gang da løn lavede fejl.
+            if opus_org.parent_orgunit_los_id is None:
+                continue
 
             opus_org.area = Orgunit_service.get_orgunit_area(self, los_id)
 

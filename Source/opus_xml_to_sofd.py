@@ -26,6 +26,9 @@ try:
     xml_path = os.environ.get('employee_org_xml_path')
     # connection string til SOFD databasen
     constr_lora = os.environ.get('constr_lora')
+    # finder los_id på top organisationen (Skanderborg Kommune) - dette ændre sig næppe, men hvis det gør skal det kunne opdateres
+    # skal anvendes som int
+    skb_top_organisation_los_id = int(os.environ.get('skb_top_organisation_los_id'))
 
     # finder frem til den seneste fil fra OPUS
     list_of_files = glob.glob(xml_path)
@@ -34,7 +37,7 @@ try:
 
     # opdaterer orgunits fra OPUS til SOFD
     org_service = Orgunit_service(latest_file, constr_lora)
-    org_service.update_orgunits()
+    org_service.update_orgunits(skb_top_organisation_los_id)
     step = 'org_service.update_orgunits() complete'
 
     # opdaterer employee fra OPUS til position og person i SOFD
