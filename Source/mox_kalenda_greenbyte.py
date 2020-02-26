@@ -21,6 +21,6 @@ try:
     kalenda_greenbyte_parent_los_id = os.environ.get('kalenda_greenbyte_parent_los_id')
     kalenda_greenbyte_mox_client = Kalenda_greenbyte_sync_service(constr_lora)
     kalenda_greenbyte_mox_client.post_json(kalenda_greenbyte_endpointurl, kalenda_greenbyte_apikey, kalenda_greenbyte_parent_los_id)
-except:
+except Exception as e:
     es.send_mail(error_email,
-                 'Error: execute_mox_clients.py python app', 'HJÆLP')
+                 'Error: mox_kalenda_greenbyte.py python app', 'Exception: ' + str(e))

@@ -21,6 +21,6 @@ try:
     intranote_csv_service.create_orgunit_csv(intranote_csv_directory)
     intranote_csv_service.create_users_csv(intranote_csv_directory)
     intranote_csv_service.create_unic_csv(intranote_csv_directory)
-except:
+except Exception as e:
     es.send_mail(error_email,
-                 'Error: execute_mox_clients.py python app', 'HJÆLP')
+                 'Error: mox_intranote.py python app', 'Exception: ' + str(e))

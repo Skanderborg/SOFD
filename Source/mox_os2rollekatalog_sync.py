@@ -27,6 +27,6 @@ try:
     json_str = oss.create_org_json()
     step = 'api'
     oss.post_json(endpointurl, api_key, json_str)
-except:
+except Exception as e:
     es.send_mail(error_email,
-                 'Error: mox_os2rollekatalog_sync.py python app', 'Error! ' + step)
+                 'Error: mox_os2rollekatalog_sync.py python app', 'Step = ' + step + ' - Exception: ' + str(e))

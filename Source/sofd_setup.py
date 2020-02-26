@@ -85,6 +85,6 @@ try:
     step = 'sbsys - complete'
 
     step = 'finished'
-except:
+except Exception as e:
     es.send_mail(error_email,
-                 'Error: manager_setup.py python app', step)
+                 'Error: manager_setup.py python app', 'Step: ' + step + ' - Exception: ' + str(e))

@@ -22,6 +22,6 @@ acubiz_csv_service.create_users_csv(acubiz_csv_directory)
 try:
     # acubiz
     x = 1
-except:
+except Exception as e:
     es.send_mail(error_email,
-                 'Error: execute_mox_clients.py python app', 'HJÆLP')
+                 'Error: mox_acubiz.py python app', 'Exception: ' + str(e))

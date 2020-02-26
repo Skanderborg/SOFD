@@ -48,6 +48,6 @@ try:
     step = 'update persons complete'
     emp_service.update_positions()
     step = 'update positions complete'
-except:
+except Exception as e:
    es.send_mail(error_email,
-                 'Error: opus_xml_to_sofd python app', step)
+                 'Error: opus_xml_to_sofd python app', 'Step: ' + step + ' - Exception: ' + str(e))
