@@ -22,9 +22,12 @@ class Acubiz_csv_service:
                             'los_id2',
                             'cpr1',
                             'cpr2',
-                            'nul',])
+                            'nul'])
             for key in ams:
                 am = ams[key]
+                deleted = '0'
+                if am.deleted == True:
+                    deleted = '1'
                 writer.writerow([am.uuid_userref,
                                 am.name,
                                 am.userid,
@@ -37,4 +40,4 @@ class Acubiz_csv_service:
                                 str(am.los_id) + ' - ' + am.longname,
                                 am.person_ref,
                                 am.person_ref,
-                                '0'])
+                                deleted])

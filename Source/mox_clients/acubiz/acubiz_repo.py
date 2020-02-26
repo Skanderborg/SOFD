@@ -21,10 +21,11 @@ class Acubiz_repo:
                     [person_ref], \
                     [manager_uuid_userref], \
                     [longname], \
-                    [unic_userid] \
+                    [unic_userid], \
+                    [deleted], \
+                    [opus_id] \
             FROM [acubiz].[acubiz_to_csv] \
             WHERE [manager_uuid_userref] is not null and [uuid_userref] is not null or [unic_userid] is not null;")
-        count = 0
         for row in cursor.fetchall():
             am = Acubiz_model(row.uuid_userref,
                                 row.firstname,
@@ -36,7 +37,8 @@ class Acubiz_repo:
                                 row.person_ref,
                                 row.manager_uuid_userref,
                                 row.longname,
-                                row.unic_userid)
-            result[count] = am
-            count += 1
+                                row.unic_userid,
+                                row.deleted,
+                                row.opus_id)
+            result[row.opus_id] = am
         return result
