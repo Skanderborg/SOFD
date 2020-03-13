@@ -21,3 +21,7 @@ https://pypi.org/project/pyodbc/
 
 pip install requests
 https://pypi.org/project/requests/
+
+Mox klienter:
+Disse er scripts der flytter data mellem SOFD og eksterne systemer. Tidligere har de været en del af en samlet proces, men vi kører dem som enkelte services for ikke at stoppe
+andre hvis én går galt.
