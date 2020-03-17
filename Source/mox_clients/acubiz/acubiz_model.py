@@ -1,5 +1,5 @@
 class Acubiz_model:
-    def __init__(self, uuid_userref, firstname, lastname, userid, email, costcenter,
+    def __init__(self, uuid_userref, firstname, lastname, userid, email,
                  los_id, person_ref, manager_uuid_userref, longname, unic_userid, deleted,
                  opus_id):
         self.uuid_userref = uuid_userref
@@ -11,7 +11,6 @@ class Acubiz_model:
         self.email = email
         if email is None and unic_userid is not None:
             self.email = unic_userid + '@skole.skanderborg.dk'
-        self.costcenter = costcenter
         self.los_id = los_id
         self.person_ref = person_ref
         self.manager_uuid_userref = manager_uuid_userref

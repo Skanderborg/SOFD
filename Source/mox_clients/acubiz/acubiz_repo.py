@@ -16,7 +16,6 @@ class Acubiz_repo:
                     [lastname], \
                     [UserId], \
                     [Email], \
-                    [costcenter], \
                     [los_id], \
                     [person_ref], \
                     [manager_uuid_userref], \
@@ -32,7 +31,6 @@ class Acubiz_repo:
                                 row.lastname,
                                 row.UserId,
                                 row.Email,
-                                row.costcenter, 
                                 row.los_id,
                                 row.person_ref,
                                 row.manager_uuid_userref,
