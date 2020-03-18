@@ -31,7 +31,7 @@ class Intranote_csv_service:
         pos_repo = Position_repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
         per_repo = Person_repo(self.constr_lora)
-        poss = pos_repo.get_positions('WHERE [uuid_userref] is not NULL and [deleted] = 0')
+        poss = pos_repo.get_positions('WHERE [deleted] = 0')
         usrs = usr_repo.get_users()
         pers = per_repo.get_persons()
         with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
@@ -40,11 +40,21 @@ class Intranote_csv_service:
                                 'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
             for opus_id in poss:
                 pos = poss[opus_id]
-                usr = usrs[opus_id]
                 per = pers[pos.person_ref]
+                usr_userid = None
+                usr_email = None
+                usr_phone = None
+                usr_workmobile = None
+                if pos.uuid_userref != None:
+                    usr = usrs[opus_id]
+                    usr_userid = usr.userid
+                    usr_email = usr.email
+                    usr_phone = usr.phone
+                    usr_workmobile = usr.workmobile
+                
                 writer.writerow([pos.person_ref, per.firstname, per.lastname, opus_id, pos.uuid_userref, pos.los_id, pos.position_title,
-                                    pos.is_manager, pos.start_date, pos.leave_date, pos.manager_opus_id, pos.uuid_userref, usr.userid,
-                                    usr.email, usr.phone, usr.workmobile])
+                                    pos.is_manager, pos.start_date, pos.leave_date, pos.manager_opus_id, pos.uuid_userref, usr_userid,
+                                    usr_email, usr_phone, usr_workmobile])
 
     def create_unic_csv(self, csv_file_path):
         unic_repo = Unic_username_repo(self.constr_lora)
