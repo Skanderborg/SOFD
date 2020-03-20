@@ -39,7 +39,7 @@ class Os2sync_sync_service:
                 org = orgs[item.los_id]
                 result = None
                 if item.change_type == 'Updated':
-                    org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '8794 7000', 'skanderborg.kommune@skanderborg.dk')
+                    org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '87947000', 'skanderborg.kommune@skanderborg.dk')
 
                     json_to_submit = json.dumps(org_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
                     result = Os2sync_sync_service.post_json(self, json_to_submit)
