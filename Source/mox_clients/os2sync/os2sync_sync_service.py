@@ -42,7 +42,7 @@ class Os2sync_sync_service:
                     org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '87947000', 'skanderborg.kommune@skanderborg.dk')
 
                     json_to_submit = json.dumps(org_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
-                    result = Os2sync_sync_service.post_json(self, json_to_submit)
+                    result = Os2sync_sync_service.post_json(self, self.orgunit_api_url, json_to_submit)
                 elif item.change_type == 'Deleted':
                     print('deleted')
 
@@ -51,9 +51,9 @@ class Os2sync_sync_service:
                     synced_queue_items[system_id] = item
                     queue_repo.update_queue_orgunits(synced_queue_items)
 
-    def post_json(self, json_str):
+    def post_json(self, endpoint_url, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
-        req = requests.post(url=self.orgunit_api_url, headers=headers, data=json_str)
+        req = requests.post(url=endpoint_url, headers=headers, data=json_str)
         print('request - text', req.text)
         print('request - status code', req.status_code)
         return req.status_code
