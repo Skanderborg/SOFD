@@ -87,4 +87,4 @@ try:
     step = 'finished'
 except Exception as e:
     es.send_mail(error_email,
-                 'Error: manager_setup.py python app', 'Step: ' + step + ' - Exception: ' + str(e))
+                 'Error: sofd_setup.py python app', 'Step: ' + step + ' - Exception: ' + str(e))
