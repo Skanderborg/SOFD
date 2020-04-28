@@ -13,4 +13,6 @@ os2sync_orgunit_endpointurl = os.environ.get('os2sync_orgunit_endpointurl')
 os2sync_user_endpointurl = os.environ.get('os2sync_user_endpointurl')
 
 os2sync_sync_service = Os2sync_sync_service(constr_lora, os2sync_apikey, os2sync_orgunit_endpointurl, os2sync_user_endpointurl)
-os2sync_sync_service.sync_orgunits()
+#os2sync_sync_service.sync_orgunits()
+
+os2sync_sync_service.syn.sync_users()

@@ -34,37 +34,37 @@ class Os2sync_sync_service:
 
     def sync_orgunits(self):
         queue_repo = Queue_orgunit_repo(self.constr_lora)
-        #queue = queue_repo.get_orgunit_queueitems("WHERE sts_org = 0")
-        queue = queue_repo.get_orgunit_queueitems("WHERE sts_org = 0 and change_type = 'Deleted'")
+        queue = queue_repo.get_orgunit_queueitems("WHERE sts_org = 0")
         if(len(queue) > 0):
             orgs = self.org_repo.get_orgunits()
             synced_queue_items = {}
             for system_id in queue:
-                item = queue[system_id]
+                queue_item = queue[system_id]
                 result = None
-                if item.change_type == 'Updated':
-                    org = orgs[item.los_id]
+                if queue_item.change_type == 'Updated':
+                    org = orgs[queue_item.los_id]
                     org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '87947000', 'skanderborg.kommune@skanderborg.dk')
-
                     json_to_submit = json.dumps(org_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
                     result = Os2sync_sync_service.post_json(self, self.orgunit_api_url, json_to_submit)
-                elif item.change_type == 'Deleted':
-                    end_point_url_delete = self.orgunit_api_url + '/' + item.uuid
+                elif queue_item.change_type == 'Deleted':
+                    end_point_url_delete = self.orgunit_api_url + '/' + queue_item.uuid
                     print(end_point_url_delete)
                     result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
                     print('deleted')
 
                 if result == 200:
-                    item.sts_org = True
-                    synced_queue_items[system_id] = item
+                    queue_item.sts_org = True
+                    synced_queue_items[system_id] = queue_item
                     queue_repo.update_queue_orgunits(synced_queue_items)
 
     def sync_users(self):
         queue_repo = Queue_users_repo(self.constr_lora)
         if(len(queue) > 0):
+            synced_queue_items = {}
             usr_repo = User_repo(self.constr_lora)
             per_repo = Person_repo(self.constr_lora)
             pos_repo = Position_repo(self.constr_lora)
+            orgs = self.org_repo.get_orgunits()
             queue = queue_repo.get_user_queues("WHERE sts_org = 0")
             usrs = usr_repo.get_users()
             pers = per_repo.get_persons()
@@ -75,11 +75,22 @@ class Os2sync_sync_service:
                     pos = poses[queue_item.opus_id]
                     usr = usrs[queue_item.opus_id]
                     per = pers[pos.person_ref]
+                    org = orgs[pos.los_id]
+                    person_json = Person_json(per.firstname + ' ' + per.lastname, '123')
+                    usr_json = User_json(pos.uuid, usr.email, org.longname, person_json, usr.userid, usr.phone)
+                    json_to_submit = json.dumps(usr_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
+                    print(json_to_submit)
+                    #result = Os2sync_sync_service.post_json(self, self.user_api_url, json_to_submit)
                 elif queue_item.change_type == 'Deleted':
-                    end_point_url_delete = self.user_api_url + '/' + item.uuid
+                    end_point_url_delete = self.user_api_url + '/' + queue_item.uuid
                     print(end_point_url_delete)
-                    result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
+                    #result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
                     print('deleted')
+                
+                #if result == 200:
+                #    queue_item.sts_org = True
+                #    synced_queue_items[system_id] = queue_item
+                #    queue_repo.update_queue_users(synced_queue_items)
                 
 
 
