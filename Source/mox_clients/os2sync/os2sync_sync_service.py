@@ -29,16 +29,15 @@ class Os2sync_sync_service:
 
     def sync_orgunits(self):
         queue_repo = Queue_orgunit_repo(self.constr_lora)
-        queue = queue_repo.get_orgunit_queueitems('WHERE los_id = 1030006')
-
+        queue = queue_repo.get_orgunit_queueitems('WHERE sts_org = 0')
         if(len(queue) > 0):
             orgs = self.org_repo.get_orgunits()
             synced_queue_items = {}
             for system_id in queue:
                 item = queue[system_id]
-                org = orgs[item.los_id]
                 result = None
                 if item.change_type == 'Updated':
+                    org = orgs[item.los_id]
                     org_json = Orgunit_json(org.uuid, org.los_id, org.longname, org.parent_orgunit_uuid, '87947000', 'skanderborg.kommune@skanderborg.dk')
 
                     json_to_submit = json.dumps(org_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
@@ -54,6 +53,6 @@ class Os2sync_sync_service:
     def post_json(self, endpoint_url, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         req = requests.post(url=endpoint_url, headers=headers, data=json_str)
-        print('request - text', req.text)
-        print('request - status code', req.status_code)
+        #print('request - text', req.text)
+        #print('request - status code', req.status_code)
         return req.status_code

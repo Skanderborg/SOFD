@@ -57,7 +57,7 @@ class Manager_setup_service:
         org_repo = Orgunit_repo(self.constr_lora)
         pos_repo = Position_repo(self.constr_lora)
         orgs = org_repo.get_orgunits()
-        positions = pos_repo.get_positions()
+        positions = pos_repo.get_positions('WHERE [deleted] = 0')
         positions_to_update = {}
 
         for pkey in positions:

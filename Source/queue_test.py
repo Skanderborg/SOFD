@@ -32,6 +32,6 @@ orgunit_queue_service = Orgunit_queue_service(constr_lora)
 orgunit_queue_service.update_orgunit_queue()
 step = 'orgunit_queue_service.update_orgunit_queue() complete'
 
-user_queue_service = User_queue_service(constr_lora)
-user_queue_service.update_user_queue()
-step = 'user_queue_service.update_user_queue() complete'
+#user_queue_service = User_queue_service(constr_lora)
+#user_queue_service.update_user_queue()
+#step = 'user_queue_service.update_user_queue() complete'

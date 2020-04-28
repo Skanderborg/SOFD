@@ -29,7 +29,7 @@ class Orgunit_queue_service:
                 queue[i] = queue_item
                 i+=1
                 # nu hvor org er i køen som deleted, kan vi godt slette den fra orgunits, igen fordi deleted vejer tungere end updated
-                #orgunit_repo.delete_orgunit(los_id)
+                orgunit_repo.delete_orgunit(los_id)
         orgunit_repo.update_orgunits(orgs_to_update)
         queue_repo.insert_queue_orgunits(queue)
     
