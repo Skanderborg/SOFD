@@ -56,7 +56,7 @@ class Orgunit_json:
 
 
 class User_json:
-    def __init__(self, Uuid, UserId, Email, Location, Person, ShortKey=None, PhoneNumber=None):
+    def __init__(self, Uuid, UserId, Email, Location, ShortKey=None, PhoneNumber=None):
         self.Uuid = Uuid
         self.ShortKey = ShortKey
         self.UserId = UserId
@@ -64,10 +64,13 @@ class User_json:
         self.Email = Email
         self.Location = Location
         self.Positions = []
-        self.Person = Person
+        self.Person = None
 
     def add_position(self, position):
         self.Positions.append(position)
+
+    def add_person(self, person):
+        self.Person = person
 
     def reprJSON(self):
         return dict(Uuid=self.Uuid,

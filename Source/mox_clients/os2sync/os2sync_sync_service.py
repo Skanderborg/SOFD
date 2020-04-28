@@ -48,9 +48,7 @@ class Os2sync_sync_service:
                     result = Os2sync_sync_service.post_json(self, self.orgunit_api_url, json_to_submit)
                 elif queue_item.change_type == 'Deleted':
                     end_point_url_delete = self.orgunit_api_url + '/' + queue_item.uuid
-                    print(end_point_url_delete)
                     result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
-                    print('deleted')
 
                 if result == 200:
                     queue_item.sts_org = True
@@ -59,13 +57,13 @@ class Os2sync_sync_service:
 
     def sync_users(self):
         queue_repo = Queue_users_repo(self.constr_lora)
+        queue = queue_repo.get_user_queues("WHERE sts_org = 0")
         if(len(queue) > 0):
             synced_queue_items = {}
             usr_repo = User_repo(self.constr_lora)
             per_repo = Person_repo(self.constr_lora)
             pos_repo = Position_repo(self.constr_lora)
             orgs = self.org_repo.get_orgunits()
-            queue = queue_repo.get_user_queues("WHERE sts_org = 0")
             usrs = usr_repo.get_users()
             pers = per_repo.get_persons()
             poses = pos_repo.get_positions()
@@ -76,21 +74,21 @@ class Os2sync_sync_service:
                     usr = usrs[queue_item.opus_id]
                     per = pers[pos.person_ref]
                     org = orgs[pos.los_id]
-                    person_json = Person_json(per.firstname + ' ' + per.lastname, '123')
-                    usr_json = User_json(pos.uuid, usr.email, org.longname, person_json, usr.userid, usr.phone)
+                    person_json = Person_json(per.firstname + ' ' + per.lastname, per.cpr)
+                    position_json = Position_json(org.uuid, org.longname)
+                    usr_json = User_json(pos.uuid_userref, usr.email, org.longname, usr.userid, usr.phone)
+                    usr_json.add_person(person_json)
+                    usr_json.add_position(position_json)
                     json_to_submit = json.dumps(usr_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
-                    print(json_to_submit)
-                    #result = Os2sync_sync_service.post_json(self, self.user_api_url, json_to_submit)
+                    result = Os2sync_sync_service.post_json(self, self.user_api_url, json_to_submit)
                 elif queue_item.change_type == 'Deleted':
                     end_point_url_delete = self.user_api_url + '/' + queue_item.uuid
-                    print(end_point_url_delete)
-                    #result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
-                    print('deleted')
+                    result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
                 
-                #if result == 200:
-                #    queue_item.sts_org = True
-                #    synced_queue_items[system_id] = queue_item
-                #    queue_repo.update_queue_users(synced_queue_items)
+                if result == 200:
+                    queue_item.sts_org = True
+                    synced_queue_items[system_id] = queue_item
+                    queue_repo.update_queue_users(synced_queue_items)
                 
 
 
@@ -106,6 +104,6 @@ class Os2sync_sync_service:
     def delete_action(self, endpoint_url):
         headers = {'ApiKey': self.apikey}
         req = requests.delete(url=endpoint_url, headers=headers)
-        print('request - text', req.text)
-        print('request - status code', req.status_code)
+        #print('request - text', req.text)
+        #print('request - status code', req.status_code)
         return req.status_code

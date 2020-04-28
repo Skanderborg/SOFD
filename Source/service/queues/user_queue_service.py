@@ -60,15 +60,15 @@ class User_queue_service:
                     pos.updated = False
                     positions_to_update[opus_id] = pos
                     if pos.uuid_userref != None:
-                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Updated', True)
+                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Updated', False)
                         i+=1
                         queue_items_to_insert[i] = queue_item
                 else:
                     if pos.uuid_userref != None:
-                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Deleted', True)
+                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Deleted', False)
                         i+=1
                         queue_items_to_insert[i] = queue_item
-                    #position_repo.delete_position(opus_id)
+                    position_repo.delete_position(opus_id)
             queue_repo.insert_user_queue(queue_items_to_insert)
             position_repo.update_positions(positions_to_update)
 

@@ -17,11 +17,12 @@ class Queue_users_repo:
                                 [uuid], \
                                 [opus_id], \
                                 [change_type], \
-                                [sts_org] \
+                                [sts_org], \
+                                [mox_acubiz] \
                         FROM [queue].[users_queue] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
-            usr_que = Queue_user(row.system_id, row.uuid, row.opus_id, row.change_type, row.sts_org)
+            usr_que = Queue_user(row.system_id, row.uuid, row.opus_id, row.change_type, row.sts_org, row.mox_acubiz)
             result[row.system_id] = usr_que
         return result
 
@@ -47,7 +48,6 @@ class Queue_users_repo:
         cursor = cnxn.cursor()
         for system_id in queue_users:
             user_queue = queue_users[system_id]
-            print(user_queue.mox_acubiz)
             cursor.execute("UPDATE [queue].[users_queue] \
                             SET [uuid] = ?, \
                                 [opus_id] = ?, \
