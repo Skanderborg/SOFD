@@ -1,6 +1,6 @@
 import json
 
-class employee:
+class employee_json:
     def __init__(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
         self.ssn = ssn
         self.aliasName = aliasName
@@ -12,8 +12,8 @@ class employee:
         self.mobilePhone = mobilePhone
         self.workPhone = workPhone
 
-        def add_role(self, role):
-            self.roles.append(role)
+    def add_role(self, role):
+        self.roles.append(role)
 
     def reprJSON(self):
         return dict(ssn=self.ssn, aliasName=self.aliasName, email=self.email, endDate=self.endDate,
