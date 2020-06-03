@@ -11,7 +11,7 @@ class Orgunit_queue_service:
         # funktion som bearbejder alle orgunits som er enten opdaterede eller slettede
         orgunit_repo = Orgunit_repo(self.constr_lora)
         queue_repo = Queue_orgunit_repo(self.constr_lora)
-        orgs_to_handle = orgunit_repo.get_orgunits('WHERE [updated] = 1 or [deleted] = 1')
+        orgs_to_handle = orgunit_repo.get_orgunits('WHERE [updated] = 1 or [deleted] = 1 and [uuid] is not null')
         orgs_to_update = {}
         queue = {}
         i = 0

@@ -12,6 +12,8 @@ class Intranote_csv_service:
 
     def create_orgunit_csv(self, csv_file_path):
         org_repo = Orgunit_repo(self.constr_lora)
+        pos_repo = Position_repo(self.constr_lora)
+        los_ids_to_ignore = pos_repo.get_disabled_orgunits()
         orgs = org_repo.get_orgunits('WHERE [deleted] = 0')
         with open(csv_file_path + 'Orgenhed.csv', 'w', newline='', encoding='iso-8859-1') as file:
             writer = csv.writer(file, delimiter=";")
@@ -19,8 +21,7 @@ class Intranote_csv_service:
                                 'parent_orgunit_uuid','shortname', 'street', 'zipcode','city','phonenumber','cvr',
                                 'ean','manager_opus_id'])
             for los_id in orgs:
-                # 855822 - tabt arbftj, 878772 - plejefamilie, 878774 - lommepenge, 878775 - støtteperson, 878771 - aflastningsfamilie
-                if los_id == 855822 or los_id == 878772 or los_id == 878774 or los_id == 878775 or los_id == 878771:
+                if los_id in los_ids_to_ignore:
                     continue
                 org = orgs[los_id]
                 writer.writerow([org.los_id, org.uuid, org.last_changed, org.longname, org.startdate, org.enddate,
@@ -34,12 +35,16 @@ class Intranote_csv_service:
         poss = pos_repo.get_positions('WHERE [deleted] = 0')
         usrs = usr_repo.get_users()
         pers = per_repo.get_persons()
+        los_ids_to_ignore = pos_repo.get_disabled_orgunits()
         with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
             writer = csv.writer(file, delimiter=";")
             writer.writerow(['cpr','firstname','lastname','opus_id','uuid_userref','los_id','title','is_manager','start_date',
                                 'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
             for opus_id in poss:
                 pos = poss[opus_id]
+                if pos.los_id in los_ids_to_ignore:
+                    continue
+
                 per = pers[pos.person_ref]
                 usr_userid = None
                 usr_email = None
