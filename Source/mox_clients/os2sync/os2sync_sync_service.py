@@ -76,7 +76,7 @@ class Os2sync_sync_service:
                     org = orgs[pos.los_id]
                     person_json = Person_json(per.firstname + ' ' + per.lastname, per.cpr)
                     position_json = Position_json(org.uuid, org.longname)
-                    usr_json = User_json(pos.uuid_userref, usr.email, org.longname, usr.userid, usr.phone)
+                    usr_json = User_json(pos.uuid_userref, usr.userid, usr.email, org.longname, queue_item.opus_id, usr.phone)
                     usr_json.add_person(person_json)
                     usr_json.add_position(position_json)
                     json_to_submit = json.dumps(usr_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
