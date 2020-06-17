@@ -1,6 +1,6 @@
 import json
 import requests
-from mox_clients.kmd_institution_api.test_api.json_models import employee_json
+from mox_clients.kmd_institution_api.test_api.json_models import employee_json #pylint: disable=import-error
 
 class ComplexEncoder(json.JSONEncoder):
     '''

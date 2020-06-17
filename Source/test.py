@@ -11,7 +11,7 @@ load_dotenv(dotenv_path)
 constr_lora = os.environ.get('constr_lora')
 
 unic_to_position_service = Unic_to_position_service(constr_lora)
-unic_to_position_service.blackmagic()
+unic_to_position_service.bind_unic_to_position()
 
 
 '''import os
