@@ -10,12 +10,14 @@ from service.sofd_setup.feriesaldo_service import Feriesaldo_service
 from service.queues.orgunit_queue_service import Orgunit_queue_service
 from service.queues.user_queue_service import User_queue_service
 from service.sofd_setup.sbsys_extensions_service import Sbsys_extensions_service
+from service.sofd_setup.unic_to_position_service import Unic_to_position_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
 author - Jacob Ågård Bennike
 Skanderborg Kommune 2019
 '''
+step = 'starting'
 # Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse.
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -23,13 +25,10 @@ load_dotenv(dotenv_path)
 es = Email_service(os.environ.get('smtp_username'), os.environ.get(
     'smtp_password'), os.environ.get('smtp_server'), os.environ.get('smtp_port'))
 error_email = os.environ.get('error_email')
-step = 'starting'
-
+# connection string til SOFD databasen
+constr_lora = os.environ.get('constr_lora')
+step = 'setup complete'
 try:
-    # connection string til SOFD databasen
-    constr_lora = os.environ.get('constr_lora')
-    step = 'setup complete'
-
     # tilføjer UUID'er til orgunits, tilføjer bagefter deres parent UUID
     orgunit_uuid_service = Orgunit_uuid_service(constr_lora)
     step = 'orgunit_uuid_service complete'
@@ -65,6 +64,9 @@ try:
     step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
 
     # unic setup
+    unic_to_position_service = Unic_to_position_service(constr_lora)
+    unic_to_position_service.bind_unic_to_position()
+    step = 'unic setup complete'
 
     # add changes to queues
     orgunit_queue_service = Orgunit_queue_service(constr_lora)

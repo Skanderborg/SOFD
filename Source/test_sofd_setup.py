@@ -10,6 +10,7 @@ from service.sofd_setup.feriesaldo_service import Feriesaldo_service
 from service.queues.orgunit_queue_service import Orgunit_queue_service
 from service.queues.user_queue_service import User_queue_service
 from service.sofd_setup.sbsys_extensions_service import Sbsys_extensions_service
+from service.sofd_setup.unic_to_position_service import Unic_to_position_service
 
 '''
 python app that handles the manager reference setup after the opus_xml_to_sofd has run.
@@ -64,6 +65,9 @@ feriesaldo_Service.insert_feriesaldos_in_sofd()
 step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
 
 # unic setup
+unic_to_position_service = Unic_to_position_service(constr_lora)
+unic_to_position_service.bind_unic_to_position()
+step = 'unic setup complete'
 
 # add changes to queues
 orgunit_queue_service = Orgunit_queue_service(constr_lora)
