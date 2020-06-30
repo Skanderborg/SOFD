@@ -1,4 +1,7 @@
 from json_models import Employee_json
+from dal.orgunit_repo import Orgunit_Repo
+from dal.users_repo import User_repo
+from dal.position_repo import Position_repo
 import json, requests
 
 class ComplexEncoder(json.JSONEncoder):
@@ -17,6 +20,11 @@ class ComplexEncoder(json.JSONEncoder):
 class Kmd2l_api_employee:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
+
+    def handle_employee_registration(self):
+        org_repo = Orgunit_Repo(self.constr_lora)
+        pos_repo = Position_Repo(self.constr_lora)
+        usr_repo = User_repo(self.constr_lora)
 
     def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
         employee_json_model = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
