@@ -1,6 +1,6 @@
 import json
 
-class employee_json:
+class Employee_json:
     def __init__(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
         self.ssn = ssn
         self.aliasName = aliasName

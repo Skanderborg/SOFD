@@ -1,6 +1,5 @@
-import json
-import requests
-from mox_clients.kmd_institution_api.test_api.test_json_models import test_employee_json
+from json_models import Employee_json
+import json, requests
 
 class ComplexEncoder(json.JSONEncoder):
     '''
@@ -15,15 +14,15 @@ class ComplexEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
-
-class Kmd_institution_api_employee:
+class Kmd2l_api_employee:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def create_json(self, test_ssn):
-        test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "01-01-2002", "01-01-2001", True, "12345678", "12345678")
-        test_emp.add_role("teacher")
-        result = json.dumps(test_emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
+    def create_json(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
+        employee_json = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
+        #test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "01-01-2002", "01-01-2001", True, "12345678", "12345678")
+        employee_json.add_role("teacher")
+        result = json.dumps(employee_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result
 
     def post_json(self, url, apikey, json_str):

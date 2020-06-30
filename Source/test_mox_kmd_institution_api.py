@@ -15,5 +15,5 @@ test_ssn = os.environ.get('test_ssn')
 
 kmd_institution_api_employee = Kmd_institution_api_employee("constr_lora")
 url = kmd_institution_api_test_endpoint + "9"
-json_data = kmd_institution_api_employee.get_json(test_ssn)
+json_data = kmd_institution_api_employee.create_json(test_ssn)
 kmd_institution_api_employee.post_json(url, kmd_institution_api_test_Ocp_Apim_Subscription_Key, json_data)
