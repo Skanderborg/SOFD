@@ -18,11 +18,16 @@ class Kmd2l_api_employee:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def create_json(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
-        employee_json = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
+    def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
+        employee_json_model = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
         #test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "01-01-2002", "01-01-2001", True, "12345678", "12345678")
-        employee_json.add_role("teacher")
-        result = json.dumps(employee_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
+        return employee_json_model
+    
+    def add_role(self, employee_json_model, role):
+        employee_json_model.add_role(role)
+
+    def create_employee_json(self, employee_json_model)
+        result = json.dumps(employee_json_model.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result
 
     def post_json(self, url, apikey, json_str):
