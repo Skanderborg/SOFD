@@ -97,7 +97,7 @@ class Os2sync_sync_service:
     def post_json(self, endpoint_url, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         req = requests.post(url=endpoint_url, headers=headers, data=json_str)
-        #print('request - text', req.text)
+        print('request - text', req.text)
         #print('request - status code', req.status_code)
         return req.status_code
 
