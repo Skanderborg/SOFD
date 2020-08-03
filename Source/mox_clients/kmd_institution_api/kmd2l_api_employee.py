@@ -28,10 +28,12 @@ class Kmd2l_api_employee:
 
     def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
         employee_json_model = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
+        # aliasname er til brug for navn og addresse beskyttelse
         #test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "01-01-2002", "01-01-2001", True, "12345678", "12345678")
         return employee_json_model
     
     def add_role(self, employee_json_model, role):
+        #roles skal undersøges om det er noget specielt
         employee_json_model.add_role(role)
 
     def create_employee_json(self, employee_json_model)
@@ -44,3 +46,6 @@ class Kmd2l_api_employee:
         print(req.text)
         print(req.status_code)
         return req.status_code
+
+
+        # skal slettes når de skrider fra SOFD
