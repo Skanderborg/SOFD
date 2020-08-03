@@ -21,13 +21,14 @@ class Person_repo:
                     [city], \
                     [country], \
                     [updated], \
-                    [displayname] \
+                    [display_firstname], \
+                    [display_lastname] \
             FROM [pyt].[persons] \
             " + whereclause + ";")
         for row in cursor.fetchall():
             cpr = row.cpr
             per = Person(cpr, row.firstname, row.lastname, row.address, row.zipcode, row.city, 
-                            row.country, row.updated, row.displayname)
+                            row.country, row.updated, row.display_firstname, row.display_lastname)
             result[cpr] = per
         return result
 
@@ -45,8 +46,9 @@ class Person_repo:
                                              [city], \
                                              [country], \
                                              [updated], \
-                                             [displayname]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)",
+                                             [display_firstname], \
+                                             [display_lastname]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)",
                 person.cpr,
                 person.firstname,
                 person.lastname,
@@ -54,7 +56,8 @@ class Person_repo:
                 person.zipcode,
                 person.city,
                 person.country,
-                person.displayname)
+                person.display_firstname,
+                person.display_lastname)
         cnxn.commit()
 
     def update_persons(self, persons):
@@ -70,7 +73,8 @@ class Person_repo:
                                 [city] = ?, \
                                 [country] = ?, \
                                 [updated] = ?, \
-                                [displayname = ?] \
+                                [display_firstname] = ?, \
+                                [display_lastname] = ? \
                             WHERE [cpr] = ?",
                            person.firstname,
                            person.lastname,
@@ -79,7 +83,8 @@ class Person_repo:
                            person.city,
                            person.country,
                            person.updated,
-                           person.displayname,
+                           person.display_firstname,
+                           person.display_lastname,
                            person.cpr)
         cnxn.commit()
 
