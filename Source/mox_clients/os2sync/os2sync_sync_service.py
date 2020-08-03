@@ -74,7 +74,7 @@ class Os2sync_sync_service:
                     usr = usrs[queue_item.opus_id]
                     per = pers[pos.person_ref]
                     org = orgs[pos.los_id]
-                    person_json = Person_json(per.firstname + ' ' + per.lastname, per.cpr)
+                    person_json = Person_json(per.get_firstname_including_displayname() + ' ' + per.get_lastname_including_displayname(), per.cpr)
                     position_json = Position_json(org.uuid, org.longname)
                     usr_json = User_json(pos.uuid_userref, usr.userid, usr.email, org.longname, queue_item.opus_id, usr.phone)
                     usr_json.add_person(person_json)
