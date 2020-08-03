@@ -20,13 +20,14 @@ class Person_repo:
                     [zipcode], \
                     [city], \
                     [country], \
-                    [updated] \
+                    [updated], \
+                    [displayname] \
             FROM [pyt].[persons] \
             " + whereclause + ";")
         for row in cursor.fetchall():
             cpr = row.cpr
             per = Person(cpr, row.firstname, row.lastname, row.address, row.zipcode, row.city, 
-                            row.country, row.updated)
+                            row.country, row.updated, row.displayname)
             result[cpr] = per
         return result
 
@@ -43,15 +44,17 @@ class Person_repo:
                                              [zipcode], \
                                              [city], \
                                              [country], \
-                                             [updated]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
+                                             [updated], \
+                                             [displayname]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)",
                 person.cpr,
                 person.firstname,
                 person.lastname,
                 person.address,
                 person.zipcode,
                 person.city,
-                person.country)
+                person.country,
+                person.displayname)
         cnxn.commit()
 
     def update_persons(self, persons):
@@ -66,7 +69,8 @@ class Person_repo:
                                 [zipcode] = ?, \
                                 [city] = ?, \
                                 [country] = ?, \
-                                [updated] = ? \
+                                [updated] = ?, \
+                                [displayname = ?] \
                             WHERE [cpr] = ?",
                            person.firstname,
                            person.lastname,
@@ -75,6 +79,7 @@ class Person_repo:
                            person.city,
                            person.country,
                            person.updated,
+                           person.displayname,
                            person.cpr)
         cnxn.commit()
 
