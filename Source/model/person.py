@@ -1,5 +1,5 @@
 class Person:
-    def __init__(self, cpr, firstname, lastname, address, zipcode, city, country, updated):
+    def __init__(self, cpr, firstname, lastname, address, zipcode, city, country, updated, displayname):
         self.cpr = cpr
         if firstname == None:
             firstname = 'Intet navn'
@@ -20,3 +20,4 @@ class Person:
             country = 'Intet'
         self.country = country
         self.updated = updated in ['true', 'True', 1]
+        self.displayname = displayname
