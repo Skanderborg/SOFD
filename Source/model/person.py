@@ -21,8 +21,8 @@ class Person:
             country = 'Intet'
         self.country = country
         self.updated = updated in ['true', 'True', 1]
-        self.display_firstname = display_firstname
-        self.display_lastname = display_lastname
+        self.display_firstname = display_firstname # probably needs to be one name if it's coming from displayname in ad
+        self.display_lastname = display_lastname # probably needs to be one name if it's coming from displayname in ad
 
     def get_firstname_including_displayname(self):
         print(self.display_lastname)
