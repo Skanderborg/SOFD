@@ -76,4 +76,27 @@ class Kmd2l_api_employee:
         træk institutioner
 
 
+        6.
+        send liste over stillinger til kristian
+
+        7. dagplejen skal afvente informatzion før den sendes
+
+
+        SELECT p.opus_id,
+	per.Firstname,
+	per.Lastname,
+	o.longname,
+	p.title,
+	p.title_short,
+	p.paygrade_title
+  FROM [LORA_SOFD].[sbsys].[sbsysusers_orgs] as s
+  join [LORA_SOFD].[pyt].[positions] as p
+  on p.opus_id = s.opus_id
+  join [LORA_SOFD].[dbo].[Persons] as per
+  on p.person_ref = per.Cpr
+  join [LORA_SOFD].[pyt].[Orgunits] as o
+  on p.los_id = o.los_id
+  where extensionAttribute12 = 'Dagtilbudsområdet'
+  order by longname
+
         """
