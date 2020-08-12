@@ -49,3 +49,31 @@ class Kmd2l_api_employee:
 
 
         # skal slettes når de skrider fra SOFD
+
+
+
+
+        """
+        1
+        Dagtilbudsområdet - alt under men ikke med
+        
+        2
+        undtagelse: private institutioner - kører på losid
+
+
+        3
+        Det ansatte i de overordende org units, der hedder moget med
+        dagtilbud, skal i stedet tilknyttes i alle deres direkte børn
+        hvor der er medarbejdere.
+
+        losid på dagtiblud - skal i db liste
+
+        4
+        KMD institution snitflade med pnumer eller institutions id.
+
+        5
+        adgang til KMD Institution API
+        træk institutioner
+
+
+        """
