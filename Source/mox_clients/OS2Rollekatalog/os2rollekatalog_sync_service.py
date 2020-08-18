@@ -54,7 +54,6 @@ class Os2rollekatalog_sync_service:
             sofd_pos = poss[opus_id]
             sofd_usr = usrs[opus_id]
             if sofd_usr.userid is None or len(sofd_usr.userid) < 1:
-                print('hej', sofd_usr.userid)
                 continue
             sofd_per = pers[sofd_pos.person_ref]
             sofd_org = orgs[sofd_pos.los_id]
@@ -68,8 +67,7 @@ class Os2rollekatalog_sync_service:
 
     def post_json(self, url, apikey, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': apikey}
-        #req = requests.post(url=url, headers=headers, data=json_str)
-        #print(req.text)
-        #print(req.status_code)
-        #return req.status_code
-        return True
+        req = requests.post(url=url, headers=headers, data=json_str)
+        print(req.text)
+        print(req.status_code)
+        return req.status_code
