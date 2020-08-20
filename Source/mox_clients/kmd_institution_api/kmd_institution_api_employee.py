@@ -62,7 +62,7 @@ class Kmd2l_api_employee:
 
 
         3
-        Det ansatte i de overordende org units, der hedder moget med
+        De ansatte i de overordende org units, der hedder moget med
         dagtilbud, skal i stedet tilknyttes i alle deres direkte børn
         hvor der er medarbejdere.
 

@@ -4,7 +4,6 @@ import requests, json
 class Kmd_institution_api:
 
     def get_institutions(self, url, apikey):
-        print(url)
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         response = requests.get(url=url, headers=headers)
         print(response.status_code)
