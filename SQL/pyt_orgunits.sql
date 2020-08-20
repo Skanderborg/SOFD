@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[Orgunits]    Script Date: 16-01-2020 13:59:17 ******/
+/****** Object:  Table [pyt].[Orgunits]    Script Date: 20-08-2020 13:48:05 ******/
 SET ANSI_NULLS ON
 GO
 

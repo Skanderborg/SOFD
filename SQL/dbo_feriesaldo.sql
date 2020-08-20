@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [dbo].[feriesaldo]    Script Date: 16-01-2020 13:58:26 ******/
+/****** Object:  Table [dbo].[feriesaldo]    Script Date: 20-08-2020 13:46:38 ******/
 SET ANSI_NULLS ON
 GO
 

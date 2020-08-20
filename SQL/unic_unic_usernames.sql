@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [unic].[unic_usernames]    Script Date: 16-01-2020 14:01:03 ******/
+/****** Object:  Table [unic].[unic_usernames]    Script Date: 20-08-2020 13:51:18 ******/
 SET ANSI_NULLS ON
 GO
 

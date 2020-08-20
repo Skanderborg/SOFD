@@ -1,0 +1,22 @@
+USE [LORA_SOFD]
+GO
+
+/****** Object:  Table [kmdl2].[dagtilbud]    Script Date: 20-08-2020 13:47:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [kmdl2].[dagtilbud](
+	[system_id] [int] IDENTITY(1,1) NOT NULL,
+	[los_id] [int] NOT NULL,
+ CONSTRAINT [PK_dagtilbud] PRIMARY KEY CLUSTERED 
+(
+	[system_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+

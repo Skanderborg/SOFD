@@ -1,7 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  Table [pyt].[persons]    Script Date: 16-01-2020 13:59:27 ******/
+/****** Object:  Table [pyt].[persons]    Script Date: 20-08-2020 13:48:17 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -18,6 +18,8 @@ CREATE TABLE [pyt].[persons](
 	[city] [nvarchar](150) NOT NULL,
 	[country] [nvarchar](50) NOT NULL,
 	[updated] [bit] NOT NULL,
+	[display_firstname] [nvarchar](max) NULL,
+	[display_lastname] [nvarchar](max) NULL,
  CONSTRAINT [PK_persons_1] PRIMARY KEY CLUSTERED 
 (
 	[system_id] ASC
