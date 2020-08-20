@@ -69,7 +69,7 @@ class Kmd2l_api_employee:
         losid på dagtiblud - skal i db liste
 
         4
-        KMD institution snitflade med pnumer eller institutions id.
+        KMD institution snitflade med pnumer eller institutions id. æ- vi bruge den vi altid har det er id
 
         5
         adgang til KMD Institution API
