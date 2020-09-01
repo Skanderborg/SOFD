@@ -40,6 +40,8 @@ class Os2rollekatalog_sync_service:
 
         for los_id in orgs:
             sofd_org = orgs[los_id]
+            if sofd_org.uuid is None or len(sofd_org.uuid) < 1:
+                continue
             sofd_manager = None
             jsman = None
             # den sidste del er pga de ledere der også er politikere som snyder med deres brugerkonti, det skal der egentligt rydes op i
