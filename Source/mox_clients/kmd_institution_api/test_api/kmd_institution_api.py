@@ -10,5 +10,4 @@ class Kmd_institution_api:
         #print(response.text)
         jdata = json.loads(response.text)
         for institution in jdata:
-            print(institution['name'], institution['id'])
-
+            print(institution['name'], institution['id'], institution['shortName'], institution['careType'],  institution['dayCareType'])

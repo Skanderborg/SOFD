@@ -57,6 +57,8 @@ class Os2rollekatalog_sync_service:
                 continue
             sofd_per = pers[sofd_pos.person_ref]
             sofd_org = orgs[sofd_pos.los_id]
+            if sofd_org.uuid is None or len(sofd_org.uuid) <1:
+                continue
             json_pos = Position_json(sofd_pos.position_title, sofd_org.uuid)
             json_usr = User_json(sofd_pos.uuid_userref, sofd_usr.userid,
                                  sofd_per.firstname + ' ' + sofd_per.lastname, sofd_usr.email)
