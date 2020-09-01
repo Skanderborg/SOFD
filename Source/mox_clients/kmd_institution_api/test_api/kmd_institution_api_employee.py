@@ -51,8 +51,8 @@ class Kmd_institution_api_employee:
                 inst = kmd_inst(int_id)
                 inst.add_employee(emp['employmentId'], kmd_emp)
                 result_dict[int_id] = inst
-        return result_dict
-        '''
+        #return result_dict
+        
         for key in result_dict:
             inst = result_dict[key]
             emps = inst.get_employees()
@@ -60,14 +60,15 @@ class Kmd_institution_api_employee:
             for k in emps:
                 emp = emps[k]
                 print(emp.ssn)
-        '''
+        
 
         
     def create_employee_json(self, test_ssn):
         '''
         Creates a JSON template to post
         '''
-        test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "01-01-2002", "01-01-2001", True, "12345678", "12345678")
+        #test_emp = test_employee_json(ssn, "aliasname", "email@email.email", "enddate: mm-dd-yyyy -optional", "start date mm-dd-yyyy", True, "mobile 12345678", "phone 12345678")
+        test_emp = test_employee_json(test_ssn, "fake person med fake cpr", "email@email.email", "05-31-2002", "04-31-2002", True, "12345678", "12345678")
         test_emp.add_role("teacher")
         result = json.dumps(test_emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result

@@ -9,5 +9,7 @@ class Kmd_institution_api:
         print(response.status_code)
         #print(response.text)
         jdata = json.loads(response.text)
+        print('name;id;shortName;careType;dayCareType')
         for institution in jdata:
-            print(institution['name'], institution['id'], institution['shortName'], institution['careType'],  institution['dayCareType'])
+            if institution['careType'] != 'Childminding':
+                print(institution['name']+';'+str(institution['id'])+';'+str(institution['shortName'])+';'+institution['careType']+';'+institution['dayCareType'])
