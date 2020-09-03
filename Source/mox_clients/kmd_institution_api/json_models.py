@@ -1,6 +1,6 @@
 import json
 
-class Employee_json:
+class Employee_json_model:
     def __init__(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone):
         self.ssn = ssn
         self.aliasName = aliasName
@@ -18,4 +18,4 @@ class Employee_json:
     def reprJSON(self):
         return dict(ssn=self.ssn, aliasName=self.aliasName, email=self.email, endDate=self.endDate,
                     startDate=self.startDate, transferToUserAdministration=self.transferToUserAdministration,
-                    roles=self.roles, mobilePhone=self.mobilePhone, workPhone = self.workPhone)
+                    workPhone = self.workPhone, roles=self.roles, mobilePhone=self.mobilePhone)

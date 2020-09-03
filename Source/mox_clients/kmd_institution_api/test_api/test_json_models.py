@@ -18,4 +18,4 @@ class test_employee_json:
     def reprJSON(self):
         return dict(ssn=self.ssn, aliasName=self.aliasName, email=self.email, endDate=self.endDate,
                     startDate=self.startDate, transferToUserAdministration=self.transferToUserAdministration,
-                    roles=self.roles, mobilePhone=self.mobilePhone, workPhone = self.workPhone)
+                    workPhone = self.workPhone, roles=self.roles, mobilePhone=self.mobilePhone)

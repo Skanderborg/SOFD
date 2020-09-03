@@ -28,10 +28,18 @@ test_ssn = os.environ.get('test_ssn')
 #get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
 #kmdi2_employee_api.get_kmd_employements(get_employements_url, kmdi2_employee_api_key)
 
-# add employee by institution id
-kmd2l_api_employee = Kmdi2_employee_api("constr_lora")
-add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/' + "2788"
-ssn = os.environ.get('ssn')
+#kmd2l_api_employee = Kmdi2_employee_api("constr_lora")
+#add_employee_url = os.environ.get('kmdi2_employee_api_test_endpoint') + 'employment/institution/' + "12"
+#ssn = os.environ.get('test_ssn')
+#json_data = kmd2l_api_employee.create_employee(ssn, "test", "test@skanderborg.dk", "01-31-2021", "02-01-2018", True, "12345678", "12345678", "consultant")
+#print(json_data)
+#kmd2l_api_employee.post_json(add_employee_url, kmdi2_test_key, json_data)
 
-print(json_data)
-kmd2l_api_employee.post_json(add_employee_url, kmdi2_employee_api_key, json_data)
+
+# add employee by institution id
+#kmd2l_api_employee = Kmdi2_employee_api("constr_lora")
+#add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/' + "2788"
+#ssn = os.environ.get('ssn')
+#json_data = kmd2l_api_employee.create_employee(ssn, "Marianne Gertz", "Marianne.Gertz@skanderborg.dk", "", "01-08-2012", True, "21166769", "87947000", "institutionManager")
+#print(json_data)
+#kmd2l_api_employee.post_json(add_employee_url, kmdi2_employee_api_key, json_data)

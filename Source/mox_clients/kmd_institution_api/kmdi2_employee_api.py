@@ -1,4 +1,4 @@
-from mox_clients.kmd_institution_api.json_models import Employee_json
+from mox_clients.kmd_institution_api.json_models import Employee_json_model
 from dal.orgunit_repo import Orgunit_repo
 from dal.users_repo import User_repo
 from dal.position_repo import Position_repo
@@ -47,10 +47,11 @@ class Kmdi2_employee_api:
         usr_repo = User_repo(self.constr_lora)
 
     def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title):
-        employee_json_model = Employee_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
+        #test_emp = Employee_json_model(ssn, "fake person med fake cpr", "email@email.email", "01-31-2021", "02-01-2018", True, "12345678", "12345678")
+        emp = Employee_json_model(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
         # aliasname er til brug for navn og addresse beskyttelse
-        employee_json_model.add_role(role_title)
-        result_json = json.dumps(employee_json_model.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
+        emp.add_role(role_title)
+        result_json = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result_json
 
     def post_json(self, url, apikey, json_str):
