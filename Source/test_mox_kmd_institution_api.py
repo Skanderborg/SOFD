@@ -40,6 +40,6 @@ test_ssn = os.environ.get('test_ssn')
 #kmd2l_api_employee = Kmdi2_employee_api("constr_lora")
 #add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/' + "2788"
 #ssn = os.environ.get('ssn')
-#json_data = kmd2l_api_employee.create_employee(ssn, "Marianne Gertz", "Marianne.Gertz@skanderborg.dk", "", "01-08-2012", True, "21166769", "87947000", "institutionManager")
+#json_data = kmd2l_api_employee.create_employee(ssn, "", "", "", "01-08-2012", True, "", "", "")
 #print(json_data)
 #kmd2l_api_employee.post_json(add_employee_url, kmdi2_employee_api_key, json_data)
