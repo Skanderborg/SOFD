@@ -11,5 +11,5 @@ class Kmd_institution_api:
         jdata = json.loads(response.text)
         print('name;id;shortName;careType;dayCareType')
         for institution in jdata:
-            if institution['careType'] != 'Childminding':
-                print(institution['name']+';'+str(institution['id'])+';'+str(institution['shortName'])+';'+institution['careType']+';'+institution['dayCareType'])
+            if institution['careType'] == 'Childminding':
+                print(f"{institution['name']};{institution['id']};{institution['shortName']};{institution['careType']};{institution['dayCareType']}")
