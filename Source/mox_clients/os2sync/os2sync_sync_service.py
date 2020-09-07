@@ -65,7 +65,7 @@ class Os2sync_sync_service:
                 if result == 200:
                     queue_item.sts_org = True
                     synced_queue_items[system_id] = queue_item
-                    queue_repo.update_queue_orgunits(synced_queue_items)
+            queue_repo.update_queue_orgunits(synced_queue_items)
 
     def sync_users(self):
         '''
@@ -95,7 +95,7 @@ class Os2sync_sync_service:
                     Følgene IF sætning fikser det problem.
                     '''
                     if queue_item.opus_id not in poses:
-                        queue_repo.change_type = 'Deleted'
+                        queue_item.change_type = 'Deleted'
                         synced_queue_items[system_id] = queue_item
                         continue
                     pos = poses[queue_item.opus_id]
@@ -116,7 +116,7 @@ class Os2sync_sync_service:
                 if result == 200:
                     queue_item.sts_org = True
                     synced_queue_items[system_id] = queue_item
-                    queue_repo.update_queue_users(synced_queue_items)
+            queue_repo.update_queue_users(synced_queue_items)
                 
 
 
