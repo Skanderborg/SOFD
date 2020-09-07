@@ -70,6 +70,10 @@ class Os2sync_sync_service:
             for system_id in queue:
                 queue_item = queue[system_id]
                 if queue_item.change_type == 'Updated':
+                    if queue_item.opus_id not in poses:
+                        queue_repo.change_type = 'Deleted'
+                        synced_queue_items[system_id] = queue_item
+                        continue
                     pos = poses[queue_item.opus_id]
                     usr = usrs[queue_item.opus_id]
                     per = pers[pos.person_ref]
