@@ -25,7 +25,15 @@ class ComplexEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 class Os2sync_sync_service:
+    '''
+    Os2Sync service håndterer selve synkroniseringen mod OS2Sync systemet. Den arbejder med queue.* tabellerne i databasen, og registerer
+    successfulde hændelser i sykroniseringen som værende færdige i sts_org feltet.
+    '''
     def __init__(self, constr_lora, apikey, orgunit_api_url, user_api_url):
+        '''
+        constructor, som har parametre der er en connection string til SOFD databasen: den api nøgle som identificere os i os2sync.
+        api urls til orgunit og user api'erne.
+        '''
         self.constr_lora = constr_lora
         self.org_repo = Orgunit_repo(self.constr_lora)
         self.apikey = apikey
@@ -33,6 +41,10 @@ class Os2sync_sync_service:
         self.user_api_url = user_api_url
 
     def sync_orgunits(self):
+        '''
+        funktion, der synkroniserer alle de orgunits, som er i køen. der kigges på sts_org feltet fordi det er her vi registerer om et queue item er sendt
+        til sykronisering eller ej.
+        '''
         queue_repo = Queue_orgunit_repo(self.constr_lora)
         queue = queue_repo.get_orgunit_queueitems("WHERE sts_org = 0")
         if(len(queue) > 0):
@@ -56,6 +68,10 @@ class Os2sync_sync_service:
                     queue_repo.update_queue_orgunits(synced_queue_items)
 
     def sync_users(self):
+        '''
+        funktion, der synkroniserer alle de users, som er i køen. der kigges på sts_org feltet fordi det er her vi registerer om et queue item er sendt
+        til sykronisering eller ej.
+        '''
         queue_repo = Queue_users_repo(self.constr_lora)
         queue = queue_repo.get_user_queues("WHERE sts_org = 0")
         if(len(queue) > 0):
@@ -70,6 +86,14 @@ class Os2sync_sync_service:
             for system_id in queue:
                 queue_item = queue[system_id]
                 if queue_item.change_type == 'Updated':
+                    '''
+                    Når en medarbejder forlader organisationen, bliver der typisk oprettet et "updated" event i opus, dagen før der oprettes et "deleted" event.
+                    Hvis synkroniseirngen af en eller anden årsag går galt. Eller begge events kommer samme dag (kmd levere kun data 5 dage om ugen, så det kan poole)
+                    vil denne "updated" stoppe synkroniseringen fordi stillingen slås op i pyt.positions når der skal opdateres. Her vil stillinge dog ikke længere være,
+                    fordi den også er deleted - og et deleted event fjerne stillingen når eventet er føjet til køen.
+
+                    Følgene IF sætning fikser det problem.
+                    '''
                     if queue_item.opus_id not in poses:
                         queue_repo.change_type = 'Deleted'
                         synced_queue_items[system_id] = queue_item
@@ -101,7 +125,7 @@ class Os2sync_sync_service:
     def post_json(self, endpoint_url, json_str):
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         req = requests.post(url=endpoint_url, headers=headers, data=json_str)
-        print('request - text', req.text)
+        #print('request - text', req.text)
         #print('request - status code', req.status_code)
         return req.status_code
 
