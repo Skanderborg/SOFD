@@ -16,4 +16,25 @@ class Kmdi2_service:
                 print(inst['los_id'])
     
     def emp_test(self):
-        self.kmdi2_repo.employees_in_tree()
+        dagtilbud = self.kmdi2_repo.get_dagtilbud()
+        institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
+        for los_id in institutions_to_sync:
+            inst = institutions_to_sync[los_id]
+            if (inst['parent_orgunit_los_id'] in dagtilbud):
+                print('Dagtilbud', inst['longname'])
+                emps = self.kmdi2_repo.get_employees_in_orgunit(inst['parent_orgunit_los_id'])
+                emps = emps + self.kmdi2_repo.get_employees_in_orgunit(los_id)
+                inst_children = self.kmdi2_repo.get_orgunit_children(los_id)
+                for tmp_los_id in inst_children:
+                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                for e in emps:
+                    print(e)
+            else:
+                print(inst['longname'])
+                emps = self.kmdi2_repo.get_employees_in_orgunit(los_id)
+                inst_children = self.kmdi2_repo.get_orgunit_children(los_id)
+                for tmp_los_id in inst_children:
+                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                for e in emps:
+                    print(e)
+                

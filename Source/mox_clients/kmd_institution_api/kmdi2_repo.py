@@ -17,7 +17,8 @@ class Kmdl2_repo:
                         [longname]\
                 FROM [LORA_SOFD].[kmdl2].[v_institution_to_sync];")
             for row in cursor.fetchall():
-                result[row.los_id] = {'los_id' : row.los_id, 'kmdi2_id' : row.kmdl2_id, 'parent_orgunit_los_id' : row.parent_orgunit_los_id}
+                result[row.los_id] = {'los_id' : row.los_id, 'kmdi2_id' : row.kmdl2_id, 'parent_orgunit_los_id' : row.parent_orgunit_los_id,
+                'longname' : row.longname}
         return result
     
     def get_dagtilbud(self):
@@ -32,13 +33,25 @@ class Kmdl2_repo:
                 result.append(row.los_id)
         return result
 
-    def employees_in_tree(self):
-        result = {}
+    def get_employees_in_orgunit(self, los_id):
+        result = []
         cnxn = pyodbc.connect(self.constr_lora)
         with cnxn:
             cursor = cnxn.cursor()
             cursor.execute(
-                "EXEC [dbo].[get_all_orgunits_below] @Parent = 836771;")
+                "EXEC [kmdl2].[get_orgunit_employes] @los_id = ?;", los_id)
             for row in cursor.fetchall():
-                print(row)
+                result.append({'opus_id' : row.opus_id, 'firstname' : row.firstname, 'lastname' : row.lastname,
+                'title' : row.title})
+        return result
+
+    def get_orgunit_children(self, los_id):
+        result = []
+        cnxn = pyodbc.connect(self.constr_lora)
+        with cnxn:
+            cursor = cnxn.cursor()
+            cursor.execute(
+                "EXEC [dbo].[get_all_orgunits_below] @Parent = ?;", los_id)
+            for row in cursor.fetchall():
+                result.append(str(row[0]))
         return result

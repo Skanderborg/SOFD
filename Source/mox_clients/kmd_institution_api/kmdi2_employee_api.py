@@ -46,6 +46,8 @@ class Kmdi2_employee_api:
         pos_repo = Position_Repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
 
+    
+
     def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title):
         '''
           "teacher",
