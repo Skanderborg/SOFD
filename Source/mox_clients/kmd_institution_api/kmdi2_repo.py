@@ -45,7 +45,7 @@ class Kmdl2_repo:
                 'title' : row.title})
         return result
 
-    def get_orgunit_children(self, los_id):
+    def get_orgunit_and_children(self, los_id):
         result = []
         cnxn = pyodbc.connect(self.constr_lora)
         with cnxn:
