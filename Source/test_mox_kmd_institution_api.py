@@ -18,10 +18,10 @@ kmdi2_api_key = os.environ.get('kmdi2_api_key')
 test_ssn = os.environ.get('test_ssn')
 
 #service gøjhl
-#constr_lora = os.environ.get('constr_lora')
-#kmdi2_service = Kmdi2_service(constr_lora)
+constr_lora = os.environ.get('constr_lora')
+kmdi2_service = Kmdi2_service(constr_lora)
 #kmdi2_service.print_orgs()
-#kmdi2_service.emp_test()
+kmdi2_service.emp_test()
 
 # get institutions
 #kmd_institution_api_endpoint = os.environ.get('kmdi2_api_endpoint')
@@ -47,9 +47,9 @@ test_ssn = os.environ.get('test_ssn')
 #kmd2l_api_employee = Kmdi2_employee_api("constr_lora")
 #add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/' + "2766"
 #ssn = os.environ.get('ssn')
-#json_data = kmd2l_api_employee.create_employee(ssn, "Tine Riis", "Tine.Riis@skanderborg.dk", "", "12-01-2015", True, "87947317", "87947317", "tAP")
-#json_data = kmd2l_api_employee.create_employee(ssn, "Jette Larsson", "Jette.Larsson@skanderborg.dk", "", "01-01-2012", True, "23721116", "23721116", "tAP") - opus 52251
-#json_data = kmd2l_api_employee.create_employee(ssn, "Henriette Brandt Rasmussen", "henriette.brandt.rasmussen@skanderborg.dk", "", "09-01-2000", True, "23702356", "23702356", "management")
+#json_data = kmd2l_api_employee.create_employee(ssn, "abs", "test@skanderborg.dk", "", "12-01-2015", True, "123", "123", "tAP")
+#json_data = kmd2l_api_employee.create_employee(ssn, "abs", "test@skanderborg.dk", "", "01-01-2012", True, "123", "123", "tAP") - opus 52251
+#json_data = kmd2l_api_employee.create_employee(ssn, "abs", "test@skanderborg.dk", "", "09-01-2000", True, "123", "123", "management")
 
 #print(json_data)
 #kmd2l_api_employee.post_json(add_employee_url, kmdi2_employee_api_key, json_data)

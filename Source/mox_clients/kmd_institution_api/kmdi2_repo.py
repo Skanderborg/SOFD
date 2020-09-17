@@ -41,8 +41,9 @@ class Kmdl2_repo:
             cursor.execute(
                 "EXEC [kmdl2].[get_orgunit_employes] @los_id = ?;", los_id)
             for row in cursor.fetchall():
-                result.append({'opus_id' : row.opus_id, 'firstname' : row.firstname, 'lastname' : row.lastname,
-                'title' : row.title})
+                result.append({'cpr' : row.cpr, 'firstname' : row.firstname, 'lastname' :  row.lastname, 'title' : row.title,
+                'start_date' : row.start_date, 'leave_date' : row.leave_date, 'Email' : row.Email, 'Phone' : row.Phone, 
+                'WorkMobile' : row.WorkMobile})
         return result
 
     def get_orgunit_and_children(self, los_id):
@@ -55,3 +56,38 @@ class Kmdl2_repo:
             for row in cursor.fetchall():
                 result.append(str(row[0]))
         return result
+
+    def get_kmd_sofd_positiontitle_map(self):
+        positiontitle_map = {}
+        positiontitle_map['Dagtilbudsleder'] = 'institutionManager'
+        positiontitle_map['Daglig leder'] = 'institutionManager'
+        positiontitle_map['Daginstitutionsleder'] = 'institutionManager'
+        positiontitle_map['Administrativ leder'] = 'management'
+        positiontitle_map['Pædagog'] = 'pedagogue'
+        positiontitle_map['Pædagogmedhjælper'] = 'pedagogue'
+        positiontitle_map['Pædagogisk assistent'] = 'pedagogue'
+        positiontitle_map['Pædagogstuderende'] = 'pedagogue'
+        positiontitle_map['Pædagogmedhjælper-vikar'] = 'pedagogue'
+        positiontitle_map['Praktikant'] = 'pedagogue'
+        positiontitle_map['Tilkaldevikar-Pædagogisk assistent'] = 'substitute'
+        positiontitle_map['Tilkaldevikar-Pædagogmedhjælper'] = 'substitute'
+        positiontitle_map['Tilkaldevikar-Pædagog'] = 'substitute'
+        positiontitle_map['Tilkaldevikar-Pædagogiskassistent'] = 'substitute'
+        positiontitle_map['Stedfortræder'] = 'substitute'
+        positiontitle_map['Ekstern'] = 'consultant'
+        positiontitle_map['Psykomotorisk terapeut'] = 'consultant'
+        positiontitle_map['Administrativ medarbejder' ] = 'tAP'
+        positiontitle_map['Kommunikationsmedarbejder' ] = 'tAP'
+        positiontitle_map['Ernæringsassistent' ] = 'tAP'
+        positiontitle_map['Kostfaglig eneansvarlig' ] = 'tAP'
+        positiontitle_map['Køkkenmedhjælper' ] = 'tAP'
+        positiontitle_map['Køkkenassistent' ] = 'tAP'
+        positiontitle_map['Ernæringsassistentelev' ] = 'tAP'
+        positiontitle_map['Tilkaldevikar-Køkkenassistent' ] = 'tAP'
+        positiontitle_map['Tilkaldevikar-Ernæringsassistent' ] = 'tAP'
+        positiontitle_map['PB-Ernæring' ] = 'tAP'
+        positiontitle_map['Køkkenmedhjælp' ] = 'tAP'
+        positiontitle_map['Husassistent' ] = 'tAP'
+        positiontitle_map['Tilkaldevikar-Husassistent' ] = 'tAP'
+        positiontitle_map['Køkkenleder' ] = 'tAP'
+        return positiontitle_map

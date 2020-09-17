@@ -41,23 +41,7 @@ class Kmdi2_employee_api:
     def __init__(self, constr_lora):
         self.constr_lora = constr_lora
 
-    def handle_employee_registration(self):
-        org_repo = Orgunit_Repo(self.constr_lora)
-        pos_repo = Position_Repo(self.constr_lora)
-        usr_repo = User_repo(self.constr_lora)
-
-    
-
-    def create_employee(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title):
-        '''
-          "teacher",
-          "pedagogue",
-          "substitute",
-          "institutionManager",
-          "management",
-          "tAP",
-          "consultant"
-        '''
+    def get_employee_as_json(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title):
         #test_emp = Employee_json_model(ssn, "fake person med fake cpr", "email@email.email", "01-31-2021", "02-01-2018", True, "12345678", "12345678")
         emp = Employee_json_model(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
         # aliasname er til brug for navn og addresse beskyttelse
