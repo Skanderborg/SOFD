@@ -40,21 +40,25 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
-                    tmp_inst.add_employee(self.create_employee(e))
+                    kmdi2role = self.get_kmdi2_role(e['title'])
+                    if kmdi2role is not None:
+                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
             else:
                 emps = []
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
-                    tmp_inst.add_employee(self.create_employee(e))
+                    kmdi2role = self.get_kmdi2_role(e['title'])
+                    if kmdi2role is not None:
+                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
         for inst in institutions_result:
             print(inst.longname + ', kmdi2 ID: ' + str(inst.kmdi2_inst_number))
             print('Ansatte:')
             for e2 in inst.employees:
                 print(e2.decode())
 
-    def create_employee(self, emp_db_model):
+    def create_employee(self, emp_db_model, kmdi2role):
         kmdi2_employee_api = Kmdi2_employee_api(self.constr)
         ssn = '123' #str(emp_db_model['cpr'])
         aliasName = emp_db_model['firstname'] + ' ' + emp_db_model['lastname']
@@ -70,7 +74,7 @@ class Kmdi2_service:
         workPhone = '87947000'
         if emp_db_model['Phone'] is not None and len(emp_db_model['Phone']) > 1:
             workPhone = emp_db_model['Phone']
-        role_title = self.get_kmdi2_role(emp_db_model['title'])
+        role_title = kmdi2role
         emp_json = kmdi2_employee_api.get_employee_as_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title)
         return emp_json
 
