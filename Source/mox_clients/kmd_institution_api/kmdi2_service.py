@@ -8,6 +8,7 @@ class Kmdi2_service:
     def __init__(self, constr):
         self.constr = constr
         self.kmdi2_repo = Kmdl2_repo(constr)
+        self.kmdi2_employee_api = Kmdi2_employee_api(self.constr)
 
     def print_orgs(self):
         dagtilbud = self.kmdi2_repo.get_dagtilbud()
@@ -18,8 +19,16 @@ class Kmdi2_service:
                 print('Dagtilbud', inst['los_id'])
             else:
                 print(inst['los_id'])
+
+    def sync_employees_with_kmdi2(self):
+        institutions = self.get_kmdi2_institution_and_employee_tree()
+        for inst in institutions:
+            #print(inst.longname + ', kmdi2 ID: ' + str(inst.kmdi2_inst_number))
+            #print('Ansatte:')
+            for emp in inst.employees:
+                print(emp.decode())
     
-    def emp_test(self):
+    def get_kmdi2_institution_and_employee_tree(self):
         '''
         Metode som opbygger en liste af orgunits, der skal synkroniseres til KMDi2 snitfladen, og disses medarbejdere
         Selve listen over org enhederne som skal synkroniseres vedligeholdes af børn og unge
@@ -52,15 +61,10 @@ class Kmdi2_service:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
                         tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-        for inst in institutions_result:
-            print(inst.longname + ', kmdi2 ID: ' + str(inst.kmdi2_inst_number))
-            print('Ansatte:')
-            for e2 in inst.employees:
-                print(e2.decode())
+        return institutions_result
 
     def create_employee(self, emp_db_model, kmdi2role):
-        kmdi2_employee_api = Kmdi2_employee_api(self.constr)
-        ssn = '123' #str(emp_db_model['cpr'])
+        ssn = str(emp_db_model['cpr'])
         aliasName = emp_db_model['firstname'] + ' ' + emp_db_model['lastname']
         email = emp_db_model['Email']
         endDate = ''
@@ -75,7 +79,7 @@ class Kmdi2_service:
         if emp_db_model['Phone'] is not None and len(emp_db_model['Phone']) > 1:
             workPhone = emp_db_model['Phone']
         role_title = kmdi2role
-        emp_json = kmdi2_employee_api.get_employee_as_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title)
+        emp_json = self.kmdi2_employee_api.get_employee_as_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title)
         return emp_json
 
     
