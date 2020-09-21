@@ -18,10 +18,10 @@ kmdi2_api_key = os.environ.get('kmdi2_api_key')
 test_ssn = os.environ.get('test_ssn')
 
 #service gøjhl
+add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/'
 constr_lora = os.environ.get('constr_lora')
 kmdi2_service = Kmdi2_service(constr_lora)
-#kmdi2_service.print_orgs()
-kmdi2_service.emp_test()
+kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url)
 
 # get institutions
 #kmd_institution_api_endpoint = os.environ.get('kmdi2_api_endpoint')
