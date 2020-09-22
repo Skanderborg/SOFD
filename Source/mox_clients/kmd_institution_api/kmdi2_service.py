@@ -23,31 +23,6 @@ class Kmdi2_service:
     def sync_employees_with_kmdi2(self, apikey, url):
         institutions = self.get_kmdi2_institution_and_employee_tree()
         for inst in institutions:
-            if (inst.kmdi2_inst_number == 2765 or inst.kmdi2_inst_number == 2776 or 
-                inst.kmdi2_inst_number == 2979 or 
-                inst.kmdi2_inst_number == 2769 or 
-                inst.kmdi2_inst_number == 2766 or 
-                inst.kmdi2_inst_number == 2775 or 
-                inst.kmdi2_inst_number == 2785 or 
-                inst.kmdi2_inst_number == 2777 or 
-                inst.kmdi2_inst_number == 2740 or 
-                inst.kmdi2_inst_number == 2974 or 
-                inst.kmdi2_inst_number == 2746 or 
-                inst.kmdi2_inst_number == 2747 or 
-                inst.kmdi2_inst_number == 2723 or 
-                inst.kmdi2_inst_number == 2724 or
-                inst.kmdi2_inst_number == 2736 or 
-                inst.kmdi2_inst_number == 2754 or 
-                inst.kmdi2_inst_number == 2755 or 
-                inst.kmdi2_inst_number == 2751 or 
-                inst.kmdi2_inst_number == 2764 or 
-                inst.kmdi2_inst_number == 2753 or 
-                inst.kmdi2_inst_number == 3137 or 
-                inst.kmdi2_inst_number == 2763 or 
-                inst.kmdi2_inst_number == 3044 or 
-                inst.kmdi2_inst_number == 2778 or 
-                inst.kmdi2_inst_number == 2788):
-                continue
             endpoint_url = url + str(inst.kmdi2_inst_number)
             print(endpoint_url)
             for emp in inst.employees:
@@ -78,20 +53,18 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
-                    if e['Email'] != 'henriette.brandt.rasmussen@skanderborg.dk' and e['Email'] != 'Jette.Larsson@skanderborg.dk':
-                        kmdi2role = self.get_kmdi2_role(e['title'])
-                        if kmdi2role is not None:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
+                    kmdi2role = self.get_kmdi2_role(e['title'])
+                    if kmdi2role is not None:
+                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
             else:
                 emps = []
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
-                    if e['Email'] != 'henriette.brandt.rasmussen@skanderborg.dk' and e['Email'] != 'Jette.Larsson@skanderborg.dk':
-                        kmdi2role = self.get_kmdi2_role(e['title'])
-                        if kmdi2role is not None:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
+                    kmdi2role = self.get_kmdi2_role(e['title'])
+                    if kmdi2role is not None:
+                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
         return institutions_result
 
     def create_employee(self, emp_db_model, kmdi2role):
