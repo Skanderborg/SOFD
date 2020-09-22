@@ -70,3 +70,15 @@ class Intranote_csv_service:
             for unilogin in unics:
                 unic = unics[unilogin]
                 writer.writerow([unic.cpr, unilogin])
+
+
+
+'''
+Kan vi sorterer på unic brugerne, og evt. så der ikke kommer flere af dem der har flere ansættelser?
+Vi kan genbruge noget af logikken fra KMDI2 snitfladen, som også gætter stillinger.
+
+Skal brugere som ikke har en ad/unic med? - Det kommer der en mail.
+
+
+
+'''
