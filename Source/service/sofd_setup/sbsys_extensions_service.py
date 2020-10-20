@@ -33,6 +33,8 @@ class Sbsys_extensions_service:
                 sbsys_sofd = sbsys_extensions_in_sofd[opus_id]
                 if sbsys_extension_actual != sbsys_sofd:
                     sbsys_extensions_to_update[opus_id] = sbsys_extension_actual
+        print('ins',len(sbsys_extensions_to_insert))
+        print('upd',len(sbsys_extensions_to_update))
         sbsys_repo.insert_sbsys_extensions(sbsys_extensions_to_insert)
         sbsys_repo.update_sbsys_extensions(sbsys_extensions_to_update)
 
