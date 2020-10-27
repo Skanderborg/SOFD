@@ -41,14 +41,25 @@ class Sbsys_extension_repo:
         cursor = cnxn.cursor()
         for key in sbsys_extensions:
             ext = sbsys_extensions[key]
-            print(ext.opus_id, type(ext.opus_id))
-            print(ext.userid, type(ext.userid))
-            print(ext.extensionAttributes[0])
-            print(ext.extensionAttributes[1])
-            print(ext.extensionAttributes[2])
-            print(ext.extensionAttributes[3])
-            print(ext.extensionAttributes[4])
-            print(ext.extensionAttributes[5])
+            test_Str = ("INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
+                                                        [userid], \
+                                                        [extensionAttribute9], \
+                                                        [extensionAttribute10], \
+                                                        [extensionAttribute11], \
+                                                        [extensionAttribute12], \
+                                                        [extensionAttribute13], \
+                                                        [extensionAttribute14], \
+                                                        [updated]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)",
+                ext.opus_id,
+                ext.userid,
+                ext.extensionAttributes[0],
+                ext.extensionAttributes[1],
+                ext.extensionAttributes[2],
+                ext.extensionAttributes[3],
+                ext.extensionAttributes[4],
+                ext.extensionAttributes[5])
+            print(test_Str)
 
             cursor.execute("INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
                                                         [userid], \
@@ -68,7 +79,7 @@ class Sbsys_extension_repo:
                 ext.extensionAttributes[3],
                 ext.extensionAttributes[4],
                 ext.extensionAttributes[5])
-        cnxn.commit()
+            cnxn.commit()
 
     def update_sbsys_extensions(self, sbsys_extensions):
         cnxn = pyodbc.connect(self.constr_lora)

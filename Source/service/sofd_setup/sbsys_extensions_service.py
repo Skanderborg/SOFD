@@ -20,6 +20,9 @@ class Sbsys_extensions_service:
         for opus_id in poss:
             pos = poss[opus_id]
             usr = usrs[opus_id]
+            # Der er åbentbart en risiko for at SamAccountnames, som er det der står i userID kan være helt forkete. Så vi laver lige et tjek.
+            if len(usr.userid) != 6:
+                continue
             sbsys_extensions_full_list[opus_id] = Sbsys_extensions_service.get_sbsys_extension(self, pos.los_id, opus_id, usr.userid)
         sbsys_extensions_to_insert = {}
         sbsys_extensions_to_update = {}
