@@ -41,26 +41,6 @@ class Sbsys_extension_repo:
         cursor = cnxn.cursor()
         for key in sbsys_extensions:
             ext = sbsys_extensions[key]
-            test_Str = ("INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
-                                                        [userid], \
-                                                        [extensionAttribute9], \
-                                                        [extensionAttribute10], \
-                                                        [extensionAttribute11], \
-                                                        [extensionAttribute12], \
-                                                        [extensionAttribute13], \
-                                                        [extensionAttribute14], \
-                                                        [updated]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)",
-                ext.opus_id,
-                ext.userid,
-                ext.extensionAttributes[0],
-                ext.extensionAttributes[1],
-                ext.extensionAttributes[2],
-                ext.extensionAttributes[3],
-                ext.extensionAttributes[4],
-                ext.extensionAttributes[5])
-            print(test_Str)
-
             cursor.execute("INSERT INTO [sbsys].[sbsysusers_orgs]([opus_id], \
                                                         [userid], \
                                                         [extensionAttribute9], \
