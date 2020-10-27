@@ -1,7 +1,11 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 15-09-2020 11:10:00 ******/
+/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 27-10-2020 13:04:34 ******/
+DROP PROCEDURE [kmdl2].[get_orgunit_employes]
+GO
+
+/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 27-10-2020 13:04:34 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,22 +13,26 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-create procedure [kmdl2].[get_orgunit_employes] @los_id int
+CREATE procedure [kmdl2].[get_orgunit_employes] @los_id int
 as
-SELECT [opus_id]
-      ,[los_id]
-      ,[title]
-      ,[title_short]
-      ,[paygrade_title]
-      ,[is_manager]
-      ,[cpr]
-      ,[firstname]
-      ,[lastname]
-      ,[display_firstname]
-      ,[display_lastname]
+SELECT pos.[opus_id]
+      ,pos.[los_id]
+      ,pos.[title]
+      ,per.[cpr]
+      ,per.[firstname]
+      ,per.[lastname]
+      ,per.[display_firstname]
+      ,per.[display_lastname]
+	  ,pos.[start_date]
+	  ,pos.[leave_date]
+	  ,usr.[Email]
+	  ,usr.[Phone]
+	  ,usr.[WorkMobile]
   FROM [LORA_SOFD].[pyt].[positions] as pos
   join [LORA_SOFD].[pyt].[persons] as per
   on pos.person_ref = per.cpr
+  left join [LORA_SOFD].[dbo].[users] as usr
+  on usr.Opus_id = pos.opus_id
   where pos.deleted = 0 and los_id = @los_id
 
 

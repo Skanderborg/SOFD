@@ -144,7 +144,8 @@ class Kmdi2_service:
                 {'title': 'Køkkenleder'}
         '''
         positiontitle_map = self.kmdi2_repo.get_kmd_sofd_positiontitle_map()
-        if stilling in positiontitle_map:
-            return positiontitle_map[stilling]
+        stilling_lower = stilling.lower()
+        if stilling_lower in positiontitle_map:
+            return positiontitle_map[stilling_lower]
         else:
             return None
