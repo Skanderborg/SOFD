@@ -59,7 +59,7 @@ class Kmdi2_employee_api:
         return response.status_code
 
 
-        # skal slettes når de skrider fra SOFD
+    ''' skal slettes når de skrider fra SOFD '''
 
 
     def get_kmd_employements(self, url, apikey):
