@@ -53,6 +53,7 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
+                    #if e['cpr'] == '':
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
                         tmp_inst.add_employee(self.create_employee(e, kmdi2role))
@@ -62,6 +63,7 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 for e in emps:
+                    #if e['cpr'] == '':
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
                         tmp_inst.add_employee(self.create_employee(e, kmdi2role))
