@@ -71,6 +71,9 @@ class Manager_setup_service:
                 if org_actual.niveau > 2:
                     los_id_for_recursion = org_actual.parent_orgunit_los_id
 
+            # hvis der er fucket op i løn, tjekker vi lige at der faktisk er en orgunit
+            if los_id_for_recursion not in orgs:
+                continue
 
             manager_id = Manager_setup_service.get_manager(
                 self, los_id_for_recursion, orgs)
