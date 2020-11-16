@@ -14,6 +14,8 @@ class Kmdi2_service:
         dagtilbud = self.kmdi2_repo.get_dagtilbud()
         insts = self.kmdi2_repo.get_institutions_to_sync()
         for key in insts:
+            if key != 836727:
+                continue
             inst = insts[key]
             if (inst['parent_orgunit_los_id'] in dagtilbud):
                 print('Dagtilbud', inst['los_id'])
@@ -44,6 +46,10 @@ class Kmdi2_service:
         institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
         institutions_result = []
         for los_id in institutions_to_sync:
+
+            #if los_id != 836727:
+                #continue
+
             db_inst = institutions_to_sync[los_id]
             tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
             institutions_result.append(tmp_inst)
