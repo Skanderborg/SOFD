@@ -57,10 +57,13 @@ class Kmdi2_service:
             tmp_kmdi2_emps = kmdi2_employees[tmp_inst.kmdi2_inst_number].get_employees()
             institutions_result.append(tmp_inst)
             if (db_inst['parent_orgunit_los_id'] in dagtilbud):
+                #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
                 emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                #robot tmp
+                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
@@ -71,6 +74,8 @@ class Kmdi2_service:
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                #robot tmp
+                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:

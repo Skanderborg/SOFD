@@ -1,4 +1,5 @@
 import pyodbc
+from datetime import date
 
 class Kmdl2_repo:
     def __init__(self, constr_lora):
@@ -44,6 +45,13 @@ class Kmdl2_repo:
                 result.append({'cpr' : row.cpr, 'firstname' : row.firstname, 'lastname' :  row.lastname, 'title' : row.title,
                 'start_date' : row.start_date, 'leave_date' : row.leave_date, 'Email' : row.Email, 'Phone' : row.Phone, 
                 'WorkMobile' : row.WorkMobile})
+        return result
+    
+    def tmp_get_robotos(self):
+        result = []
+        result.append({'cpr' : '', 'firstname' : 'Administrativ', 'lastname' :  'bruger', 'title' : 'administrativ medarbejder',
+                'start_date' : date.today(), 'leave_date' : None, 'Email' : 'dof@skanderborg.dk', 'Phone' : '87947000', 
+                'WorkMobile' : '87947000'})
         return result
 
     def get_orgunit_and_children(self, los_id):
