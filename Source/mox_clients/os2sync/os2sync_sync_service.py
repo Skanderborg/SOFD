@@ -74,6 +74,7 @@ class Os2sync_sync_service:
         '''
         queue_repo = Queue_users_repo(self.constr_lora)
         queue = queue_repo.get_user_queues("WHERE sts_org = 0")
+        #print(len(queue))
         if(len(queue) > 0):
             synced_queue_items = {}
             usr_repo = User_repo(self.constr_lora)
@@ -86,6 +87,7 @@ class Os2sync_sync_service:
             for system_id in queue:
                 queue_item = queue[system_id]
                 if queue_item.change_type == 'Updated':
+                    #print('updated')
                     '''
                     Når en medarbejder forlader organisationen, bliver der typisk oprettet et "updated" event i opus, dagen før der oprettes et "deleted" event.
                     Hvis synkroniseirngen af en eller anden årsag går galt. Eller begge events kommer samme dag (kmd levere kun data 5 dage om ugen, så det kan poole)
@@ -94,7 +96,7 @@ class Os2sync_sync_service:
 
                     Følgene IF sætning fikser det problem.
                     '''
-                    if queue_item.opus_id not in poses:
+                    if queue_item.opus_id not in poses or queue_item.opus_id not in usrs:
                         queue_item.change_type = 'Deleted'
                         synced_queue_items[system_id] = queue_item
                         continue
@@ -110,6 +112,7 @@ class Os2sync_sync_service:
                     json_to_submit = json.dumps(usr_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
                     result = Os2sync_sync_service.post_json(self, self.user_api_url, json_to_submit)
                 elif queue_item.change_type == 'Deleted':
+                    #print('deleted')
                     end_point_url_delete = self.user_api_url + '/' + queue_item.uuid
                     result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
                 
@@ -123,6 +126,8 @@ class Os2sync_sync_service:
 
 
     def post_json(self, endpoint_url, json_str):
+        #print(endpoint_url)
+        #print(json_str)
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         req = requests.post(url=endpoint_url, headers=headers, data=json_str)
         #print('request - text', req.text)

@@ -25,7 +25,7 @@ class Person:
         self.display_lastname = display_lastname # probably needs to be one name if it's coming from displayname in ad
 
     def get_firstname_including_displayname(self):
-        print(self.display_lastname)
+        #print(self.display_lastname)
         if self.display_firstname == None:
             return self.firstname
         else:
