@@ -29,15 +29,15 @@ kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url
 #get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
 #kmdi2_employee_api.get_kmd_employements(get_employements_url, kmdi2_employee_api_key)
 
-
-
-
-
-# get institutions
+# get institutions - 21-12-2020 virker fint
 #kmd_institution_api_endpoint = os.environ.get('kmdi2_api_endpoint')
 #kmd_institution_api = Kmd_institution_api()
 #kmd_institution_api_url = kmd_institution_api_endpoint + 'institutions/simple'
 #kmd_institution_api.get_institutions(kmd_institution_api_url, kmdi2_api_key)
+
+
+
+
 
 
 # get employments
