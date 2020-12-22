@@ -92,10 +92,13 @@ class Kmdi2_service:
                             tmp_inst.add_employee(self.create_employee(e, kmdi2role))
         return institutions_result
 
+
     def get_removed_employees_to_kmdi2(self, get_employements_url, kmdi2_institutions):
         dagtilbud = self.kmdi2_repo.get_dagtilbud()
         institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
         institutions_result = []
+
+        #måske vi lige skal bygge sofd inst først
 
         for kmdi2_inst_id in kmdi2_institutions:
             kmdi2_inst = kmdi2_institutions[kmdi2_inst_id]
@@ -103,10 +106,10 @@ class Kmdi2_service:
             sofd_emps = []
             for los_id in institutions_to_sync:
                 sofd_inst = institutions_to_sync[los_id]
-                if sofd_inst.kmdi2_id == kmdi2_inst_id:
-                    if (sofd_inst.parent_orgunit_los_id in dagtilbud):
+                if sofd_inst['kmdi2_id'] == kmdi2_inst_id:
+                    if (sofd_inst['parent_orgunit_los_id'] in dagtilbud):
                         #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
-                        sofd_emps = self.kmdi2_repo.get_employees_in_orgunit(sofd_inst.parent_orgunit_los_id)
+                        sofd_emps = self.kmdi2_repo.get_employees_in_orgunit(sofd_inst['parent_orgunit_los_id'])
                         inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                         for tmp_los_id in inst_and_children:
                             sofd_emps = sofd_emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
@@ -118,9 +121,14 @@ class Kmdi2_service:
                             sofd_emps = sofd_emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                             #robot tmp
                             #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-            print(len(sofd_emps))
-            print(len(kmdi2_inst_emps))
+            for ie in kmdi2_inst_emps:
+                print(ie)
+            for e in sofd_emps:
+                print(e)
+            break
             # nu er det jo bare sådan at los_id ikke er = kmdi_id fordi nogle kmd institutioner svare til flere los
+
+
 
     def get_kmdi2_institution_and_employee_tree(self):
         '''
