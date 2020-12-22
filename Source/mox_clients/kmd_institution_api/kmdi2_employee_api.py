@@ -4,7 +4,7 @@ from dal.users_repo import User_repo
 from dal.position_repo import Position_repo
 import json, requests
 
-class kmd_inst:
+class Kmd_inst:
     def __init__(self, institutionId):
         self.institutionId = institutionId
         self.employees = {}
@@ -15,7 +15,7 @@ class kmd_inst:
     def get_employees(self):
         return self.employees
 
-class kmd_employee:
+class Kmd_employee:
     def __init__(self, ssn, institutionId, employmentId, aliasName, endDate, roles, startDate):
         self.ssn = ssn
         self.institutionId = institutionId
@@ -94,13 +94,13 @@ class Kmdi2_employee_api:
         jdata = json.loads(response.text)
         for emp in jdata:
             int_id = emp['institutionId']
-            kmd_emp = kmd_employee(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
+            kmd_emp = Kmd_employee(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'])
             if int_id in result_dict:
                 inst = result_dict[int_id]
                 inst.add_employee(emp['ssn'], kmd_emp)
             else:
-                inst = kmd_inst(int_id)
+                inst = Kmd_inst(int_id)
                 inst.add_employee(emp['ssn'], kmd_emp)
                 result_dict[int_id] = inst
         return result_dict

@@ -95,9 +95,14 @@ class Kmdi2_service:
         dagtilbud = self.kmdi2_repo.get_dagtilbud()
         institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
         institutions_result = []
-        for kmdi2_inst_id in kmdi2_employees:
-            kmdi2_inst = kmdi2_employees[kmdi2_inst_id]
-            kmdi2_emps = kmdi2_inst.get_employees()
+        for los_id in institutions_to_sync:
+            sofd_inst = institutions_to_sync[los_id]
+            sofd_inst_emps = self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+            kmdi2_inst = kmdi2_employees[sofd_inst.kmdl2_id]
+            kmdi2_inst_emps = kmdi2_inst.get_employees()
+
+            # nu er det jo bare sådan at los_id ikke er = kmdi_id fordi nogle kmd institutioner svare til flere los
+
 
 
         for los_id in institutions_to_sync:
