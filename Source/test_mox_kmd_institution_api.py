@@ -18,22 +18,25 @@ kmdi2_api_key = os.environ.get('kmdi2_api_key')
 test_ssn = os.environ.get('test_ssn')
 
 #Tilføj employees - 02-12-2020 - virker
-add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/'
-get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
-constr_lora = os.environ.get('constr_lora')
-kmdi2_service = Kmdi2_service(constr_lora)
-kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url, get_employements_url)
+#add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/institution/'
+#get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
+#constr_lora = os.environ.get('constr_lora')
+#kmdi2_service = Kmdi2_service(constr_lora)
+#kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url, get_employements_url)
+
 
 # get employments - 02-12-2020 - virker men kræver ændringer i kmdi2employeeapi
 #kmdi2_employee_api = Kmdi2_employee_api("constr_lora")
 #get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
 #kmdi2_employee_api.get_kmd_employements(get_employements_url, kmdi2_employee_api_key)
 
+
 # get institutions - 21-12-2020 virker fint
 #kmd_institution_api_endpoint = os.environ.get('kmdi2_api_endpoint')
 #kmd_institution_api = Kmd_institution_api()
 #kmd_institution_api_url = kmd_institution_api_endpoint + 'institutions/simple'
 #kmd_institution_api.get_institutions(kmd_institution_api_url, kmdi2_api_key)
+
 
 
 
