@@ -26,13 +26,17 @@ class Kmdi2_service:
         #institutions = self.get_kmdi2_institution_and_employee_tree()
 
         # henter org træet fra kmdi2 - dict af institions med kmdi2_inst_id som key, har dict med employees med ssn som key
-        kmdi2_institutions = self.kmdi2_employee_api.get_kmd_employements(get_employements_url, apikey)
         sofd_institutions = self.get_relevant_sofd_institutions_with_employees()
+        kmdi2_institutions = self.kmdi2_employee_api.get_kmd_employements(get_employements_url, apikey)
+        
 
         # tilføj nye ansatte til institutions
-
+        institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
+        print('new emp', len(institutions_with_new_employees))
 
         # fjern ansatte som har forladt skuden
+        deleted_employmentids = self.get_deleted_employees(sofd_institutions, kmdi2_institutions)
+        print('del emp', len(deleted_employmentids))
 
         # opdater ansatte
 
@@ -100,48 +104,29 @@ class Kmdi2_service:
 
         '''
         institutions_result = []
-        for inst in sofd_institutions:
-            res_inst = inst.longname, inst.kmdi2_inst_number
-            kmd_inst_emps = kmdi2_institutions[inst.kmdi2_inst_number].get_employees()
-
-            for emp in inst.employees:
-                if mpe['cpr'] not in tmp_kmdi2_emps:
-
-            db_inst = institutions_to_sync[los_id]
-            tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
-            tmp_kmdi2_emps = kmdi2_institutions[tmp_inst.kmdi2_inst_number].get_employees()
-            institutions_result.append(tmp_inst)
-            if (db_inst['parent_orgunit_los_id'] in dagtilbud):
-                #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
-                emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-                for e in emps:
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        if e['cpr'] not in tmp_kmdi2_emps:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-            else:
-                emps = []
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-                for e in emps:
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        if e['cpr'] not in tmp_kmdi2_emps:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
+        for sofd_inst in sofd_institutions:
+            res_inst = Institution_model(sofd_inst.longname, sofd_inst.kmdi2_inst_number)
+            kmd_inst_emps = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+            for sofd_emp in sofd_inst.employees:
+                if sofd_emp['cpr'] not in kmd_inst_emps:
+                    res_inst.add_employee(sofd_emp)
+            institutions_result.append(res_inst)
         return institutions_result
 
+    def get_deleted_employees(self, sofd_institutions, kmdi2_institutions):
+        '''
 
-
-
-
+        '''
+        employementids_result = []
+        for sofd_inst in sofd_institutions:
+            tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+            tmp_sofd_ssns = []
+            for sofd_emp in sofd_inst.employees:
+                 tmp_sofd_ssns.append(sofd_emp['cpr'])
+            for kmd_emp in tmp_inst_employees:
+                if kmd_emp['ssn'] not in tmp_sofd_ssns:
+                    employementids_result.append(kmd_emp['employmentId'])
+        return employementids_result
 
 
 
