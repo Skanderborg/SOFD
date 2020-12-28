@@ -15,6 +15,9 @@ class Employee_json_model:
     def add_role(self, role):
         self.roles.append(role)
 
+    def get_str(self):
+        return 'SSN: ' + self.ssn + ' startdate: ' + self.startDate + ' role: ' + self.roles[0]
+
     def reprJSON(self):
         return dict(ssn=self.ssn, aliasName=self.aliasName, email=self.email, endDate=self.endDate,
                     startDate=self.startDate, transferToUserAdministration=self.transferToUserAdministration,

@@ -3,6 +3,7 @@ from mox_clients.kmd_institution_api.kmdi2_repo import Kmdl2_repo
 from dal.orgunit_repo import Orgunit_repo
 from mox_clients.kmd_institution_api.institution_model import Institution_model
 from mox_clients.kmd_institution_api.kmdi2_employee_api import Kmdi2_employee_api
+from mox_clients.kmd_institution_api.json_models import Employee_json_model
 
 class Kmdi2_service:
     def __init__(self, constr):
@@ -32,30 +33,22 @@ class Kmdi2_service:
 
         # tilføj nye ansatte til institutions
         institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
-        print('new emp', len(institutions_with_new_employees))
+        if len(institutions_with_new_employees) > 0:
+            for inst in institutions_with_new_employees:
+                endpoint_url = add_employee_url + str(inst.kmdi2_inst_number)
+                print('Tilføjer nye ansaemployeestte til: ', endpoint_url)
+                for emp in inst.employees:
+                    res = self.kmdi2_employee_api.add_new_employee(endpoint_url, apikey, emp)
+                    if res != 200:
+                        raise NameError('API problem for :', emp.get_str())
+                    else:
+                        print(emp.get_str())
 
         # fjern ansatte som har forladt skuden
-        deleted_employmentids = self.get_deleted_employees(sofd_institutions, kmdi2_institutions)
-        print('del emp', len(deleted_employmentids))
+        #deleted_employmentids = self.get_deleted_employees(sofd_institutions, kmdi2_institutions)
+        #print('del emp', len(deleted_employmentids))
 
         # opdater ansatte
-
-        '''
-        # tilføj nye ansatte til institutions
-        institutions_and_new_emplpoyees = self.add_new_employees_to_kmdi2(get_employements_url, kmdi2_institutions)
-        for inst in institutions_and_new_emplpoyees:
-            endpoint_url = add_employee_url + str(inst.kmdi2_inst_number)
-            print(endpoint_url)
-            print(len(inst.employees))
-            for emp in inst.employees:
-                res = self.kmdi2_employee_api.post_json(endpoint_url, apikey, emp)
-                if res != 200:
-                    raise NameError('API problem for :', emp.decode())
-                else:
-                    print(emp.decode())
-        '''
-        # fjern ansatte der har forladt skuden
-        #self.get_removed_employees_to_kmdi2(get_employements_url, kmdi2_institutions)
 
 
     def get_relevant_sofd_institutions_with_employees(self):
@@ -72,7 +65,6 @@ class Kmdi2_service:
         for los_id in institutions_to_sync:
             db_inst = institutions_to_sync[los_id]
             tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
-            institutions_result.append(tmp_inst)
             if (db_inst['parent_orgunit_los_id'] in dagtilbud):
                 #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
                 emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
@@ -96,6 +88,7 @@ class Kmdi2_service:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
                         tmp_inst.add_employee(self.create_employee(e, kmdi2role))
+            institutions_result.append(tmp_inst)
         return institutions_result
 
     def get_new_employees(self, sofd_institutions, kmdi2_institutions):
@@ -108,9 +101,10 @@ class Kmdi2_service:
             res_inst = Institution_model(sofd_inst.longname, sofd_inst.kmdi2_inst_number)
             kmd_inst_emps = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
             for sofd_emp in sofd_inst.employees:
-                if sofd_emp['cpr'] not in kmd_inst_emps:
+                if sofd_emp.ssn not in kmd_inst_emps:
                     res_inst.add_employee(sofd_emp)
-            institutions_result.append(res_inst)
+            if res_inst.get_employee_count() > 0:
+                institutions_result.append(res_inst)
         return institutions_result
 
     def get_deleted_employees(self, sofd_institutions, kmdi2_institutions):
@@ -134,6 +128,7 @@ class Kmdi2_service:
     
     def add_new_employees_to_kmdi2(self, get_employements_url, kmdi2_institutions):
         '''
+        depricated 28-12-2020
         Metode som opbygger en liste af orgunits, der skal synkroniseres til KMDi2 snitfladen, og disses medarbejdere
         Selve listen over org enhederne som skal synkroniseres vedligeholdes af børn og unge
 
@@ -219,6 +214,7 @@ class Kmdi2_service:
 
     def get_kmdi2_institution_and_employee_tree(self):
         '''
+        depricated 28-12-2020
         Metode som opbygger en liste af orgunits, der skal synkroniseres til KMDi2 snitfladen, og disses medarbejdere
         Selve listen over org enhederne som skal synkroniseres vedligeholdes af børn og unge
 
@@ -269,9 +265,9 @@ class Kmdi2_service:
         workPhone = '87947000'
         if emp_db_model['Phone'] is not None and len(emp_db_model['Phone']) > 1:
             workPhone = emp_db_model['Phone']
-        role_title = kmdi2role
-        emp_json = self.kmdi2_employee_api.get_employee_as_json(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title)
-        return emp_json
+        result_emp = Employee_json_model(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
+        result_emp.add_role(kmdi2role)
+        return result_emp
 
     
     def get_kmdi2_role(self, stilling):

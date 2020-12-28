@@ -65,6 +65,9 @@ class Kmdi2_employee_api:
         self.constr_lora = constr_lora
 
     def get_employee_as_json(self, ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone, role_title):
+        '''
+        Depricated 28-12-2020
+        '''
         #test_emp = Employee_json_model(ssn, "fake person med fake cpr", "email@email.email", "01-31-2021", "02-01-2018", True, "12345678", "12345678")
         emp = Employee_json_model(ssn, aliasName, email, endDate, startDate, transferToUserAdministration, mobilePhone, workPhone)
         # aliasname er til brug for navn og addresse beskyttelse
@@ -72,14 +75,29 @@ class Kmdi2_employee_api:
         result_json = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result_json
 
-    def post_json(self, url, apikey, json_str):
+    def add_new_employee(self, url, apikey, emp):
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
+        json_str = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         #return 200
+        #'''
         response = requests.post(url=url, headers=headers, data=json_str)
         print('status code:', response.status_code)
         print('headers:', response.headers)
         print('text:', response.text)
         return response.status_code
+        #'''
+
+    def post_json(self, url, apikey, json_str):
+        '''
+        depricated 28-12-2020
+        '''
+        headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
+        return 200
+        #response = requests.post(url=url, headers=headers, data=json_str)
+        #print('status code:', response.status_code)
+        #print('headers:', response.headers)
+        #print('text:', response.text)
+        #return response.status_code
 
 
     ''' skal slettes når de skrider fra SOFD '''
