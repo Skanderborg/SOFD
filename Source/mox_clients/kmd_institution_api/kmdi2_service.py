@@ -116,7 +116,6 @@ class Kmdi2_service:
                 else:
                     count += 1
         print(count)
-        # OBS OBS OBS ROBOTTEN
         return employementids_result
 
 
