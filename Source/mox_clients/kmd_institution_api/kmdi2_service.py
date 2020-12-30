@@ -11,18 +11,6 @@ class Kmdi2_service:
         self.kmdi2_repo = Kmdl2_repo(constr)
         self.kmdi2_employee_api = Kmdi2_employee_api(self.constr)
 
-    def print_orgs(self):
-        dagtilbud = self.kmdi2_repo.get_dagtilbud()
-        insts = self.kmdi2_repo.get_institutions_to_sync()
-        for key in insts:
-            if key != 836727:
-                continue
-            inst = insts[key]
-            if (inst['parent_orgunit_los_id'] in dagtilbud):
-                print('Dagtilbud', inst['los_id'])
-            else:
-                print(inst['los_id'])
-
     def sync_employees_with_kmdi2(self, apikey, add_employee_url, get_employements_url):
         #institutions = self.get_kmdi2_institution_and_employee_tree()
 
@@ -32,6 +20,7 @@ class Kmdi2_service:
         
 
         # tilføj nye ansatte til institutions
+        '''
         institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
         if len(institutions_with_new_employees) > 0:
             for inst in institutions_with_new_employees:
@@ -43,10 +32,11 @@ class Kmdi2_service:
                         raise NameError('API problem for :', emp.get_str())
                     else:
                         print(emp.get_str())
+        '''
 
         # fjern ansatte som har forladt skuden
-        #deleted_employmentids = self.get_deleted_employees(sofd_institutions, kmdi2_institutions)
-        #print('del emp', len(deleted_employmentids))
+        deleted_employmentids = self.get_deleted_employee_kmdi2_ids(sofd_institutions, kmdi2_institutions)
+        print('del emp', len(deleted_employmentids))
 
         # opdater ansatte
 
@@ -93,7 +83,7 @@ class Kmdi2_service:
 
     def get_new_employees(self, sofd_institutions, kmdi2_institutions):
         '''
-        ??
+        sofd_emps er objekter af classen Employee_json_model der findes i json_models.py
 
         '''
         institutions_result = []
@@ -107,22 +97,26 @@ class Kmdi2_service:
                 institutions_result.append(res_inst)
         return institutions_result
 
-    def get_deleted_employees(self, sofd_institutions, kmdi2_institutions):
+    def get_deleted_employee_kmdi2_ids(self, sofd_institutions, kmdi2_institutions):
         '''
-
+        sofd_emps er objekter af classen Employee_json_model der findes i json_models.py
+        kmd_emp er objekter af klassen Kmd_employee som findes i
         '''
+        count = 0
         employementids_result = []
         for sofd_inst in sofd_institutions:
             tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
             tmp_sofd_ssns = []
             for sofd_emp in sofd_inst.employees:
-                 tmp_sofd_ssns.append(sofd_emp['cpr'])
-            for kmd_emp in tmp_inst_employees:
-                if kmd_emp['ssn'] not in tmp_sofd_ssns:
-                    employementids_result.append(kmd_emp['employmentId'])
+                 tmp_sofd_ssns.append(sofd_emp.ssn)
+            for kmd_emp_ssn in tmp_inst_employees:
+                if kmd_emp_ssn not in tmp_sofd_ssns:
+                    kmd_emp = tmp_inst_employees[kmd_emp_ssn]
+                    employementids_result.append(kmd_emp.employmentId)
+                else:
+                    count += 1
+        print(count)
         return employementids_result
-
-
 
 
     
@@ -176,6 +170,9 @@ class Kmdi2_service:
 
 
     def get_removed_employees_to_kmdi2(self, get_employements_url, kmdi2_institutions):
+        '''
+        never used, i think
+        '''
         dagtilbud = self.kmdi2_repo.get_dagtilbud()
         institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
         institutions_result = []
@@ -251,6 +248,11 @@ class Kmdi2_service:
         return institutions_result
 
     def create_employee(self, emp_db_model, kmdi2role):
+        '''
+        funktion der bygger og returner et Employee_json_model objekt af en employee, som er klart til at blive json.strinigied
+        når det engang skal sendes til KMDI2 snitfladen
+        Employee_json_model findes i json_models.py
+        '''
         ssn = str(emp_db_model['cpr'])
         aliasName = emp_db_model['firstname'] + ' ' + emp_db_model['lastname']
         email = emp_db_model['Email']
