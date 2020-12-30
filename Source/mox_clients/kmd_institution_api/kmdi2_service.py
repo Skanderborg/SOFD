@@ -6,9 +6,9 @@ from mox_clients.kmd_institution_api.kmdi2_employee_api import Kmdi2_employee_ap
 from mox_clients.kmd_institution_api.json_models import Employee_json_model
 
 class Kmdi2_service:
-    def __init__(self, constr):
+    def __init__(self, constr, rpa_ssn):
         self.constr = constr
-        self.kmdi2_repo = Kmdl2_repo(constr)
+        self.kmdi2_repo = Kmdl2_repo(constr, rpa_ssn)
         self.kmdi2_employee_api = Kmdi2_employee_api(self.constr)
 
     def sync_employees_with_kmdi2(self, apikey, add_employee_url, get_employements_url):
@@ -62,7 +62,7 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
+                emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
@@ -73,7 +73,7 @@ class Kmdi2_service:
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
                 #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
+                emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
