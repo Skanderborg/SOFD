@@ -11,7 +11,7 @@ class Kmdi2_service:
         self.kmdi2_repo = Kmdl2_repo(constr, rpa_ssn)
         self.kmdi2_employee_api = Kmdi2_employee_api(self.constr)
 
-    def sync_employees_with_kmdi2(self, apikey, add_employee_url, get_employements_url):
+    def sync_employees_with_kmdi2(self, apikey, add_employee_url, get_employements_url, delete_employements_url):
         #institutions = self.get_kmdi2_institution_and_employee_tree()
 
         # henter org træet fra kmdi2 - dict af institions med kmdi2_inst_id som key, har dict med employees med ssn som key
@@ -20,7 +20,7 @@ class Kmdi2_service:
         
 
         # tilføj nye ansatte til institutions
-        '''
+        
         institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
         if len(institutions_with_new_employees) > 0:
             for inst in institutions_with_new_employees:
@@ -29,14 +29,16 @@ class Kmdi2_service:
                 for emp in inst.employees:
                     res = self.kmdi2_employee_api.add_new_employee(endpoint_url, apikey, emp)
                     if res != 200:
-                        raise NameError('API problem for :', emp.get_str())
+                        raise NameError('API create problem for :', emp.get_str())
                     else:
                         print(emp.get_str())
-        '''
 
         # fjern ansatte som har forladt skuden
         deleted_employmentids = self.get_deleted_employee_kmdi2_ids(sofd_institutions, kmdi2_institutions)
-        print('del emp', len(deleted_employmentids))
+        for employee_kmdid in deleted_employmentids:
+            res = self.kmdi2_employee_api.delete_employement(delete_employements_url, apikey, employee_kmdid)
+            if res != 200:
+                raise NameError('API delete problem for :', employee_kmdid)
 
         # opdater ansatte
 
@@ -102,7 +104,6 @@ class Kmdi2_service:
         sofd_emps er objekter af classen Employee_json_model der findes i json_models.py
         kmd_emp er objekter af klassen Kmd_employee som findes i
         '''
-        count = 0
         employementids_result = []
         for sofd_inst in sofd_institutions:
             tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
@@ -113,9 +114,6 @@ class Kmdi2_service:
                 if kmd_emp_ssn not in tmp_sofd_ssns:
                     kmd_emp = tmp_inst_employees[kmd_emp_ssn]
                     employementids_result.append(kmd_emp.employmentId)
-                else:
-                    count += 1
-        print(count)
         return employementids_result
 
 

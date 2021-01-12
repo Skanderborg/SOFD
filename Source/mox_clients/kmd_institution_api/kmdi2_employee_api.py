@@ -87,6 +87,19 @@ class Kmdi2_employee_api:
         return response.status_code
         #'''
 
+    def delete_employement(self, url, apikey, employment_kmdid):
+        headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
+        url = url + str(employment_kmdid)
+        print(url)
+        #return 200
+        #'''
+        response = requests.delete(url=url, headers=headers)
+        print('status code:', response.status_code)
+        print('headers:', response.headers)
+        print('text:', response.text)
+        return response.status_code
+        #'''
+
     def post_json(self, url, apikey, json_str):
         '''
         depricated 28-12-2020
