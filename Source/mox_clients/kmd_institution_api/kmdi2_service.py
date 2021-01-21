@@ -20,7 +20,7 @@ class Kmdi2_service:
         
 
         # tilføj nye ansatte til institutions
-        
+        print(len(sofd_institutions))
         institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
         if len(institutions_with_new_employees) > 0:
             for inst in institutions_with_new_employees:
@@ -34,12 +34,14 @@ class Kmdi2_service:
                         print(emp.get_str())
 
         # fjern ansatte som har forladt skuden
+        print(len(sofd_institutions))
         deleted_employmentids = self.get_deleted_employee_kmdi2_ids(sofd_institutions, kmdi2_institutions)
+        '''
         for employee_kmdid in deleted_employmentids:
             res = self.kmdi2_employee_api.delete_employement(delete_employements_url, apikey, employee_kmdid)
             if res != 200:
                 raise NameError('API delete problem for :', employee_kmdid)
-
+        '''
         # opdater ansatte
 
 
@@ -106,144 +108,18 @@ class Kmdi2_service:
         '''
         employementids_result = []
         for sofd_inst in sofd_institutions:
+            #print('inst:', sofd_inst.kmdi2_inst_number)
             tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
             tmp_sofd_ssns = []
             for sofd_emp in sofd_inst.employees:
-                 tmp_sofd_ssns.append(sofd_emp.ssn)
+                tmp_sofd_ssns.append(sofd_emp.ssn)
             for kmd_emp_ssn in tmp_inst_employees:
                 if kmd_emp_ssn not in tmp_sofd_ssns:
+                    #print('slet', kmd_emp_ssn)
                     kmd_emp = tmp_inst_employees[kmd_emp_ssn]
                     employementids_result.append(kmd_emp.employmentId)
         return employementids_result
 
-
-    
-    def add_new_employees_to_kmdi2(self, get_employements_url, kmdi2_institutions):
-        '''
-        depricated 28-12-2020
-        Metode som opbygger en liste af orgunits, der skal synkroniseres til KMDi2 snitfladen, og disses medarbejdere
-        Selve listen over org enhederne som skal synkroniseres vedligeholdes af børn og unge
-
-        Hvis orgenheden er et dagtilbud (vedligeholdes også af børn og unge) skal medarbejderne i den overordnede (dagtilbuyddet)
-        også synkes med i hver enhed
-        '''
-
-        # henter org træet fra kmdi2 - dict af institions med kmdi2_inst_id som key, har dict med employees med ssn som key
-        #kmdi2_employees = self.kmdi2_employee_api.get_kmd_employements(get_employements_url, apikey)
-
-        dagtilbud = self.kmdi2_repo.get_dagtilbud()
-        institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
-        institutions_result = []
-        for los_id in institutions_to_sync:
-            db_inst = institutions_to_sync[los_id]
-            tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
-            tmp_kmdi2_emps = kmdi2_institutions[tmp_inst.kmdi2_inst_number].get_employees()
-            institutions_result.append(tmp_inst)
-            if (db_inst['parent_orgunit_los_id'] in dagtilbud):
-                #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
-                emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-                for e in emps:
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        if e['cpr'] not in tmp_kmdi2_emps:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-            else:
-                emps = []
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-                for e in emps:
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        if e['cpr'] not in tmp_kmdi2_emps:
-                            tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-        return institutions_result
-
-
-    def get_removed_employees_to_kmdi2(self, get_employements_url, kmdi2_institutions):
-        '''
-        never used, i think
-        '''
-        dagtilbud = self.kmdi2_repo.get_dagtilbud()
-        institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
-        institutions_result = []
-
-        #måske vi lige skal bygge sofd inst først
-
-        for kmdi2_inst_id in kmdi2_institutions:
-            kmdi2_inst = kmdi2_institutions[kmdi2_inst_id]
-            kmdi2_inst_emps = kmdi2_inst.get_employees()
-            sofd_emps = []
-            for los_id in institutions_to_sync:
-                sofd_inst = institutions_to_sync[los_id]
-                if sofd_inst['kmdi2_id'] == kmdi2_inst_id:
-                    if (sofd_inst['parent_orgunit_los_id'] in dagtilbud):
-                        #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
-                        sofd_emps = self.kmdi2_repo.get_employees_in_orgunit(sofd_inst['parent_orgunit_los_id'])
-                        inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                        for tmp_los_id in inst_and_children:
-                            sofd_emps = sofd_emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                            #robot tmp
-                            #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-                    else:
-                        inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                        for tmp_los_id in inst_and_children:
-                            sofd_emps = sofd_emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                            #robot tmp
-                            #emps = emps + self.kmdi2_repo.tmp_get_robotos()
-            for ie in kmdi2_inst_emps:
-                print(ie)
-            for e in sofd_emps:
-                print(e)
-            break
-            # nu er det jo bare sådan at los_id ikke er = kmdi_id fordi nogle kmd institutioner svare til flere los
-
-
-
-    def get_kmdi2_institution_and_employee_tree(self):
-        '''
-        depricated 28-12-2020
-        Metode som opbygger en liste af orgunits, der skal synkroniseres til KMDi2 snitfladen, og disses medarbejdere
-        Selve listen over org enhederne som skal synkroniseres vedligeholdes af børn og unge
-
-        Hvis orgenheden er et dagtilbud (vedligeholdes også af børn og unge) skal medarbejderne i den overordnede (dagtilbuyddet)
-        også synkes med i hver enhed
-        '''
-        dagtilbud = self.kmdi2_repo.get_dagtilbud()
-        institutions_to_sync = self.kmdi2_repo.get_institutions_to_sync()
-        institutions_result = []
-        for los_id in institutions_to_sync:
-            db_inst = institutions_to_sync[los_id]
-            tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
-            institutions_result.append(tmp_inst)
-            if (db_inst['parent_orgunit_los_id'] in dagtilbud):
-                emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                for e in emps:
-                    #if e['cpr'] == '':
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-            else:
-                emps = []
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                for e in emps:
-                    #if e['cpr'] == '':
-                    kmdi2role = self.get_kmdi2_role(e['title'])
-                    if kmdi2role is not None:
-                        tmp_inst.add_employee(self.create_employee(e, kmdi2role))
-        return institutions_result
 
     def create_employee(self, emp_db_model, kmdi2role):
         '''

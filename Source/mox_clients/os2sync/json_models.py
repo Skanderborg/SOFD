@@ -33,26 +33,26 @@ class Orgunit_json:
         self.ContactForTasks.append(contract)
 
     def reprJSON(self):
-        return dict(Uuid=self.Uuid,
-                    ShortKey=self.ShortKey,
-                    Name=self.Name,
-                    ParentOrgUnitUuid=self.ParentOrgUnitUuid,
-                    PayoutUnitUuid=self.PayoutUnitUuid,
-                    PhoneNumber=self.PhoneNumber,
-                    Email=self.Email,
-                    Location=self.Location,
-                    LOSShortName=self.LOSShortName,
-                    ContactOpenHours=self.ContactOpenHours,
-                    PhoneOpenHours=self.PhoneOpenHours,
-                    PostReturn=self.PostReturn,
-                    EmailRemarks=self.EmailRemarks,
-                    Contact=self.Contact,
-                    Ean=self.Ean,
-                    Post=self.Post,
-                    Url=self.Url,
-                    Landline=self.Landline,
-                    Tasks=self.Tasks,
-                    ContactForTasks=self.ContactForTasks)
+        return dict(uuid=self.Uuid,
+                    shortKey=str(self.ShortKey),
+                    name=self.Name,
+                    parentOrgUnitUuid=self.ParentOrgUnitUuid,
+                    payoutUnitUuid=self.PayoutUnitUuid,
+                    phoneNumber=self.PhoneNumber,
+                    email=self.Email,
+                    location=self.Location,
+                    lOSShortName=self.LOSShortName,
+                    contactOpenHours=self.ContactOpenHours,
+                    phoneOpenHours=self.PhoneOpenHours,
+                    postReturn=self.PostReturn,
+                    emailRemarks=self.EmailRemarks,
+                    contact=self.Contact,
+                    ean=self.Ean,
+                    post=self.Post,
+                    url=self.Url,
+                    landline=self.Landline,
+                    tasks=self.Tasks,
+                    contactForTasks=self.ContactForTasks)
 
 
 class User_json:
@@ -74,7 +74,7 @@ class User_json:
 
     def reprJSON(self):
         return dict(Uuid=self.Uuid,
-                    ShortKey=self.ShortKey,
+                    ShortKey=str(self.ShortKey),
                     UserId=self.UserId,
                     PhoneNumber=self.PhoneNumber,
                     Email=self.Email,
