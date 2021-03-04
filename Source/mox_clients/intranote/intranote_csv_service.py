@@ -46,7 +46,13 @@ class Intranote_csv_service:
             if pos.los_id in los_ids_to_ignore:
                 continue
 
-            per = pers[pos.person_ref]
+            cpr = pos.person_ref
+
+            #OBS SKAL FORBEDRES
+            if cpr in tmp_cpr or pos.uuid_userref == None:
+                continue
+
+            per = pers[cpr]
             usr_userid = None
             usr_email = None
             usr_phone = None
@@ -61,6 +67,8 @@ class Intranote_csv_service:
             cvs_ready_positions.append([pos.person_ref, per.firstname, per.lastname, opus_id, pos.uuid_userref, pos.los_id, pos.position_title,
                                     pos.is_manager, pos.start_date, pos.leave_date, pos.manager_opus_id, pos.uuid_userref, usr_userid,
                                     usr_email, usr_phone, usr_workmobile])
+            #OBS skal forbedres
+            tmp_cpr.append(cpr)
 
             with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
                 writer = csv.writer(file, delimiter=";")
