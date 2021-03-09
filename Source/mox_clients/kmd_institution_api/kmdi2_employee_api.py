@@ -16,7 +16,7 @@ class Kmd_inst:
         return self.employees
 
 class Kmd_employee:
-    def __init__(self, ssn, institutionId, employmentId, aliasName, endDate, roles, startDate):
+    def __init__(self, ssn, institutionId, employmentId, aliasName, endDate, roles, startDate, manuallyAdded):
         self.ssn = ssn
         self.institutionId = institutionId
         self.employmentId = employmentId
@@ -24,6 +24,7 @@ class Kmd_employee:
         self.endDate = endDate
         self.roles = roles
         self.startDate = startDate
+        self.manuallyAdded = manuallyAdded in ['true', 'True', 1]
         '''
         "institutionProductionNumber": null,
         "institutionDtrId": null,
@@ -126,7 +127,7 @@ class Kmdi2_employee_api:
         for emp in jdata:
             int_id = emp['institutionId']
             kmd_emp = Kmd_employee(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
-                        emp['roles'], emp['startDate'])
+                        emp['roles'], emp['startDate'], emp['manuallyAdded'])
             if int_id in result_dict:
                 inst = result_dict[int_id]
                 inst.add_employee(emp['ssn'], kmd_emp)

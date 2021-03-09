@@ -36,12 +36,13 @@ class Kmdi2_service:
         # fjern ansatte som har forladt skuden
         print(len(sofd_institutions))
         deleted_employmentids = self.get_deleted_employee_kmdi2_ids(sofd_institutions, kmdi2_institutions)
-        '''
+        print(len(deleted_employmentids))
+        
         for employee_kmdid in deleted_employmentids:
             res = self.kmdi2_employee_api.delete_employement(delete_employements_url, apikey, employee_kmdid)
             if res != 200:
                 raise NameError('API delete problem for :', employee_kmdid)
-        '''
+        
         # opdater ansatte
 
 
@@ -117,7 +118,8 @@ class Kmdi2_service:
                 if kmd_emp_ssn not in tmp_sofd_ssns:
                     #print('slet', kmd_emp_ssn)
                     kmd_emp = tmp_inst_employees[kmd_emp_ssn]
-                    employementids_result.append(kmd_emp.employmentId)
+                    if kmd_emp.manuallyAdded == False:
+                        employementids_result.append(kmd_emp.employmentId)
         return employementids_result
 
 
