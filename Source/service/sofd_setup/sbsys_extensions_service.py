@@ -59,7 +59,9 @@ class Sbsys_extensions_service:
     def get_sbsys_extension_orgunits(self, org, orgs, res):
         res.append(org.longname)
         current_org = orgs[org.parent_orgunit_los_id]
-        # OBS, direktion 1-3 (på niveau 4) og Borgmester (på niveau 2) skal sorteres fra, toppen af ORG strukturen ændre sig næsten aldrig
+        #if current_org.niveau > 4:
+        #    res.append(org.longname)
+        # OBS, direktion 1-4 (på niveau 4) og Borgmester (på niveau 2) skal sorteres fra, toppen af ORG strukturen ændre sig næsten aldrig
         # og fordi niveau 1-4 altid er de samme, springer vi dem faktisk bare helt over.
         # men hvis den gør, skal dette selvfølgelig opdateres - Carsten Møller er boss over det her og informeret
         # listen reverses før den returnes, så skanderborg kommune står først

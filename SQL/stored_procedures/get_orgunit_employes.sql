@@ -1,11 +1,7 @@
 USE [LORA_SOFD]
 GO
 
-/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 27-10-2020 13:04:34 ******/
-DROP PROCEDURE [kmdl2].[get_orgunit_employes]
-GO
-
-/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 27-10-2020 13:04:34 ******/
+/****** Object:  StoredProcedure [kmdl2].[get_orgunit_employes]    Script Date: 15-03-2021 11:43:42 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -33,7 +29,7 @@ SELECT pos.[opus_id]
   on pos.person_ref = per.cpr
   left join [LORA_SOFD].[dbo].[users] as usr
   on usr.Opus_id = pos.opus_id
-  where pos.deleted = 0 and los_id = @los_id
+  where pos.deleted = 0 and los_id = @los_id and pos.[start_date] < (GetDate() + 1)
 
 
 GO
