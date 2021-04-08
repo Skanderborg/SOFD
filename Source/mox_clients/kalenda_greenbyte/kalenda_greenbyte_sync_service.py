@@ -39,16 +39,17 @@ class Kalenda_greenbyte_sync_service:
 
         for los_id in orgs:
             sofd_org = orgs[los_id]
-            jsorg = Orgunit_json(sofd_org.los_id, sofd_org.parent_orgunit_los_id, sofd_org.longname)
+            jsorg = Orgunit_json(sofd_org.los_id, sofd_org.parent_orgunit_los_id, sofd_org.longname, sofd_org.pnr)
             result.add_org(jsorg)
 
         for opus_id in poss:
             sofd_pos = poss[opus_id]
             sofd_usr = usrs[opus_id]
             sofd_per = pers[sofd_pos.person_ref]
+            sofd_org = orgs[sofd_pos.los_id]
             json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, sofd_usr.email,
                                         sofd_usr.userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
-                                        sofd_per.cpr)
+                                        sofd_per.cpr, sofd_pos.payment_method, sofd_org.pnr)
             result.add_emp(json_emp)
         result = json.dumps(result.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result
@@ -110,7 +111,8 @@ class Kalenda_greenbyte_sync_service:
         '''
         json_str = Kalenda_greenbyte_sync_service.create_org_json(self, top_org_los_id)
         headers = {'content-type': 'application/json', 'ApiKey': apikey}
+        #print(json_str)
         req = requests.post(url=url, headers=headers, data=json_str)
-        #print(req.text)
-        #print(req.status_code)
+        print(req.text)
+        print(req.status_code)
         return req.status_code

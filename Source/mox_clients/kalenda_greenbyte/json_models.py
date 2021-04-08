@@ -17,17 +17,18 @@ class Collection_json:
 
 
 class Orgunit_json:
-    def __init__(self, Id, Parent_id, Name):
-        self.Id = Id
-        self.Parent_id = Parent_id
-        self.Name = Name
+    def __init__(self, org_id, parent_id, name, pnr):
+        self.Id = org_id
+        self.Parent_id = parent_id
+        self.Name = name
+        self.Pnr = pnr
 
     def reprJSON(self):
-        return dict(Id=self.Id, Parent_id=self.Parent_id, Name=self.Name)
+        return dict(Id=self.Id, Parent_id=self.Parent_id, Name=self.Name, Pnr=self.Pnr)
 
 
 class Employee_json:
-    def __init__(self, Employee_nr, Orgunit_id, Firstname, Lastname, Email, Samaccount, UUID, Is_manager, kmd_suppid, cpr):
+    def __init__(self, Employee_nr, Orgunit_id, Firstname, Lastname, Email, Samaccount, UUID, Is_manager, kmd_suppid, cpr, payment_method, org_pnr):
         self.Employee_nr = Employee_nr
         self.Orgunit_id = Orgunit_id
         self.Firstname = Firstname
@@ -38,8 +39,11 @@ class Employee_json:
         self.Is_manager = Is_manager
         self.OpusMedarbejderExtraCiffer = kmd_suppid
         self.CPRnr = cpr
+        self.Payment_method = payment_method
+        self.Org_pnr = org_pnr
 
     def reprJSON(self):
         return dict(Employee_nr=self.Employee_nr, Orgunit_id=self.Orgunit_id, Firstname=self.Firstname, Lastname=self.Lastname, 
                     Email=self.Email, Samaccount=self.Samaccount, UUID=self.UUID, Is_manager=self.Is_manager, 
-                    OpusMedarbejderExtraCiffer=self.OpusMedarbejderExtraCiffer, CPRnr=self.CPRnr)
+                    OpusMedarbejderExtraCiffer=self.OpusMedarbejderExtraCiffer, CPRnr=self.CPRnr, 
+                    Payment_method = self.Payment_method, org_pnr = self.Org_pnr)
