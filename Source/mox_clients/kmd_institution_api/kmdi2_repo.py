@@ -47,13 +47,14 @@ class Kmdl2_repo:
                 'start_date' : row.start_date, 'leave_date' : row.leave_date, 'Email' : row.Email, 'Phone' : row.Phone, 
                 'WorkMobile' : row.WorkMobile})
         return result
-    
+    '''
     def tmp_get_robotos(self):
         result = []
         result.append({'cpr' : self.rpa_ssn, 'firstname' : 'Administrativ', 'lastname' :  'bruger', 'title' : 'administrativ medarbejder',
                 'start_date' : date.today(), 'leave_date' : None, 'Email' : 'dof@skanderborg.dk', 'Phone' : '87947000', 
                 'WorkMobile' : '87947000'})
         return result
+        '''
 
     def get_orgunit_and_children(self, los_id):
         result = []

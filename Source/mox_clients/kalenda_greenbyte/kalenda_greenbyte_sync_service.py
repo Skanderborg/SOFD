@@ -113,6 +113,6 @@ class Kalenda_greenbyte_sync_service:
         headers = {'content-type': 'application/json', 'ApiKey': apikey}
         #print(json_str)
         req = requests.post(url=url, headers=headers, data=json_str)
-        print(req.text)
-        print(req.status_code)
+        #print(req.text)
+        #print(req.status_code)
         return req.status_code
