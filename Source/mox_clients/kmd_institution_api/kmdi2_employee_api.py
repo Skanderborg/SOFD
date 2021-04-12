@@ -79,25 +79,23 @@ class Kmdi2_employee_api:
     def add_new_employee(self, url, apikey, emp):
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         json_str = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
-        #return 200
-        #'''
         response = requests.post(url=url, headers=headers, data=json_str)
-        print('status code:', response.status_code)
-        print('headers:', response.headers)
-        print('text:', response.text)
+        #print('status code:', response.status_code)
+        #print('headers:', response.headers)
+        #print('text:', response.text)
         return response.status_code
-        #'''
+        #'''s
 
     def delete_employement(self, url, apikey, employment_kmdid):
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         url = url + str(employment_kmdid)
-        print(url)
+        #print(url)
         #return 200
         #'''
         response = requests.delete(url=url, headers=headers)
-        print('status code:', response.status_code)
-        print('headers:', response.headers)
-        print('text:', response.text)
+        #print('status code:', response.status_code)
+        #print('headers:', response.headers)
+        #print('text:', response.text)
         return response.status_code
         #'''
 
@@ -126,6 +124,13 @@ class Kmdi2_employee_api:
         jdata = json.loads(response.text)
         for emp in jdata:
             int_id = emp['institutionId']
+            # kig på ems
+            '''
+            if int_id == 2785 or int_id == '2785':
+                print(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
+                        emp['roles'], emp['startDate'], emp['manuallyAdded'])
+
+            '''
             kmd_emp = Kmd_employee(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'], emp['manuallyAdded'])
             if int_id in result_dict:
