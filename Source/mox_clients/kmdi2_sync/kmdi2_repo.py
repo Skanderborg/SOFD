@@ -2,9 +2,8 @@ import pyodbc
 from datetime import date
 
 class Kmdl2_repo:
-    def __init__(self, constr_lora, rpa_ssn):
+    def __init__(self, constr_lora):
         self.constr_lora = constr_lora
-        self.rpa_ssn = rpa_ssn
 
     def get_institutions_to_sync(self):
         result = {}
@@ -48,13 +47,14 @@ class Kmdl2_repo:
                 'WorkMobile' : row.WorkMobile})
         return result
     '''
+    Method used to add RPA to institutions - no longer in use
     def tmp_get_robotos(self):
         result = []
         result.append({'cpr' : self.rpa_ssn, 'firstname' : 'Administrativ', 'lastname' :  'bruger', 'title' : 'administrativ medarbejder',
                 'start_date' : date.today(), 'leave_date' : None, 'Email' : 'dof@skanderborg.dk', 'Phone' : '87947000', 
                 'WorkMobile' : '87947000'})
         return result
-        '''
+    '''
 
     def get_orgunit_and_children(self, los_id):
         result = []

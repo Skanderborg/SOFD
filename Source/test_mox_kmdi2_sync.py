@@ -2,9 +2,9 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 import glob
-from mox_clients.kmd_institution_api.kmdi2_employee_api import Kmdi2_employee_api
-from mox_clients.kmd_institution_api.kmd_institution_api import Kmd_institution_api
-from mox_clients.kmd_institution_api.kmdi2_service import Kmdi2_service
+from mox_clients.kmdi2_sync.kmdi2_employee_api import Kmdi2_employee_api
+from mox_clients.kmdi2_sync.kmd_institution_api import Kmd_institution_api
+from mox_clients.kmdi2_sync.kmdi2_service import Kmdi2_service
 
 
 # Vi har vores hemmelige værdier i en .env fil, hvis du skal bruge scriptet skal du have styr på disse.
@@ -15,8 +15,6 @@ kmdi2_test_key = os.environ.get('kmdi2_test_key')
 kmdi2_employee_api_key = os.environ.get('kmdi2_employee_api_key')
 kmdi2_api_key = os.environ.get('kmdi2_api_key')
 
-rpa_ssn = os.environ.get('rpa_ssn')
-
 test_ssn = os.environ.get('test_ssn')
 
 #Tilføj employees - 02-12-2020 - virker
@@ -24,7 +22,7 @@ add_employee_url = os.environ.get('kmdi2_employee_api_endpoint') + 'employment/i
 delete_employee_url = os.environ.get('kmdi2_employee_api_delete_endpoint')
 get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"
 constr_lora = os.environ.get('constr_lora')
-kmdi2_service = Kmdi2_service(constr_lora, rpa_ssn)
+kmdi2_service = Kmdi2_service(constr_lora)
 kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url, get_employements_url, delete_employee_url)
 
 

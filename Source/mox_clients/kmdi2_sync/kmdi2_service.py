@@ -1,15 +1,15 @@
 from datetime import datetime
-from mox_clients.kmd_institution_api.kmdi2_repo import Kmdl2_repo
+from mox_clients.kmdi2_sync.kmdi2_repo import Kmdl2_repo
 from dal.orgunit_repo import Orgunit_repo
-from mox_clients.kmd_institution_api.institution_model import Institution_model
-from mox_clients.kmd_institution_api.kmdi2_employee_api import Kmdi2_employee_api
-from mox_clients.kmd_institution_api.json_models import Employee_json_model
+from mox_clients.kmdi2_sync.institution_model import Institution_model
+from mox_clients.kmdi2_sync.kmdi2_employee_api import Kmdi2_employee_api
+from mox_clients.kmdi2_sync.json_models import Employee_json_model
 
 class Kmdi2_service:
-    def __init__(self, constr, rpa_ssn):
+    def __init__(self, constr):
         self.constr = constr
-        self.kmdi2_repo = Kmdl2_repo(constr, rpa_ssn)
-        self.kmdi2_employee_api = Kmdi2_employee_api(self.constr)
+        self.kmdi2_repo = Kmdl2_repo(constr)
+        self.kmdi2_employee_api = Kmdi2_employee_api(constr)
 
     def sync_employees_with_kmdi2(self, apikey, add_employee_url, get_employements_url, delete_employements_url):
         #institutions = self.get_kmdi2_institution_and_employee_tree()
@@ -25,18 +25,18 @@ class Kmdi2_service:
         if len(institutions_with_new_employees) > 0:
             for inst in institutions_with_new_employees:
                 endpoint_url = add_employee_url + str(inst.kmdi2_inst_number)
-                print('Tilføjer nye ansaemployeestte til: ', endpoint_url)
+                #print('Tilføjer nye ansaemployeestte til: ', endpoint_url)
                 for emp in inst.employees:
                     res = self.kmdi2_employee_api.add_new_employee(endpoint_url, apikey, emp)
                     if res != 200:
                         raise NameError('API create problem for :', emp.get_str())
-                    else:
-                        print(emp.get_str())
+                    #else:
+                    #    print(emp.get_str())
 
         # fjern ansatte som har forladt skuden
-        print(len(sofd_institutions))
+        #print(len(sofd_institutions))
         deleted_employmentids = self.get_deleted_employee_kmdi2_ids(sofd_institutions, kmdi2_institutions)
-        print(len(deleted_employmentids))
+        #print(len(deleted_employmentids))
         
         for employee_kmdid in deleted_employmentids:
             res = self.kmdi2_employee_api.delete_employement(delete_employements_url, apikey, employee_kmdid)
@@ -66,8 +66,6 @@ class Kmdi2_service:
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
@@ -77,8 +75,6 @@ class Kmdi2_service:
                 inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
                 for tmp_los_id in inst_and_children:
                     emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
-                #robot tmp
-                #emps = emps + self.kmdi2_repo.tmp_get_robotos()
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:

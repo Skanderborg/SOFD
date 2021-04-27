@@ -1,4 +1,4 @@
-from mox_clients.kmd_institution_api.json_models import Employee_json_model
+from mox_clients.kmdi2_sync.json_models import Employee_json_model
 from dal.orgunit_repo import Orgunit_repo
 from dal.users_repo import User_repo
 from dal.position_repo import Position_repo
@@ -84,35 +84,16 @@ class Kmdi2_employee_api:
         #print('headers:', response.headers)
         #print('text:', response.text)
         return response.status_code
-        #'''s
 
     def delete_employement(self, url, apikey, employment_kmdid):
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         url = url + str(employment_kmdid)
-        #print(url)
-        #return 200
-        #'''
         response = requests.delete(url=url, headers=headers)
         #print('status code:', response.status_code)
         #print('headers:', response.headers)
         #print('text:', response.text)
         return response.status_code
-        #'''
 
-    def post_json(self, url, apikey, json_str):
-        '''
-        depricated 28-12-2020
-        '''
-        headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
-        return 200
-        #response = requests.post(url=url, headers=headers, data=json_str)
-        #print('status code:', response.status_code)
-        #print('headers:', response.headers)
-        #print('text:', response.text)
-        #return response.status_code
-
-
-    ''' skal slettes når de skrider fra SOFD '''
     def get_kmd_employements(self, url, apikey):
         result_dict = {}
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
@@ -126,11 +107,11 @@ class Kmdi2_employee_api:
             int_id = emp['institutionId']
             # kig på ems
             '''
-            if int_id == 2785 or int_id == '2785':
+            if int_id == 2974 or int_id == '2974':
                 print(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'], emp['manuallyAdded'])
 
-            '''
+            #'''
             kmd_emp = Kmd_employee(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'], emp['manuallyAdded'])
             if int_id in result_dict:
@@ -141,63 +122,3 @@ class Kmdi2_employee_api:
                 inst.add_employee(emp['ssn'], kmd_emp)
                 result_dict[int_id] = inst
         return result_dict
-        '''
-        for key in result_dict:
-            inst = result_dict[key]
-            emps = inst.get_employees()
-            print(inst.institutionId)
-            for k in emps:
-                emp = emps[k]
-                print(emp.ssn, emp.institutionId, emp.roles)
-        '''
-        
-
-
-
-        """
-        1
-        Dagtilbudsområdet - alt under men ikke med
-        
-        2
-        undtagelse: private institutioner - kører på losid
-
-
-        3
-        De ansatte i de overordende org units, der hedder moget med
-        dagtilbud, skal i stedet tilknyttes i alle deres direkte børn
-        hvor der er medarbejdere.
-
-        losid på dagtiblud - skal i db liste
-
-        4
-        KMD institution snitflade med pnumer eller institutions id. æ- vi bruge den vi altid har det er id
-
-        5
-        adgang til KMD Institution API
-        træk institutioner
-
-
-        6.
-        send liste over stillinger til kristian
-
-        7. dagplejen skal afvente informatzion før den sendes
-
-
-        SELECT p.opus_id,
-	per.Firstname,
-	per.Lastname,
-	o.longname,
-	p.title,
-	p.title_short,
-	p.paygrade_title
-    FROM [LORA_SOFD].[sbsys].[sbsysusers_orgs] as s
-    join [LORA_SOFD].[pyt].[positions] as p
-    on p.opus_id = s.opus_id
-  join [LORA_SOFD].[dbo].[Persons] as per
-     on p.person_ref = per.Cpr
-  join [LORA_SOFD].[pyt].[Orgunits] as o
-  on p.los_id = o.los_id
-  where extensionAttribute12 = 'Dagtilbudsområdet'
-  order by longname
-
-        """
