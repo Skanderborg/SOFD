@@ -10,10 +10,10 @@ with Diagram('SOFD flow', show=False, direction='TB'):
 
     with Cluster('Data kilder'):
         opus_data = Boards('KMD OPUS data')
-        uni_data = Artifacts('UNINET_WS17')
+        uni_data = Artifacts('STIL unilogin WS17')
         ad_data = ActiveDirectory('Skanderborg AD')
 
-    azure_services = ContainerInstances('Skanderborg Azure services')
+    azure_services = ContainerInstances('Skanderborg Azure Automation')
     adfs = ActiveDirectory('Skanderborg ADFS')
 
     with Cluster('SOFD'):
@@ -44,9 +44,12 @@ with Diagram('SOFD flow', show=False, direction='TB'):
     acubiz = Artifacts('Acubiz')
     acubiz - Artifacts('Acubiz mobil App')
     kombit_context_handler = Artifacts('KOMBIT Contaxhandler')
+    #sbsys = Artifacts('SBSYS')
+    #sbsys - Artifacts('SBSIP')
 
 
     #kø og mox
+    #sofden >> sbsys >> azure_services
     ad_data >> adfs >> kombit_context_handler
     sts_org >> kombit_context_handler
     sofden >> mox_acubiz >> acubiz
