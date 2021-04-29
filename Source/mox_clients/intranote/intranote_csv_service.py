@@ -40,6 +40,15 @@ class Intranote_csv_service:
         # OBS!!! det her skal være klogere
         tmp_cpr = []
 
+        # NYYYYYYYYYYYYYYT
+        # tja, lærerne skal åbentbart med alligevel duuuu
+        unic_cprs = []
+        unic_repo = Unic_username_repo(self.constr_lora)
+        unics = unic_repo.get_unic_usernames('WHERE [opus_id] is not null')
+        for unilogin in unics:
+                unic = unics[unilogin]
+                unic_cprs.append(unic.cpr)
+
         cvs_ready_positions = []
         for opus_id in poss:
             pos = poss[opus_id]
@@ -49,7 +58,12 @@ class Intranote_csv_service:
             cpr = pos.person_ref
 
             #OBS SKAL FORBEDRES
-            if cpr in tmp_cpr or pos.uuid_userref == None:
+            #if cpr in tmp_cpr or pos.uuid_userref == None:
+                #continue
+
+            if cpr in tmp_cpr:
+                continue
+            if pos.uuid_userref == None and cpr not in unic_cprs:
                 continue
 
             per = pers[cpr]
