@@ -57,6 +57,8 @@ class Sbsys_extensions_service:
         return sbsys_ext
     
     def get_sbsys_extension_orgunits(self, org, orgs, res):
+        if org.longname == 'Direktion1' or org.longname == 'Direktion2' or org.longname == 'Direktion3' or org.longname == 'Direktion4':
+            org.longname = 'Direktion'
         res.append(org.longname)
         current_org = orgs[org.parent_orgunit_los_id]
         #if current_org.niveau > 4:
