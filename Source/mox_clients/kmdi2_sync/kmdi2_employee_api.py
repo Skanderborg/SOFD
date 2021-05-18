@@ -107,7 +107,7 @@ class Kmdi2_employee_api:
             int_id = emp['institutionId']
             # kig på ems
             '''
-            if int_id == 2974 or int_id == '2974':
+            if int_id == 2752 or int_id == '2752':
                 print(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'], emp['manuallyAdded'])
 

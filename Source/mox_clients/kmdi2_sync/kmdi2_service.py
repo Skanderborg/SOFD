@@ -29,7 +29,7 @@ class Kmdi2_service:
                 for emp in inst.employees:
                     res = self.kmdi2_employee_api.add_new_employee(endpoint_url, apikey, emp)
                     if res != 200:
-                        raise NameError('API create problem for :', emp.get_str())
+                        raise NameError('API create problem for :', emp.get_str(), res.text)
                     #else:
                     #    print(emp.get_str())
 
@@ -90,9 +90,11 @@ class Kmdi2_service:
         institutions_result = []
         for sofd_inst in sofd_institutions:
             res_inst = Institution_model(sofd_inst.longname, sofd_inst.kmdi2_inst_number)
-            if sofd_inst.kmdi2_inst_number not in kmdi2_institutions:
-                continue
-            kmd_inst_emps = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+            #når der kobles en ny institution på er den ikke nødvendigvis med fordi der ikke er medarbejdere i kmdi2 og derfor vil der ikke være en nøgle
+            kmd_inst_emps = []
+            if sofd_inst.kmdi2_inst_number in kmdi2_institutions:
+                kmd_inst_emps = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+            
             for sofd_emp in sofd_inst.employees:
                 if sofd_emp.ssn not in kmd_inst_emps:
                     res_inst.add_employee(sofd_emp)
@@ -108,9 +110,11 @@ class Kmdi2_service:
         employementids_result = []
         for sofd_inst in sofd_institutions:
             #print('inst:', sofd_inst.kmdi2_inst_number)
-            if sofd_inst.kmdi2_inst_number not in kmdi2_institutions:
-                continue
-            tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+            #når der kobles en ny institution på er den ikke nødvendigvis med fordi der ikke er medarbejdere i kmdi2 og derfor vil der ikke være en nøgle
+            tmp_inst_employees = []
+            if sofd_inst.kmdi2_inst_number in kmdi2_institutions:
+                tmp_inst_employees = kmdi2_institutions[sofd_inst.kmdi2_inst_number].get_employees()
+
             tmp_sofd_ssns = []
             for sofd_emp in sofd_inst.employees:
                 tmp_sofd_ssns.append(sofd_emp.ssn)
