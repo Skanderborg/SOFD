@@ -15,11 +15,12 @@ class Kmdl2_repo:
                         [kmdl2_id], \
                         [parent_orgunit_los_id], \
                         [kmdl2_name], \
-                        [longname]\
+                        [longname], \
+                        [sync_children] \
                 FROM [LORA_SOFD].[kmdl2].[v_institution_to_sync];")
             for row in cursor.fetchall():
                 result[row.los_id] = {'los_id' : row.los_id, 'kmdi2_id' : row.kmdl2_id, 'parent_orgunit_los_id' : row.parent_orgunit_los_id,
-                'longname' : row.longname}
+                'longname' : row.longname, 'sync_children' : row.sync_children}
         return result
     
     def get_dagtilbud(self):

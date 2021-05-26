@@ -77,6 +77,7 @@ class Kmdi2_employee_api:
         return result_json
 
     def add_new_employee(self, url, apikey, emp):
+        #return 200
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         json_str = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         response = requests.post(url=url, headers=headers, data=json_str)
@@ -86,6 +87,7 @@ class Kmdi2_employee_api:
         return response.status_code
 
     def delete_employement(self, url, apikey, employment_kmdid):
+        #return 200
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         url = url + str(employment_kmdid)
         response = requests.delete(url=url, headers=headers)
@@ -106,7 +108,7 @@ class Kmdi2_employee_api:
         for emp in jdata:
             int_id = emp['institutionId']
             # kig på ems
-            '''
+            #'''
             if int_id == 2752 or int_id == '2752':
                 print(emp['ssn'], emp['institutionId'], emp['employmentId'], emp['aliasName'], emp['endDate'],
                         emp['roles'], emp['startDate'], emp['manuallyAdded'])

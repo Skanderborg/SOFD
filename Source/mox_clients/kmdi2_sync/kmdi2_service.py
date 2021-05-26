@@ -61,20 +61,31 @@ class Kmdi2_service:
             db_inst = institutions_to_sync[los_id]
             tmp_inst = Institution_model(db_inst['longname'], db_inst['kmdi2_id'])
             if (db_inst['parent_orgunit_los_id'] in dagtilbud):
-                #hener de ansatte i forældre organsiationen, som skal med i underorganisationerne
+                #henter de ansatte i forældre organsiationen, som skal med i underorganisationerne
                 emps = self.kmdi2_repo.get_employees_in_orgunit(db_inst['parent_orgunit_los_id'])
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                #henter child units, hvis de skal hentes
+                if db_inst['sync_children'] in ['true', 'True', 1]:
+                    inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
+                    for tmp_los_id in inst_and_children:
+                        emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                else:
+                    #print('dagtilbud', los_id)
+                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(los_id)
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
                         tmp_inst.add_employee(self.create_employee(e, kmdi2role))
             else:
+                #ikke dag tilbud
                 emps = []
-                inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
-                for tmp_los_id in inst_and_children:
-                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                if db_inst['sync_children'] in ['true', 'True', 1]:
+                    #henter child units, hvis de skal hentes
+                    inst_and_children = self.kmdi2_repo.get_orgunit_and_children(los_id)
+                    for tmp_los_id in inst_and_children:
+                        emps = emps + self.kmdi2_repo.get_employees_in_orgunit(tmp_los_id)
+                else:
+                    #print('hej', los_id)
+                    emps = emps + self.kmdi2_repo.get_employees_in_orgunit(los_id)
                 for e in emps:
                     kmdi2role = self.get_kmdi2_role(e['title'])
                     if kmdi2role is not None:
