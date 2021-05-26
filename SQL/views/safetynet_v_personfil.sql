@@ -1,7 +1,4 @@
-USE [LORA_SOFD]
-GO
-
-/****** Object:  View [safetynet].[v_personfil]    Script Date: 23-03-2021 10:42:51 ******/
+/****** Object:  View [safetynet].[v_personfil]    Script Date: 26-05-2021 09:03:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -24,5 +21,3 @@ WHERE        (numerator > 8) OR
                          (numerator = 8) AND (Ans_forhold = 01 OR
                          Ans_forhold = 00)
 GO
-
-

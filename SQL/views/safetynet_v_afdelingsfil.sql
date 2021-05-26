@@ -1,7 +1,4 @@
-USE [LORA_SOFD]
-GO
-
-/****** Object:  View [safetynet].[v_afdelingsfil]    Script Date: 23-03-2021 09:42:37 ******/
+/****** Object:  View [safetynet].[v_afdelingsfil]    Script Date: 26-05-2021 09:02:52 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -25,5 +22,3 @@ WITH orgs AS (SELECT        los_id, parent_orgunit_los_id, longName, niveau
                               pyt.orgunits AS OrgUnit_1 ON OrgUnit_1.los_id = orgs_1.los_id
      WHERE        (OrgUnit_1.longName NOT LIKE '%#%')
 GO
-
-

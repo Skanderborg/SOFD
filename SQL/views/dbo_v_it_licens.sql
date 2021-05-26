@@ -1,7 +1,4 @@
-USE [LORA_SOFD]
-GO
-
-/****** Object:  View [dbo].[v_it_licens]    Script Date: 23-03-2021 09:39:53 ******/
+/****** Object:  View [dbo].[v_it_licens]    Script Date: 26-05-2021 08:57:50 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,5 +19,4 @@ WITH orgs AS (SELECT        los_id, parent_orgunit_los_id, longName, niveau, ean
                               mm.numerator, mm.Omraede, mm.OmraedeID, mm.ErLeder, orgs_1.ean
      FROM            orgs AS orgs_1 INNER JOIN
                               dbo.v_sofd_medarbejderoverblik AS mm ON mm.LOSOrganisationID = orgs_1.los_id
-	-- WHERE        (mm.numerator > 8.3) gammel måde at måle på
 GO
