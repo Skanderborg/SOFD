@@ -80,6 +80,7 @@ class Kmdi2_employee_api:
         #return 200
         headers = {'content-type': 'application/json', 'Ocp-Apim-Subscription-Key': apikey}
         json_str = json.dumps(emp.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
+        #print(json_str)
         response = requests.post(url=url, headers=headers, data=json_str)
         #print('status code:', response.status_code)
         #print('headers:', response.headers)
