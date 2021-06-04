@@ -73,6 +73,7 @@ class Kmdl2_repo:
         positiontitle_map['dagtilbudsleder'] = 'institutionManager'
         positiontitle_map['daglig leder'] = 'institutionManager'
         positiontitle_map['daginstitutionsleder'] = 'institutionManager'
+        positiontitle_map['leder'] = 'institutionManager'
         positiontitle_map['administrativ leder'] = 'management'
         positiontitle_map['pædagog'] = 'pedagogue'
         positiontitle_map['pædagogmedhjælper'] = 'pedagogue'

@@ -180,6 +180,8 @@ class Kmdi2_service:
                 {'title': 'Dagtilbudsleder'}
                 {'title': 'Daglig leder'}
                 {'title': 'Daginstitutionsleder'}
+                {'title': 'Leder'}
+                
 
             management:
                 {'title': 'Administrativ leder'}
