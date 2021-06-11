@@ -15,7 +15,7 @@ class Sbsys_extensions_service:
         usr_repo = User_repo(self.constr_lora)
         sbsys_repo = Sbsys_extension_repo(self.constr_lora)
         usrs = usr_repo.get_users()
-        poss = pos_repo.get_positions('WHERE uuid_userref IS NOT NULL')
+        poss = pos_repo.get_positions('WHERE uuid_userref IS NOT NULL and [ad_user_deleted] = 0')
         sbsys_extensions_full_list = {}
         for opus_id in poss:
             pos = poss[opus_id]

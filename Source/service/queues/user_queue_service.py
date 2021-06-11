@@ -46,7 +46,7 @@ class User_queue_service:
         # sørger for at alle person opdateringer er gået igennem før funktionen kører
         User_queue_service.handle_updated_persons(self)
         position_repo = Position_repo(self.constr_lora)
-        updated_positions = position_repo.get_positions('where [updated] = 1 or [deleted] = 1')
+        updated_positions = position_repo.get_positions('where [updated] = 1 or [deleted] = 1 or [ad_user_deleted] = 1')
         
         if len(updated_positions) > 0:
             positions_to_update = {}
@@ -56,19 +56,20 @@ class User_queue_service:
             for opus_id in updated_positions:
                 pos = updated_positions[opus_id]
                 # deleted vejer tungere end updated, derfor bliver positions, som både er opdaterede og slettede - slettet
-                if pos.updated == True and pos.deleted == False:
-                    pos.updated = False
-                    positions_to_update[opus_id] = pos
-                    if pos.uuid_userref != None:
-                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Updated', False)
-                        i+=1
-                        queue_items_to_insert[i] = queue_item
-                else:
+                if pos.deleted == True or pos.ad_user_deleted == True:
                     if pos.uuid_userref != None:
                         queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Deleted', False)
                         i+=1
                         queue_items_to_insert[i] = queue_item
-                    position_repo.delete_position(opus_id)
+                    if pos.deleted:
+                        position_repo.delete_position(opus_id)
+                elif pos.updated == True and pos.deleted == False and pos.ad_user_deleted == False:
+                    pos.updated = False
+                    if pos.uuid_userref != None:
+                        queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Updated', False)
+                        i+=1
+                        queue_items_to_insert[i] = queue_item
+                    positions_to_update[opus_id] = pos
             queue_repo.insert_user_queue(queue_items_to_insert)
             position_repo.update_positions(positions_to_update)
 

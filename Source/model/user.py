@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, opus_id, uuid, userid, email, phone, updated, workmobile, deleted_in_ad):
+    def __init__(self, opus_id, uuid, userid, email, phone, updated, workmobile):
         self.opus_id = opus_id
         self.uuid = uuid
         self.userid = userid
@@ -7,4 +7,3 @@ class User:
         self.phone = phone
         self.updated = updated in ['true', 'True', 1]
         self.workmobile = workmobile
-        self.deleteD_in_ad = deleted_in_ad in ['true', 'True', 1]

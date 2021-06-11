@@ -1,7 +1,4 @@
-USE [LORA_SOFD]
-GO
-
-/****** Object:  Table [pyt].[positions]    Script Date: 20-08-2020 13:48:26 ******/
+/****** Object:  Table [pyt].[positions]    Script Date: 11-06-2021 12:56:24 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -33,12 +30,13 @@ CREATE TABLE [pyt].[positions](
 	[manager_uuid_userref] [nvarchar](200) NULL,
 	[updated] [bit] NOT NULL,
 	[deleted] [bit] NOT NULL,
+	[ad_user_deleted] [bit] NOT NULL,
  CONSTRAINT [PK_positions_1] PRIMARY KEY CLUSTERED 
 (
 	[system_id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 
-
+ALTER TABLE [pyt].[positions] ADD  CONSTRAINT [DF_positions_ad_user_deleted]  DEFAULT ((0)) FOR [ad_user_deleted]
+GO

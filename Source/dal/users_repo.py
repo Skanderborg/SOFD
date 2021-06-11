@@ -19,13 +19,12 @@ class User_repo:
                                 [Email], \
                                 [Phone], \
                                 [Updated], \
-                                [WorkMobile], \
-                                [Deleted_in_ad] \
+                                [WorkMobile] \
                         FROM [dbo].[Users] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
             opus_id = row.Opus_id
             usr = User(opus_id, row.Uuid, row.UserId, row.Email, row.Phone, row.Updated,
-                       row.WorkMobile, row.Deleted_in_ad)
+                       row.WorkMobile)
             result[int(opus_id)] = usr
         return result

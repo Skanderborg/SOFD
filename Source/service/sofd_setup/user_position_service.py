@@ -32,8 +32,8 @@ class User_position_service:
                     positions_to_update[opus_id] = position
             else:
                 if position.uuid_userref != None:
-                    position.uuid_userref = None
-                    position.updated = True
+                    # hvis brugeren ikke findes i dbo.users, betyder det at ad_brugeren er slettet fra position, i såfald skal brugere i "slettes køen" med uuid før uuid fjernes.
+                    position.ad_user_deleted = True
                     positions_to_update[opus_id] = position
 
         pos_repo.update_positions(positions_to_update)

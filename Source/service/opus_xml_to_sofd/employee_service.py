@@ -103,6 +103,7 @@ class Employee_service:
                                None,
                                None,
                                True,
+                               False,
                                False)
 
                 self.persons[cpr] = per

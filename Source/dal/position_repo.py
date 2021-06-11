@@ -34,7 +34,8 @@ class Position_repo:
                                 [manager_opus_id], \
                                 [manager_uuid_userref], \
                                 [updated], \
-                                [deleted] \
+                                [deleted], \
+                                [ad_user_deleted] \
                         FROM [pyt].[positions] \
                         " + whereclause + ";")
         for row in cursor.fetchall():
@@ -44,7 +45,7 @@ class Position_repo:
                            row.payment_method, row.payment_method_text, row.weekly_hours_numerator,
                            row.weekly_hours_denominator, row.invoice_recipient, row.pos_pnr, row.dsuser,
                            row.start_date, row.leave_date, row.manager_opus_id, row.manager_uuid_userref,
-                           row.updated, row.deleted)
+                           row.updated, row.deleted, row.ad_user_deleted)
             result[int(opus_id)] = pos
         return result
 
@@ -73,8 +74,9 @@ class Position_repo:
                                                 [start_date], \
                                                 [leave_date], \
                                                 [updated], \
-                                                [deleted]) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                                [deleted], \
+                                                [ad_user_deleted]) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 position.opus_id,
                 position.los_id,
                 position.person_ref,
@@ -94,7 +96,8 @@ class Position_repo:
                 position.start_date,
                 position.leave_date,
                 position.updated,
-                position.deleted)
+                position.deleted,
+                position.ad_user_deleted)
         cnxn.commit()
 
     def update_positions(self, positions):
@@ -125,7 +128,8 @@ class Position_repo:
                     [manager_opus_id] = ?, \
                     [manager_uuid_userref] = ?, \
                     [updated] = ?, \
-                    [deleted] = ? \
+                    [deleted] = ?, \
+                    [ad_user_deleted] = ? \
                 WHERE opus_id = ?",
                 position.uuid_userref,
                 position.los_id,
@@ -149,6 +153,7 @@ class Position_repo:
                 position.manager_uuid_userref,
                 position.updated,
                 position.deleted,
+                position.ad_user_deleted,
                 position.opus_id)
         cnxn.commit()
 
