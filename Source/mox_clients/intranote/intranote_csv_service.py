@@ -32,7 +32,7 @@ class Intranote_csv_service:
         pos_repo = Position_repo(self.constr_lora)
         usr_repo = User_repo(self.constr_lora)
         per_repo = Person_repo(self.constr_lora)
-        poss = pos_repo.get_positions('WHERE [deleted] = 0')
+        poss = pos_repo.get_positions('WHERE [deleted] = 0 and [ad_user_deleted] = 0')
         usrs = usr_repo.get_users()
         pers = per_repo.get_persons()
         los_ids_to_ignore = pos_repo.get_disabled_orgunits()

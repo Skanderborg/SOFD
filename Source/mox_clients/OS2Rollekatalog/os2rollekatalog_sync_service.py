@@ -34,7 +34,7 @@ class Os2rollekatalog_sync_service:
         usr_repo = User_repo(self.lora_constr)
         orgs = org_repo.get_orgunits()
         poss = pos_repo.get_positions(
-            'WHERE [uuid_userref] is not NULL and [deleted] = 0')
+            'WHERE [uuid_userref] is not NULL and [deleted] = 0 and [ad_user_deleted] = 0')
         pers = per_repo.get_persons()
         usrs = usr_repo.get_users()
 

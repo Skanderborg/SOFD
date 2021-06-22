@@ -90,7 +90,7 @@ class Kalenda_greenbyte_sync_service:
         '''
         pos_repo = Position_repo(self.lora_constr)
         poss = pos_repo.get_positions(
-            'WHERE [uuid_userref] is not NULL and [deleted] = 0')
+            'WHERE [uuid_userref] is not NULL and [deleted] = 0 and [ad_user_deleted] = 0')
         result = {}
         for opus_id in poss:
             pos = poss[opus_id]

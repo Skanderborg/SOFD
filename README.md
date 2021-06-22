@@ -14,7 +14,7 @@ Script, som omdanner KFS fil fra KMD til data i tabellen feriesaldo. Kan i princ
 Script, som bearbejder vores forretningsdata. Her tilføjes KOMBIT vendte UUID'er til Orgunits, og AD brugere + Positions tilknyttes til hinanden. Hver Orgunit bliver tilknyttet en leders Position, og hver Position bliver tilknyttet sin nærmeste Leder. Er et Skanderborg script, som ikke umiddelbart kan anvendes af andre, da det antager, at man har et AD dump i tabellerne Users og org_uiid, som er magen til vores.
 
 ### Data flows:
-![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/SOFD_overordnet_v3.png)
+![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/diagrams/sofd_flow.png)
 
 ## SQL dokumentation
 ### CREATE TABLE examples_
