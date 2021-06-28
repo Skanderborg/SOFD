@@ -82,17 +82,24 @@ class User_queue_service:
             position_repo.update_positions(positions_to_update)
 
     def clean_user_queue(self):
+        '''
+            Funktion der ryder op i [pyt].[positions] og [queue].[users_queue] tabellerne, efter synkroniseringerne ud til forskellige systemer er håndteret.
+
+        '''
         queue_repo = Queue_users_repo(self.constr_lora)
-        users_and_positions_that_are_handled = queue_repo.get_user_queues('WHERE [sts_org] = 1 and [mox_acubiz] = 1')
+        users_and_positions_that_are_handled = queue_repo.get_completed_user_queues()
         pos_repo = Position_repo(self.constr_lora)
         deleted_positions = pos_repo.get_positions('WHERE [Deleted] = 1')
         for key in users_and_positions_that_are_handled:
             pu = users_and_positions_that_are_handled[key]
+            # Tjekker om alle synkroniseringer, der skal gennemføres er kørt
             if pu.all_syncs_completed():
+                # hvis en bruger er slettet og denne er synkroniseret, kan den nu fjernes fra SOFD'en
                 if pu.change_type == 'Deleted':
-                    print('deleted')
-                else:
-                    queue_repo.delete_person(pu.system_id)
+                    if pu.opus_id in deleted_positions:
+                        pos_repo.delete_position(pu.opus_id)
+                # sletter item fra køen
+                queue_repo.delete_person(pu.system_id)
 
 
 

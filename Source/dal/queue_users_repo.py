@@ -26,6 +26,24 @@ class Queue_users_repo:
             result[row.system_id] = usr_que
         return result
 
+    def get_completed_user_queues(self):
+        result = {}
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute("SELECT [system_id], \
+                                [uuid], \
+                                [opus_id], \
+                                [change_type], \
+                                [sts_org], \
+                                [mox_acubiz] \
+                        FROM [queue].[users_queue] \
+                        WHERE [sts_org] = 1 \
+                            AND [mox_acubiz] = 1;")
+        for row in cursor.fetchall():
+            usr_que = Queue_user(row.system_id, row.uuid, row.opus_id, row.change_type, row.sts_org, row.mox_acubiz)
+            result[row.system_id] = usr_que
+        return result
+
     def insert_user_queue(self, queue_users):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()

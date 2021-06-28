@@ -32,29 +32,27 @@ step = 'setup complete'
 
 # tilføjer UUID'er til orgunits, tilføjer bagefter deres parent UUID
 orgunit_uuid_service = Orgunit_uuid_service(constr_lora)
-step = 'orgunit_uuid_service complete'
+step = 'orgunit_uuid_service.set_parent_uuids() started'
 orgunit_uuid_service.set_orgunit_uuid()
-step = 'orgunit_uuid_service.set_parent_uuids() complete'
+step = 'org_service.set_orgunit_uuid() started'
 orgunit_uuid_service.set_parent_uuids()
-step = 'org_service.set_orgunit_uuid() complete'
 
 # user_position_service skal eksekveres før manager setup fordi managerset up henter uuider som reference til leder
+step = 'user_position_service.link_user_to_position() started'
 user_position_service = User_position_service(constr_lora)
-step = 'user_position_service'
 user_position_service.link_user_to_position()
-step = 'user_position_service.link_user_to_position() complete'
 
 # tilføjer manager til de orgenheder, der har en. Sætter nærmeste leder på positions.
 manager_setup_service = Manager_setup_service(constr_lora)
-step = 'Manager_setup_service complete'
+step = 'manager_setup_service.remove_deleted_managers_from_orgunits() started'
 manager_setup_service.remove_deleted_managers_from_orgunits()
-step = 'manager_setup_service.remove_deleted_managers_from_orgunits() complete'
+step = 'manager_setup_service.set_orgunit_manager() started'
 manager_setup_service.set_orgunit_manager()
-step = 'manager_setup_service.set_orgunit_manager() complete'
+step = 'manager_setup_service.set_nearest_manager() started'
 manager_setup_service.set_nearest_manager()
-step = 'manager_setup_service.set_nearest_manager() complete'
 
 # finder og indsætter ferie saldo
+step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() started'
 # henter stien til den sti hvor vores kfs-lan udtræk for OPUS medarbejder data er placeret
 kfs_filepath = os.environ.get('feriesaldo_path')
 # finder frem til den seneste fil fra OPUS
@@ -62,7 +60,7 @@ list_of_feriesaldo_files = glob.glob(kfs_filepath)
 latest_feriesaldo_file = max(list_of_feriesaldo_files, key=os.path.getctime)
 feriesaldo_Service = Feriesaldo_service(latest_feriesaldo_file, constr_lora)
 feriesaldo_Service.insert_feriesaldos_in_sofd()
-step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
+
 
 # UNIC setup - Unic_to_position_service
 step = 'unic_to_position_service.bind_unic_to_position() setup started'
@@ -83,12 +81,10 @@ step = 'user_queue_service.clean_user_queue() started'
 user_queue_service.clean_user_queue()
 
 # sbsys_setup - tager lidt tid
-#step = 'sbsys - starting'
-#sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
-#sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
-
-#sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
-#sbsys_extensions_service.update_sbsys_extensions()
-step = 'sbsys - complete'
+step = 'sbsys - starting'
+sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
+sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
+sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
+sbsys_extensions_service.update_sbsys_extensions()
 
 step = 'finished'
