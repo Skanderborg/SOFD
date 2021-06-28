@@ -27,7 +27,10 @@ class Acubiz_csv_service:
                             'los_id2_2',
                             'cpr1',
                             'cpr2',
-                            'nul'])
+                            'nul',
+                            'HomeEMS',
+                            'Dim6',
+                            'Dim7'])
             for opus_id in ams:
                 am = ams[opus_id]
                 deleted = '0'
@@ -46,7 +49,10 @@ class Acubiz_csv_service:
                                 str(am.los_id) + ' - ' + am.longname,
                                 am.person_ref,
                                 am.person_ref,
-                                deleted])
+                                deleted,
+                                am.homeems,
+                                am.dim6,
+                                am.dim7])
                 if opus_id in queue:
                     queue_item = queue[opus_id]
                     queue_item.mox_acubiz = True

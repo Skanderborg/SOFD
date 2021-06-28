@@ -64,27 +64,31 @@ feriesaldo_Service = Feriesaldo_service(latest_feriesaldo_file, constr_lora)
 feriesaldo_Service.insert_feriesaldos_in_sofd()
 step = 'feriesaldo_Service.insert_feriesaldos_in_sofd() complete'
 
-# unic setup
+# UNIC setup - Unic_to_position_service
+step = 'unic_to_position_service.bind_unic_to_position() setup started'
 unic_to_position_service = Unic_to_position_service(constr_lora)
 unic_to_position_service.bind_unic_to_position()
-step = 'unic setup complete'
 
-# add changes to queues
+
+# QUEUE sync - Orgunit_queue_service + User_queue_service
+step = 'orgunit_queue_service.update_orgunit_queue() started'
 orgunit_queue_service = Orgunit_queue_service(constr_lora)
 orgunit_queue_service.update_orgunit_queue()
-step = 'orgunit_queue_service.update_orgunit_queue() complete'
 
+step = 'user_queue_service.update_user_queue() started'
 user_queue_service = User_queue_service(constr_lora)
 user_queue_service.update_user_queue()
-step = 'user_queue_service.update_user_queue() complete'
+
+step = 'user_queue_service.clean_user_queue() started'
+user_queue_service.clean_user_queue()
 
 # sbsys_setup - tager lidt tid
-step = 'sbsys - starting'
-sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
-sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
+#step = 'sbsys - starting'
+#sbsys_extensionfield9 = os.environ.get('sbsys_extensionfield9')
+#sbsys_extensionfield10 = os.environ.get('sbsys_extensionfield10')
 
-sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
-sbsys_extensions_service.update_sbsys_extensions()
+#sbsys_extensions_service = Sbsys_extensions_service(constr_lora, sbsys_extensionfield9, sbsys_extensionfield10)
+#sbsys_extensions_service.update_sbsys_extensions()
 step = 'sbsys - complete'
 
 step = 'finished'

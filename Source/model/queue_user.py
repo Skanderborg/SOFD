@@ -6,3 +6,6 @@ class Queue_user:
         self.change_type = change_type
         self.sts_org = sts_org in ['true', 'True', 1]
         self.mox_acubiz = mox_acubiz in ['true', 'True', 1]
+
+    def all_syncs_completed(self):
+        return self.sts_org == True and self.mox_acubz == True

@@ -58,11 +58,19 @@ class User_queue_service:
                 # deleted vejer tungere end updated, derfor bliver positions, som både er opdaterede og slettede - slettet
                 if pos.deleted == True or pos.ad_user_deleted == True:
                     if pos.uuid_userref != None:
+                        # hvis der er et uuid, er der en user og så skal STS org opdateres (False)
                         queue_item = Queue_user(i, pos.uuid_userref, opus_id, 'Deleted', False)
                         i+=1
                         queue_items_to_insert[i] = queue_item
-                    if pos.deleted:
-                        position_repo.delete_position(opus_id)
+                        # nu kan UUID fjernes fra position
+                        pos.uuid_userref = None
+                        pos.ad_user_deleted = False
+                        positions_to_update[opus_id] = pos
+                    else:
+                        # Hvis der ikke er et uuid, er der ikke en user og så behøves STS ikke at blive opdateret (True) true er lidt snyd, men altså
+                        queue_item = Queue_user(i, 'none', opus_id, 'Deleted', True)
+                        i+=1
+                        queue_items_to_insert[i] = queue_item
                 elif pos.updated == True and pos.deleted == False and pos.ad_user_deleted == False:
                     pos.updated = False
                     if pos.uuid_userref != None:
@@ -72,6 +80,20 @@ class User_queue_service:
                     positions_to_update[opus_id] = pos
             queue_repo.insert_user_queue(queue_items_to_insert)
             position_repo.update_positions(positions_to_update)
+
+    def clean_user_queue(self):
+        queue_repo = Queue_users_repo(self.constr_lora)
+        users_and_positions_that_are_handled = queue_repo.get_user_queues('WHERE [sts_org] = 1 and [mox_acubiz] = 1')
+        pos_repo = Position_repo(self.constr_lora)
+        deleted_positions = pos_repo.get_positions('WHERE [Deleted] = 1')
+        for key in users_and_positions_that_are_handled:
+            pu = users_and_positions_that_are_handled[key]
+            if pu.all_syncs_completed():
+                if pu.change_type == 'Deleted':
+                    print('deleted')
+                else:
+                    queue_repo.delete_person(pu.system_id)
+
 
 
 

@@ -1,7 +1,7 @@
 class Acubiz_model:
     def __init__(self, uuid_userref, firstname, lastname, userid, email,
                  los_id, person_ref, manager_uuid_userref, longname, unic_userid, deleted,
-                 opus_id):
+                 opus_id, homeems, dim6, dim7):
         self.uuid_userref = uuid_userref
         self.name = firstname + ' ' + lastname
         self.userid = userid
@@ -17,3 +17,6 @@ class Acubiz_model:
         self.longname = longname
         self.deleted = deleted in ['true', 'True', 1]
         self.opus_id = int(opus_id)
+        self.homeems = homeems
+        self.dim6 = dim6
+        self.dim7 = dim7
