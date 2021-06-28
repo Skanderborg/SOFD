@@ -14,10 +14,6 @@ es = Email_service(os.environ.get('smtp_username'), os.environ.get(
 constr_lora = os.environ.get('constr_lora')
 error_email = os.environ.get('error_email')
 
-try:
-    acubiz_csv_directory = os.environ.get('acubiz_cvs_directory')
-    acubiz_csv_service = Acubiz_csv_service(constr_lora)
-    acubiz_csv_service.create_users_csv(acubiz_csv_directory)
-except Exception as e:
-    es.send_mail(error_email,
-                 'Error: mox_acubiz.py python app', 'Exception: ' + str(e))
+acubiz_csv_directory = os.environ.get('acubiz_cvs_directory_test')
+acubiz_csv_service = Acubiz_csv_service(constr_lora)
+acubiz_csv_service.create_users_csv(acubiz_csv_directory)

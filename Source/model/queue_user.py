@@ -8,4 +8,4 @@ class Queue_user:
         self.mox_acubiz = mox_acubiz in ['true', 'True', 1]
 
     def all_syncs_completed(self):
-        return self.sts_org == True and self.mox_acubz == True
+        return self.sts_org == True and self.mox_acubiz == True
