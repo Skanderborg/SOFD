@@ -17,11 +17,18 @@ class Sbsys_extensions_service:
         usrs = usr_repo.get_users()
         poss = pos_repo.get_positions('WHERE uuid_userref IS NOT NULL and [ad_user_deleted] = 0')
         sbsys_extensions_full_list = {}
+
+        org_repo = Orgunit_repo(self.constr_lora)
+        orgs = org_repo.get_orgunits()
+
         for opus_id in poss:
             pos = poss[opus_id]
             usr = usrs[opus_id]
             # Der er åbentbart en risiko for at SamAccountnames, som er det der står i userID kan være helt forkete. Så vi laver lige et tjek.
             if len(usr.userid) != 6:
+                continue
+            # hvis løn har fucket op, kan der være medarbejdere uden orgunits.
+            if pos.los_id not in orgs:
                 continue
             sbsys_extensions_full_list[opus_id] = Sbsys_extensions_service.get_sbsys_extension(self, pos.los_id, opus_id, usr.userid)
         sbsys_extensions_to_insert = {}

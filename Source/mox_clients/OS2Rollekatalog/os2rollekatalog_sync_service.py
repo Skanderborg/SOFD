@@ -58,6 +58,8 @@ class Os2rollekatalog_sync_service:
             if sofd_usr.userid is None or len(sofd_usr.userid) < 1:
                 continue
             sofd_per = pers[sofd_pos.person_ref]
+            if sofd_pos.los_id not in orgs:
+                continue
             sofd_org = orgs[sofd_pos.los_id]
             if sofd_org.uuid is None or len(sofd_org.uuid) <1:
                 continue

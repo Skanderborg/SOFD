@@ -48,9 +48,13 @@ class Os2sync_sync_service:
         queue_repo = Queue_orgunit_repo(self.constr_lora)
         queue = queue_repo.get_orgunit_queueitems("WHERE sts_org = 0")
         if(len(queue) > 0):
-            orgs = self.org_repo.get_orgunits()
+            # Engang imellem har IT ikke fået printet et UUID på en org enhed endnu
+            orgs = self.org_repo.get_orgunits("WHERE [uuid] is not null")
             synced_queue_items = {}
             for system_id in queue:
+                #tjekker key
+                if queue_item.los_id not in orgs:
+                    continue
                 queue_item = queue[system_id]
                 result = None
                 if queue_item.change_type == 'Updated':
@@ -74,7 +78,6 @@ class Os2sync_sync_service:
         '''
         queue_repo = Queue_users_repo(self.constr_lora)
         queue = queue_repo.get_user_queues("WHERE sts_org = 0")
-        #print(len(queue))
         if(len(queue) > 0):
             synced_queue_items = {}
             usr_repo = User_repo(self.constr_lora)
@@ -87,7 +90,6 @@ class Os2sync_sync_service:
             for system_id in queue:
                 queue_item = queue[system_id]
                 if queue_item.change_type == 'Updated':
-                    #print('updated')
                     '''
                     Når en medarbejder forlader organisationen, bliver der typisk oprettet et "updated" event i opus, dagen før der oprettes et "deleted" event.
                     Hvis synkroniseirngen af en eller anden årsag går galt. Eller begge events kommer samme dag (kmd levere kun data 5 dage om ugen, så det kan poole)
@@ -101,6 +103,10 @@ class Os2sync_sync_service:
                         synced_queue_items[system_id] = queue_item
                         continue
                     pos = poses[queue_item.opus_id]
+                    if pos.person_ref not in pers:
+                        queue_item.change_type = 'Deleted'
+                        synced_queue_items[system_id] = queue_item
+                        continue
                     usr = usrs[queue_item.opus_id]
                     per = pers[pos.person_ref]
                     org = orgs[pos.los_id]

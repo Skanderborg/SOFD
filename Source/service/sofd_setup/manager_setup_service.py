@@ -37,6 +37,8 @@ class Manager_setup_service:
         orgs_to_update = {}
         for opus_id in managers:
             manager = managers[opus_id]
+            if manager.los_id not in orgs:
+                continue
             org = orgs[manager.los_id]
             if org.manager_opus_id == manager.opus_id:
                 continue
@@ -66,14 +68,17 @@ class Manager_setup_service:
             # hvis du er leder, starter vi på niveauet over dig.
             # dette skal stoppe ved borgmesteren
             los_id_for_recursion = position.los_id
+
+            # hvis der er fucket op i løn, tjekker vi lige at der faktisk er en orgunit
+            if los_id_for_recursion not in orgs:
+                continue
+
             if position.is_manager == True:
                 org_actual = orgs[los_id_for_recursion]
                 if org_actual.niveau > 2:
                     los_id_for_recursion = org_actual.parent_orgunit_los_id
 
-            # hvis der er fucket op i løn, tjekker vi lige at der faktisk er en orgunit
-            if los_id_for_recursion not in orgs:
-                continue
+            
 
             manager_id = Manager_setup_service.get_manager(
                 self, los_id_for_recursion, orgs)
