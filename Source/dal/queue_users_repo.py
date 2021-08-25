@@ -61,6 +61,24 @@ class Queue_users_repo:
                 queue_user.sts_org)
         cnxn.commit()
 
+    def update_queue_user(self, queue_user):
+        cnxn = pyodbc.connect(self.constr_lora)
+        cursor = cnxn.cursor()
+        cursor.execute("UPDATE [queue].[users_queue] \
+                        SET [uuid] = ?, \
+                            [opus_id] = ?, \
+                            [change_type] = ?, \
+                            [sts_org] = ?, \
+                            [mox_acubiz] = ? \
+                            WHERE [system_id] = ?",
+                        queue_user.uuid,
+                        queue_user.opus_id,
+                        queue_user.change_type,
+                        queue_user.sts_org,
+                        queue_user.mox_acubiz,
+                        queue_user.system_id)
+        cnxn.commit()
+
     def update_queue_users(self, queue_users):
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()

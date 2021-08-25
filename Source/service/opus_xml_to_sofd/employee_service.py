@@ -146,6 +146,7 @@ class Employee_service:
             # ellers indsættes en ny
             else:
                 persons_to_insert[key] = opus_per
+                #tilføj logning
 
         per_repo.insert_persons(persons_to_insert)
         per_repo.update_persons(persons_to_update)

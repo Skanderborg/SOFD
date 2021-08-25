@@ -52,10 +52,10 @@ class Os2sync_sync_service:
             orgs = self.org_repo.get_orgunits("WHERE [uuid] is not null")
             synced_queue_items = {}
             for system_id in queue:
+                queue_item = queue[system_id]
                 #tjekker key
                 if queue_item.los_id not in orgs:
                     continue
-                queue_item = queue[system_id]
                 result = None
                 if queue_item.change_type == 'Updated':
                     org = orgs[queue_item.los_id]
@@ -117,14 +117,25 @@ class Os2sync_sync_service:
                     usr_json.add_position(position_json)
                     json_to_submit = json.dumps(usr_json.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
                     result = Os2sync_sync_service.post_json(self, self.user_api_url, json_to_submit)
+                    if result == 200:
+                        queue_item.sts_org = True
+                        synced_queue_items[system_id] = queue_item
+                    # det følgende opdaterer status i DB per enhed, i stedet for at tage dem i et ruf. Kan bruges når der er MANGE i kø
+                    #if result == 200:
+                    #    queue_item.sts_org = True
+                    #    queue_repo.update_queue_user(queue_item)
+
                 elif queue_item.change_type == 'Deleted':
                     #print('deleted')
                     end_point_url_delete = self.user_api_url + '/' + queue_item.uuid
                     result = Os2sync_sync_service.delete_action(self, end_point_url_delete)
-                
-                if result == 200:
-                    queue_item.sts_org = True
-                    synced_queue_items[system_id] = queue_item
+                    if result == 200:
+                        queue_item.sts_org = True
+                        synced_queue_items[system_id] = queue_item
+                    # det følgende opdaterer status i DB per enhed, i stedet for at tage dem i et ruf. Kan bruges når der er MANGE i kø
+                    #if result == 200:
+                    #    queue_item.sts_org = True
+                    #    queue_repo.update_queue_user(queue_item)
             queue_repo.update_queue_users(synced_queue_items)
                 
 
@@ -136,10 +147,10 @@ class Os2sync_sync_service:
         #print(json_str)
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         res = requests.post(url=endpoint_url, headers=headers, data=json_str)
-        #print('request - body: ', res.request.body)
-        #print('request - headers: ', res.request.headers)
-        #print('response - text: ', res.text)
-        #print('response - status code: ', res.status_code)
+        print('request - body: ', res.request.body)
+        print('request - headers: ', res.request.headers)
+        print('response - text: ', res.text)
+        print('response - status code: ', res.status_code)
         return res.status_code
 
     def get_action(self):
@@ -147,12 +158,12 @@ class Os2sync_sync_service:
         #return 301
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         res = requests.get(url='https://skanderborg.os2sync.dk/api/orgUnit/840404b6-efd9-4356-8d4d-b8502442c316',  headers=headers)
-        print('response - text: ', res.text)
-        print('response - status code: ', res.status_code)
+        #print('response - text: ', res.text)
+        #print('response - status code: ', res.status_code)
 
     def delete_action(self, endpoint_url):
         headers = {'ApiKey': self.apikey}
         req = requests.delete(url=endpoint_url, headers=headers)
-        #print('request - text', req.text)
-        #print('request - status code', req.status_code)
+        print('request - text', req.text)
+        print('request - status code', req.status_code)
         return req.status_code
