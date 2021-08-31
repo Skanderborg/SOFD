@@ -147,10 +147,10 @@ class Os2sync_sync_service:
         #print(json_str)
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
         res = requests.post(url=endpoint_url, headers=headers, data=json_str)
-        print('request - body: ', res.request.body)
-        print('request - headers: ', res.request.headers)
-        print('response - text: ', res.text)
-        print('response - status code: ', res.status_code)
+        #print('request - body: ', res.request.body)
+        #print('request - headers: ', res.request.headers)
+        #print('response - text: ', res.text)
+        #print('response - status code: ', res.status_code)
         return res.status_code
 
     def get_action(self):
@@ -164,6 +164,6 @@ class Os2sync_sync_service:
     def delete_action(self, endpoint_url):
         headers = {'ApiKey': self.apikey}
         req = requests.delete(url=endpoint_url, headers=headers)
-        print('request - text', req.text)
-        print('request - status code', req.status_code)
+        #print('request - text', req.text)
+        #print('request - status code', req.status_code)
         return req.status_code
