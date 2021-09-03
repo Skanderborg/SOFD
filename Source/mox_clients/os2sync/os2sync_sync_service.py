@@ -157,9 +157,10 @@ class Os2sync_sync_service:
         #Os2sync_sync_service.get_action(self)
         #return 301
         headers = {'content-type': 'application/json', 'ApiKey': self.apikey}
-        res = requests.get(url='https://skanderborg.os2sync.dk/api/orgUnit/840404b6-efd9-4356-8d4d-b8502442c316',  headers=headers)
-        #print('response - text: ', res.text)
-        #print('response - status code: ', res.status_code)
+        #res = requests.get(url='https://skanderborg.os2sync.dk/api/orgUnit/840404b6-efd9-4356-8d4d-b8502442c316',  headers=headers)
+        #res = requests.get(url='https://skanderborg.os2sync.dk/api/user/838df441-1a7f-4ccf-9869-51b1758853e0',  headers=headers)
+        print('response - text: ', res.text)
+        print('response - status code: ', res.status_code)
 
     def delete_action(self, endpoint_url):
         headers = {'ApiKey': self.apikey}
