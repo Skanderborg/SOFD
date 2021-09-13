@@ -37,7 +37,7 @@ with Diagram('SOFD flow', show=False, direction='TB'):
             mox_kalenda_greenbyte = CloudServicesClassic('mox_kalenda_greenbyte')
             mox_safetynet = CloudServicesClassic('Safetynet SSIS service')
             mox_acubiz = CloudServicesClassic('mox_acubiz')
-            
+    sofden - VMScaleSet('SKB Systemer')
     sts_org = Artifacts('STS Organisation')
     sts_org - VMScaleSet('KOMBIT Systemer')
     intranettet = VMClassic('Intranettet')
