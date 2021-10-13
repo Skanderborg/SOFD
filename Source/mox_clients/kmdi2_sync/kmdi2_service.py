@@ -133,6 +133,7 @@ class Kmdi2_service:
                 if kmd_emp_ssn not in tmp_sofd_ssns:
                     #print('slet', kmd_emp_ssn)
                     kmd_emp = tmp_inst_employees[kmd_emp_ssn]
+                    #OBS, hvis skolebestyrelser eller lignende er tilføjet til aula manuelt skal de ikke slettes, derfor sletter vi kun de brugere som er oprettet automatisk
                     if kmd_emp.manuallyAdded == False:
                         employementids_result.append(kmd_emp.employmentId)
         return employementids_result
