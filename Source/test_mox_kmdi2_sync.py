@@ -26,6 +26,7 @@ kmdi2_service = Kmdi2_service(constr_lora)
 kmdi2_service.sync_employees_with_kmdi2(kmdi2_employee_api_key, add_employee_url, get_employements_url, delete_employee_url)
 
 
+
 # get employments - 02-12-2020 - virker men kræver ændringer i kmdi2employeeapi
 #kmdi2_employee_api = Kmdi2_employee_api("constr_lora")
 #get_employements_url = os.environ.get('kmdi2_employee_api_endpoint') + "employments"

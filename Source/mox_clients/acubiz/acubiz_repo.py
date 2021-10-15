@@ -10,6 +10,7 @@ class Acubiz_repo:
         result = {}
         cnxn = pyodbc.connect(self.constr_lora)
         cursor = cnxn.cursor()
+        #[unic_userid], \
         cursor.execute(
             "SELECT [uuid_userref], \
                     [firstname], \
@@ -20,11 +21,10 @@ class Acubiz_repo:
                     [person_ref], \
                     [manager_uuid_userref], \
                     [longname], \
-                    [unic_userid], \
                     [deleted], \
                     [opus_id] \
             FROM [acubiz].[acubiz_to_csv] \
-            WHERE [manager_uuid_userref] is not null and [uuid_userref] is not null or [unic_userid] is not null;")
+            WHERE [manager_uuid_userref] is not null and [uuid_userref];")# is not null or [unic_userid] is not null;")
         for row in cursor.fetchall():
             am = Acubiz_model(row.uuid_userref,
                                 row.firstname,
@@ -35,7 +35,8 @@ class Acubiz_repo:
                                 row.person_ref,
                                 row.manager_uuid_userref,
                                 row.longname,
-                                row.unic_userid,
+                                None,
+                                #row.unic_userid,
                                 row.deleted,
                                 row.opus_id,
                                 self.get_HomeEMS(row.los_id),
