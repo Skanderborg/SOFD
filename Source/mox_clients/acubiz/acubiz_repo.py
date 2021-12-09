@@ -24,7 +24,7 @@ class Acubiz_repo:
                     [deleted], \
                     [opus_id] \
             FROM [acubiz].[acubiz_to_csv] \
-            WHERE [manager_uuid_userref] is not null and [uuid_userref];")# is not null or [unic_userid] is not null;")
+            WHERE [manager_uuid_userref] is not null and [uuid_userref] is not null;") # or [unic_userid] is not null;")
         for row in cursor.fetchall():
             am = Acubiz_model(row.uuid_userref,
                                 row.firstname,
