@@ -27,7 +27,6 @@ with Diagram('SOFD Core fase 1', show=False, direction='TB'):
             opus_uploader = CloudServices('opus-uploader')
             ad_writeback = CloudServices('ad-writeback')
             replication_agent = CloudServices('replication agent')
-            sofd_core_onprem = SQLDatabases('SOFD Core kopi')
             
 
     with Cluster('Data kilder'):
@@ -80,6 +79,6 @@ with Diagram('SOFD Core fase 1', show=False, direction='TB'):
     ad_data >> ad_dispatcher >> ad_integration >> sofd_core
     sofd_core >> os2_rollekatalog
     sofd_core >> os2sync
-    sofd_core >> replication_agent >> sofd_core_onprem >> replication_agent >> sofden
+    sofd_core >> replication_agent >> sofden
     sofd_core >> ad_writeback >> ad_data
     replication_agent >> queue >> mox_acubiz
