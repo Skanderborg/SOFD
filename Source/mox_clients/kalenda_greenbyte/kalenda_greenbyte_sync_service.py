@@ -44,12 +44,19 @@ class Kalenda_greenbyte_sync_service:
 
         for opus_id in poss:
             sofd_pos = poss[opus_id]
+
             if opus_id in usrs:
                 sofd_usr = usrs[opus_id]
+                email = sofd_usr.email
+                userid = sofd_usr.userid
+            else:
+                email = ""
+                userid = ""
+                
             sofd_per = pers[sofd_pos.person_ref]
             sofd_org = orgs[sofd_pos.los_id]
-            json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, sofd_usr.email,
-                                        sofd_usr.userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
+            json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, email,
+                                        userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
                                         sofd_per.cpr, sofd_pos.payment_method, sofd_org.pnr)
             result.add_emp(json_emp)
         result = json.dumps(result.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
