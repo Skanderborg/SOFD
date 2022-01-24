@@ -13,7 +13,7 @@ from diagrams.aws.storage import SimpleStorageServiceS3
 from diagrams.azure.compute import VMScaleSet, VMClassic
 
 
-with Diagram('SOFD Core fase 1', show=False, direction='TB'):
+with Diagram('sofd_flow', show=False, direction='TB'):
 
     with Cluster('SOFD Core'):
         with Cluster('Cloud'):
@@ -40,7 +40,6 @@ with Diagram('SOFD Core fase 1', show=False, direction='TB'):
     with Cluster('SOFD'):
         sofden = SQLDatabases('LORA_SOFD')
         sofden - Redshift('logs')
-        queue = SQS("Ændrings kø")
         with Cluster('MOX agenter'):
             mox_kmdi2 = CloudServicesClassic('mox_kmdi2_sync')
             mox_intranote = CloudServicesClassic('mox_intranote')
@@ -59,7 +58,7 @@ with Diagram('SOFD Core fase 1', show=False, direction='TB'):
     safetynet = VMClassic('Safetynet')
     acubiz = VMClassic('Acubiz')
     acubiz - MobileEngagement('Acubiz mobil App')
-    kombit_context_handler = APIConnections('KOMBIT Contaxhandler')
+    kombit_context_handler = APIConnections('KOMBIT Contexthandler')
     os2sync = DataBoxEdgeDataBoxGateway('OS2Sync')
 
     #kø og mox
@@ -81,4 +80,3 @@ with Diagram('SOFD Core fase 1', show=False, direction='TB'):
     sofd_core >> os2sync
     sofd_core >> replication_agent >> sofden
     sofd_core >> ad_writeback >> ad_data
-    replication_agent >> queue >> mox_acubiz
