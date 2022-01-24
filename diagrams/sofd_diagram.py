@@ -8,11 +8,26 @@ from diagrams.azure.identity import ActiveDirectory
 from diagrams.azure.mobile import MobileEngagement
 from diagrams.azure.storage import DataBoxEdgeDataBoxGateway
 from diagrams.azure.web import APIConnections
+from diagrams.aws.storage import SimpleStorageServiceS3
 
 from diagrams.azure.compute import VMScaleSet, VMClassic
 
 
-with Diagram('SOFD flow', show=False, direction='TB'):
+with Diagram('SOFD Core fase 1', show=False, direction='TB'):
+
+    with Cluster('SOFD Core'):
+        with Cluster('Cloud'):
+            opus_integration = CloudServices('opus-integration')
+            ad_integration = CloudServices('ad-integration')
+            stil_integration = CloudServices('stil-integration')        
+            aws_s3 = SimpleStorageServiceS3('AWS S3')
+            sofd_core =  VMClassic('SOFD Core')
+        with Cluster('On premise'):
+            ad_dispatcher = CloudServices('ad-dispatcher')
+            opus_uploader = CloudServices('opus-uploader')
+            ad_writeback = CloudServices('ad-writeback')
+            replication_agent = CloudServices('replication agent')
+            
 
     with Cluster('Data kilder'):
         opus_data = Boards('KMD OPUS data')
@@ -23,15 +38,10 @@ with Diagram('SOFD flow', show=False, direction='TB'):
     adfs = ActiveDirectory('Skanderborg ADFS')
 
     with Cluster('SOFD'):
-        with Cluster('Services'):
-            opus_til_sofd = CloudServices('opus__xml_til_sofd')
-            sofd_setup = CloudServices('sofd_setup')
         sofden = SQLDatabases('LORA_SOFD')
         sofden - Redshift('logs')
         queue = SQS("Ændrings kø")
         with Cluster('MOX agenter'):
-            mox_os2_sync = CloudServicesClassic("mox_os2sync")
-            mox_os2_rolle = CloudServicesClassic('mox_os2rollekatalog_sync')
             mox_kmdi2 = CloudServicesClassic('mox_kmdi2_sync')
             mox_intranote = CloudServicesClassic('mox_intranote')
             mox_kalenda_greenbyte = CloudServicesClassic('mox_kalenda_greenbyte')
@@ -51,12 +61,8 @@ with Diagram('SOFD flow', show=False, direction='TB'):
     acubiz - MobileEngagement('Acubiz mobil App')
     kombit_context_handler = APIConnections('KOMBIT Contaxhandler')
     os2sync = DataBoxEdgeDataBoxGateway('OS2Sync')
-    #sbsys = Artifacts('SBSYS')
-    #sbsys - Artifacts('SBSIP')
-
 
     #kø og mox
-    #sofden >> sbsys >> azure_services
     ad_data >> adfs >> kombit_context_handler
     sts_org >> kombit_context_handler
     sofden >> mox_acubiz >> acubiz
@@ -64,14 +70,15 @@ with Diagram('SOFD flow', show=False, direction='TB'):
     sofden >> mox_kalenda_greenbyte >> kalenda
     sofden >> mox_intranote >> intranettet
     sofden >> mox_kmdi2 >> kmd_i2 >> aula
-    queue >> mox_os2_sync >> os2sync >> sts_org
-    sofden >> mox_os2_rolle >> os2_rollekatalog >> kombit_context_handler
+    os2sync >> sts_org
+    os2_rollekatalog >> kombit_context_handler
     #setup
-    sofden >> sofd_setup >> queue << sofden
-    uni_data >> sofd_setup >> sofden
-    opus_data >> opus_til_sofd >> sofden >> azure_services >> ad_data >> azure_services >> sofden
-            
-
-    
-
-    
+    sofden >> azure_services >> ad_data >> azure_services >> sofden    
+    opus_data >> opus_uploader >> aws_s3 >> opus_integration >> sofd_core
+    uni_data >> stil_integration >> sofd_core    
+    ad_data >> ad_dispatcher >> ad_integration >> sofd_core
+    sofd_core >> os2_rollekatalog
+    sofd_core >> os2sync
+    sofd_core >> replication_agent >> sofden
+    sofd_core >> ad_writeback >> ad_data
+    replication_agent >> queue >> mox_acubiz
