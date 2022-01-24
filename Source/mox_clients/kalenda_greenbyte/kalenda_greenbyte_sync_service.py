@@ -44,11 +44,19 @@ class Kalenda_greenbyte_sync_service:
 
         for opus_id in poss:
             sofd_pos = poss[opus_id]
-            sofd_usr = usrs[opus_id]
+
+            if opus_id in usrs:
+                sofd_usr = usrs[opus_id]
+                email = sofd_usr.email
+                userid = sofd_usr.userid
+            else:
+                email = ""
+                userid = ""
+                
             sofd_per = pers[sofd_pos.person_ref]
             sofd_org = orgs[sofd_pos.los_id]
-            json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, sofd_usr.email,
-                                        sofd_usr.userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
+            json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, email,
+                                        userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
                                         sofd_per.cpr, sofd_pos.payment_method, sofd_org.pnr)
             result.add_emp(json_emp)
         result = json.dumps(result.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
@@ -90,7 +98,7 @@ class Kalenda_greenbyte_sync_service:
         '''
         pos_repo = Position_repo(self.lora_constr)
         poss = pos_repo.get_positions(
-            'WHERE [uuid_userref] is not NULL and [deleted] = 0 and [ad_user_deleted] = 0')
+            'WHERE [deleted] = 0 and [ad_user_deleted] = 0')
         result = {}
         for opus_id in poss:
             pos = poss[opus_id]

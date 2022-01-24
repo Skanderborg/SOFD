@@ -14,7 +14,7 @@ Data i LORA SOFD er mestendels slave af data i SOFD Core, og data i MDM er slave
 ## Data flows:
 ![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/diagrams/sofd_flow.png)
 
-## SOFD Core standard komponenter
+## SOFD Core komponenter
 
 ### opus-uploader
 Onpremise windows service, der uploader XML fil med organisationsenheder og medarbejdere til SOFD Cores driftsmiljø

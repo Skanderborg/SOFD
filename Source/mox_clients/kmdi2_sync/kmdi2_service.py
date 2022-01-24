@@ -20,18 +20,22 @@ class Kmdi2_service:
         
 
         # tilføj nye ansatte til institutions
-        print(len(sofd_institutions))
+        #print(len(sofd_institutions))
         institutions_with_new_employees = self.get_new_employees(sofd_institutions, kmdi2_institutions)
+        print(len(institutions_with_new_employees))
         if len(institutions_with_new_employees) > 0:
             for inst in institutions_with_new_employees:
                 endpoint_url = add_employee_url + str(inst.kmdi2_inst_number)
-                #print('Tilføjer nye ansaemployeestte til: ', endpoint_url)
+                print('Tilføjer nye ansatte til: ', endpoint_url)
                 for emp in inst.employees:
                     res = self.kmdi2_employee_api.add_new_employee(endpoint_url, apikey, emp)
                     if res != 200:
-                        raise NameError('API create problem for :', emp.get_str(), res.text)
+                        #raise NameError('API create problem for :', emp.get_str(), res.text)
+                        print('API create problem for :')
+                        print(emp.get_str())
+                        print(res)
                     #else:
-                    #    print(emp.get_str())
+                        #print(emp.get_str())
 
         # fjern ansatte som har forladt skuden
         #print(len(sofd_institutions))
@@ -41,8 +45,10 @@ class Kmdi2_service:
         for employee_kmdid in deleted_employmentids:
             res = self.kmdi2_employee_api.delete_employement(delete_employements_url, apikey, employee_kmdid)
             if res != 200:
-                raise NameError('API delete problem for :', employee_kmdid)
-        
+                #raise NameError('API delete problem for :', employee_kmdid)
+                print('API delete problem for :')
+                print(employee_kmdid)
+                print(res)
         # opdater ansatte
 
 
