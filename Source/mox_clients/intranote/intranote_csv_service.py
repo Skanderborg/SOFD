@@ -66,6 +66,9 @@ class Intranote_csv_service:
             if pos.uuid_userref == None and cpr not in unic_cprs:
                 continue
 
+            if opus_id not in usrs:
+                continue            
+            
             per = pers[cpr]
             usr_userid = None
             usr_email = None
@@ -84,12 +87,12 @@ class Intranote_csv_service:
             #OBS skal forbedres
             tmp_cpr.append(cpr)
 
-            with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
-                writer = csv.writer(file, delimiter=";")
-                writer.writerow(['cpr','firstname','lastname','opus_id','uuid_userref','los_id','title','is_manager','start_date',
-                                'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
-                for position in cvs_ready_positions:
-                    writer.writerow(position)
+        with open(csv_file_path + 'Medarbejder.csv', 'w', newline='', encoding='iso-8859-1') as file:
+            writer = csv.writer(file, delimiter=";")
+            writer.writerow(['cpr','firstname','lastname','opus_id','uuid_userref','los_id','title','is_manager','start_date',
+                            'leave_date','manager_opus_id','Uuid','UserId','Email','Phone','WorkMobile'])
+            for position in cvs_ready_positions:
+                writer.writerow(position)
 
 
 
