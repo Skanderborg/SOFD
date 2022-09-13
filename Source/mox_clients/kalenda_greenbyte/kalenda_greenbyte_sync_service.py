@@ -97,8 +97,10 @@ class Kalenda_greenbyte_sync_service:
         Funktion som finder de positions, der hører til en af de orgunits som skal synkroniseres med kalenda-greenbyte
         '''
         pos_repo = Position_repo(self.lora_constr)
+
         poss = pos_repo.get_positions(
-            'WHERE [deleted] = 0 and [ad_user_deleted] = 0')
+            'WHERE [deleted] = 0 and [ad_user_deleted] = 0 and (leave_date is null or leave_date >= getdate())')
+
         result = {}
         for opus_id in poss:
             pos = poss[opus_id]
