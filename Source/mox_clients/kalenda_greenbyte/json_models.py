@@ -28,7 +28,7 @@ class Orgunit_json:
 
 
 class Employee_json:
-    def __init__(self, Employee_nr, Orgunit_id, Firstname, Lastname, Email, Samaccount, UUID, Is_manager, kmd_suppid, cpr, payment_method, org_pnr):
+    def __init__(self, Employee_nr, Orgunit_id, Firstname, Lastname, Email, Samaccount, UUID, Is_manager, kmd_suppid, cpr, payment_method, org_pnr, start_date, stop_date, title):
         self.Employee_nr = Employee_nr
         self.Orgunit_id = Orgunit_id
         self.Firstname = Firstname
@@ -41,9 +41,12 @@ class Employee_json:
         self.CPRnr = cpr
         self.Payment_method = payment_method
         self.Org_pnr = org_pnr
+        self.Start_date = start_date
+        self.Stop_date = stop_date
+        self.Title = title
 
     def reprJSON(self):
         return dict(Employee_nr=self.Employee_nr, Orgunit_id=self.Orgunit_id, Firstname=self.Firstname, Lastname=self.Lastname, 
                     Email=self.Email, Samaccount=self.Samaccount, UUID=self.UUID, Is_manager=self.Is_manager, 
                     OpusMedarbejderExtraCiffer=self.OpusMedarbejderExtraCiffer, CPRnr=self.CPRnr, 
-                    Payment_method = self.Payment_method, org_pnr = self.Org_pnr)
+                    Payment_method = self.Payment_method, org_pnr = self.Org_pnr, Start_date = self.Start_date, Stop_date = self.Stop_date, Title = self.Title)

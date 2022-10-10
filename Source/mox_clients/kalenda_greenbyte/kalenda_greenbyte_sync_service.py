@@ -57,7 +57,7 @@ class Kalenda_greenbyte_sync_service:
             sofd_org = orgs[sofd_pos.los_id]
             json_emp = Employee_json(opus_id, sofd_pos.los_id, sofd_per.firstname, sofd_per.lastname, email,
                                         userid, sofd_pos.uuid_userref, sofd_pos.is_manager, sofd_pos.kmd_suppid,
-                                        sofd_per.cpr, sofd_pos.payment_method, sofd_org.pnr)
+                                        sofd_per.cpr, sofd_pos.payment_method, sofd_org.pnr, sofd_pos.start_date, sofd_pos.leave_date, sofd_pos.position_title)
             result.add_emp(json_emp)
         result = json.dumps(result.reprJSON(), cls=ComplexEncoder, ensure_ascii=False).encode('utf8')
         return result
@@ -97,10 +97,8 @@ class Kalenda_greenbyte_sync_service:
         Funktion som finder de positions, der hører til en af de orgunits som skal synkroniseres med kalenda-greenbyte
         '''
         pos_repo = Position_repo(self.lora_constr)
-
         poss = pos_repo.get_positions(
             'WHERE [deleted] = 0 and [ad_user_deleted] = 0 and (leave_date is null or leave_date >= getdate())')
-
         result = {}
         for opus_id in poss:
             pos = poss[opus_id]
