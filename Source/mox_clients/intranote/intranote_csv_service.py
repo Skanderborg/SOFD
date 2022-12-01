@@ -66,20 +66,22 @@ class Intranote_csv_service:
             if pos.uuid_userref == None and cpr not in unic_cprs:
                 continue
 
-            if opus_id not in usrs:
-                continue            
+            #if opus_id not in usrs:
+            #    continue            
             
             per = pers[cpr]
             usr_userid = None
             usr_email = None
             usr_phone = None
             usr_workmobile = None
-            if pos.uuid_userref != None:
-                usr = usrs[opus_id]
-                usr_userid = usr.userid
-                usr_email = usr.email
-                usr_phone = usr.phone
-                usr_workmobile = usr.workmobile
+
+            if opus_id in usrs:
+                if pos.uuid_userref != None:
+                    usr = usrs[opus_id]
+                    usr_userid = usr.userid
+                    usr_email = usr.email
+                    usr_phone = usr.phone
+                    usr_workmobile = usr.workmobile
         
             cvs_ready_positions.append([pos.person_ref, per.firstname, per.lastname, opus_id, pos.uuid_userref, pos.los_id, pos.position_title,
                                     pos.is_manager, pos.start_date, pos.leave_date, pos.manager_opus_id, pos.uuid_userref, usr_userid,
