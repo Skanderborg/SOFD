@@ -22,12 +22,12 @@ with Diagram('sofd_flow', show=False, direction='TB'):
             stil_integration = CloudServices('stil-integration')        
             aws_s3 = SimpleStorageServiceS3('AWS S3')
             sofd_core =  VMClassic('SOFD Core')
+
         with Cluster('On premise'):
             ad_dispatcher = CloudServices('ad-dispatcher')
             opus_uploader = CloudServices('opus-uploader')
             ad_writeback = CloudServices('ad-writeback')
-            replication_agent = CloudServices('replication agent')
-            
+            replication_agent = CloudServices('replication agent')            
 
     with Cluster('Data kilder'):
         opus_data = Boards('KMD OPUS data')
@@ -37,38 +37,42 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     azure_services = ContainerInstances('Skanderborg Azure Automation')
     adfs = ActiveDirectory('Skanderborg ADFS')
 
+    with Cluster('Integrationer'):
+        mox_safetynet = CloudServicesClassic('mox_safetynet')
+        mox_acubiz = CloudServicesClassic('mox_acubiz')
+        mox_kmdi2 = CloudServicesClassic('mox_kmdi2_sync')
+        mox_intranote = CloudServicesClassic('mox_intranote')
+        os2sync = CloudServicesClassic('OS2Sync')
+        os2rollekatalogsync = CloudServicesClassic('RollekatalogSync')
+
+
     with Cluster('SOFD'):
         sofden = SQLDatabases('LORA_SOFD')
         sofden - Redshift('logs')
         with Cluster('MOX agenter'):
-            mox_kmdi2 = CloudServicesClassic('mox_kmdi2_sync')
-            mox_intranote = CloudServicesClassic('mox_intranote')
             mox_kalenda_greenbyte = CloudServicesClassic('mox_kalenda_greenbyte')
-            mox_safetynet = CloudServicesClassic('Safetynet SSIS service')
-            mox_acubiz = CloudServicesClassic('mox_acubiz')
     sofden - VMScaleSet('SKB Systemer')
     sts_org = Artifacts('STS Organisation')
     sts_org - VMScaleSet('KOMBIT Systemer')
     intranettet = VMClassic('Intranettet')
-    os2_rollekatalog = VMClassic('OS2 Rollekatalog')
-    kmd_i2 = DataBoxEdgeDataBoxGateway('KMD i2 azure API')
+    kmd_i2 = VMClassic('KMD i2')
     aula = VMClassic('AULA')
     kalenda = VMClassic('Kalenda')
     kalenda - VMClassic('OPUS løn og personale')
     safetynet = VMClassic('Safetynet')
     acubiz = VMClassic('Acubiz')
     acubiz - MobileEngagement('Acubiz mobil App')
-    kombit_context_handler = APIConnections('KOMBIT Contexthandler')
-    os2sync = DataBoxEdgeDataBoxGateway('OS2Sync')
+    kombit_context_handler = APIConnections('KOMBIT Contexthandler')    
+    os2_rollekatalog = VMClassic('OS2 Rollekatalog')
 
     #kø og mox
     ad_data >> adfs >> kombit_context_handler
     sts_org >> kombit_context_handler
-    sofden >> mox_acubiz >> acubiz
-    sofden >> mox_safetynet >> safetynet
+    sofd_core >> mox_acubiz >> acubiz
+    sofd_core >> mox_safetynet >> safetynet
+    sofd_core >> mox_intranote >> intranettet
+    sofd_core >> mox_kmdi2 >> kmd_i2 >> aula
     sofden >> mox_kalenda_greenbyte >> kalenda
-    sofden >> mox_intranote >> intranettet
-    sofden >> mox_kmdi2 >> kmd_i2 >> aula
     os2sync >> sts_org
     os2_rollekatalog >> kombit_context_handler
     #setup
@@ -76,7 +80,7 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     opus_data >> opus_uploader >> aws_s3 >> opus_integration >> sofd_core
     uni_data >> stil_integration >> sofd_core    
     ad_data >> ad_dispatcher >> ad_integration >> sofd_core
-    sofd_core >> os2_rollekatalog
+    sofd_core >> os2rollekatalogsync >> os2_rollekatalog
     sofd_core >> os2sync
     sofd_core >> replication_agent >> sofden
     sofd_core >> ad_writeback >> ad_data
