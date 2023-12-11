@@ -19,19 +19,19 @@ with Diagram('sofd_flow', show=False, direction='TB'):
         with Cluster('Cloud'):
             opus_integration = CloudServices('opus-integration')
             ad_integration = CloudServices('ad-integration')
-            stil_integration = CloudServices('stil-integration')        
             aws_s3 = SimpleStorageServiceS3('AWS S3')
             sofd_core =  VMClassic('SOFD Core')
 
         with Cluster('On premise'):
             ad_dispatcher = CloudServices('ad-dispatcher')
+            skole_ad_dispatcher = CloudServices('skole-ad-dispatcher')
             opus_uploader = CloudServices('opus-uploader')
             ad_writeback = CloudServices('ad-writeback')
-            replication_agent = CloudServices('replication agent')            
+            replication_agent = CloudServices('replication agent')
 
     with Cluster('Data kilder'):
         opus_data = Boards('KMD OPUS data')
-        uni_data = DataBoxEdgeDataBoxGateway('STIL unilogin WS17')
+        uni_data = ActiveDirectory('Skanderborg Skole AD')
         ad_data = ActiveDirectory('Skanderborg AD')
 
     azure_services = ContainerInstances('Skanderborg Azure Automation')
@@ -62,7 +62,7 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     safetynet = VMClassic('Safetynet')
     acubiz = VMClassic('Acubiz')
     acubiz - MobileEngagement('Acubiz mobil App')
-    kombit_context_handler = APIConnections('KOMBIT Contexthandler')    
+    kombit_context_handler = APIConnections('KOMBIT Contexthandler')
     os2_rollekatalog = VMClassic('OS2 Rollekatalog')
 
     #kø og mox
@@ -76,9 +76,10 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     os2sync >> sts_org
     os2_rollekatalog >> kombit_context_handler
     #setup
-    sofden >> azure_services >> ad_data >> azure_services >> sofden    
+    sofden >> azure_services >> ad_data >> azure_services >> sofden
     opus_data >> opus_uploader >> aws_s3 >> opus_integration >> sofd_core
-    uni_data >> stil_integration >> sofd_core    
+    uni_data >> skole_ad_dispatcher >> ad_integration >> sofd_core
+    uni_data >> ad_dispatcher >> ad_integration >> sofd_core
     ad_data >> ad_dispatcher >> ad_integration >> sofd_core
     sofd_core >> os2rollekatalogsync >> os2_rollekatalog
     sofd_core >> os2sync

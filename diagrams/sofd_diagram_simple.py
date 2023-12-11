@@ -16,11 +16,11 @@ from diagrams.azure.compute import VMScaleSet, VMClassic
 with Diagram('sofd_flow_simple', show=False, direction='TB'):
 
     sofd_core =  VMClassic('SOFD Core')
-            
+
 
     with Cluster('Data kilder'):
         opus_data = Boards('KMD OPUS data')
-        uni_data = DataBoxEdgeDataBoxGateway('STIL unilogin WS17')
+        uni_data = ActiveDirectory('Skanderborg Skole AD')
         ad_data = ActiveDirectory('Skanderborg AD')
 
     azure_services = ContainerInstances('Skanderborg Azure Automation')
@@ -42,7 +42,7 @@ with Diagram('sofd_flow_simple', show=False, direction='TB'):
 
     lora >> azure_services >> ad_data >> azure_services >> lora
     opus_data >> sofd_core
-    uni_data >> sofd_core    
+    uni_data >> sofd_core
     ad_data >> sofd_core
     sofd_core >> os2rollekatalog
     sofd_core >> os2sync
