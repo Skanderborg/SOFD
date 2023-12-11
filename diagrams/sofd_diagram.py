@@ -79,7 +79,6 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     sofden >> azure_services >> ad_data >> azure_services >> sofden
     opus_data >> opus_uploader >> aws_s3 >> opus_integration >> sofd_core
     uni_data >> skole_ad_dispatcher >> ad_integration >> sofd_core
-    uni_data >> ad_dispatcher >> ad_integration >> sofd_core
     ad_data >> ad_dispatcher >> ad_integration >> sofd_core
     sofd_core >> os2rollekatalogsync >> os2_rollekatalog
     sofd_core >> os2sync
