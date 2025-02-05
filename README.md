@@ -12,7 +12,7 @@ SOFD Core er den nyeste og primære SOFD. Data fra andre datakilder indlæses i 
 Data i LORA SOFD er mestendels slave af data i SOFD Core, og data i MDM er slave af data i LORA SOFD.
 
 ## Data flows:
-![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/master/diagrams/sofd_flow.png)
+![Alt text](https://raw.githubusercontent.com/Skanderborg/SOFD/refs/heads/master/diagrams/sofd_flow.png)
 
 ## SOFD Core komponenter
 
