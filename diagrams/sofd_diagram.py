@@ -42,6 +42,7 @@ with Diagram('sofd_flow', show=False, direction='TB'):
         mox_acubiz = CloudServicesClassic('mox_acubiz')
         mox_kmdi2 = CloudServicesClassic('mox_kmdi2_sync')
         mox_intranote = CloudServicesClassic('mox_intranote')
+        mox_truetrade = CloudServicesClassic('mox_truetrade')
         os2sync = CloudServicesClassic('OS2Sync')
         os2rollekatalogsync = CloudServicesClassic('RollekatalogSync')
 
@@ -64,6 +65,7 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     acubiz - MobileEngagement('Acubiz mobil App')
     kombit_context_handler = APIConnections('KOMBIT Contexthandler')
     os2_rollekatalog = VMClassic('OS2 Rollekatalog')
+    truetrade = VMClassic('TrueTrade')
 
     #kø og mox
     ad_data >> adfs >> kombit_context_handler
@@ -71,6 +73,7 @@ with Diagram('sofd_flow', show=False, direction='TB'):
     sofd_core >> mox_acubiz >> acubiz
     sofd_core >> mox_safetynet >> safetynet
     sofd_core >> mox_intranote >> intranettet
+    sofd_core >> mox_truetrade >> truetrade
     sofd_core >> mox_kmdi2 >> kmd_i2 >> aula
     sofden >> mox_kalenda_greenbyte >> kalenda
     os2sync >> sts_org
